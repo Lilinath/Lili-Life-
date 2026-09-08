@@ -2,1832 +2,1686 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<title>Lili Life 5.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lili Life 6.0</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#eef1f6;
+    color:#222;
+    overflow-x:hidden;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f4edf8;
-  color: #33283b;
-  min-height: 100vh;
+button,select,input{
+    font:inherit;
 }
 
-button {
-  border: 0;
-  border-radius: 16px;
-  padding: 14px 16px;
-  font-size: 16px;
-  font-weight: 700;
-  background: white;
-  color: #33283b;
-  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+button{
+    border:0;
+    border-radius:14px;
+    padding:12px 15px;
+    background:#ffffff;
+    box-shadow:0 3px 10px #0002;
+    cursor:pointer;
 }
 
-button:active {
-  transform: scale(.96);
+button:active{
+    transform:scale(.97);
 }
 
-input, select {
-  width: 100%;
-  padding: 15px;
-  border: 0;
-  border-radius: 15px;
-  font-size: 17px;
-  margin: 7px 0;
+h1,h2,h3,p{
+    margin-top:0;
 }
 
-.screen {
-  display: none;
-  min-height: 100vh;
-  padding: 20px;
-  padding-bottom: 90px;
+.screen{
+    display:none;
+    min-height:100vh;
+    padding:20px;
+    padding-bottom:100px;
 }
 
-.screen.active {
-  display: block;
+.screen.active{
+    display:block;
 }
 
-h1 {
-  font-size: 44px;
-  text-align: center;
-  margin: 25px 0 5px;
+.center{
+    max-width:850px;
+    margin:auto;
 }
 
-h2 {
-  text-align: center;
-  margin: 10px 0 20px;
+.logo{
+    font-size:42px;
+    font-weight:900;
+    text-align:center;
+    margin:30px 0 10px;
 }
 
-.subtitle {
-  text-align: center;
-  opacity: .75;
-  margin-bottom: 30px;
+.subtitle{
+    text-align:center;
+    color:#667;
+    margin-bottom:30px;
 }
 
-.logo {
-  text-align: center;
-  font-size: 80px;
-  margin-top: 45px;
+.main-card{
+    background:white;
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px #0001;
 }
 
-.container {
-  max-width: 520px;
-  margin: auto;
+.big-button{
+    width:100%;
+    margin:8px 0;
+    font-size:18px;
+    padding:17px;
 }
 
-.menu {
-  display: grid;
-  gap: 14px;
-  max-width: 430px;
-  margin: auto;
+.primary{
+    background:#6c63ff;
+    color:white;
 }
 
-.main {
-  background: #d967a5;
-  color: white;
-  font-size: 20px;
+.secondary{
+    background:#e9e9ff;
+    color:#3834a0;
 }
 
-.back {
-  background: #eee7f1;
-  box-shadow: none;
+.danger{
+    background:#ffe2e2;
+    color:#a50000;
 }
 
-.panel {
-  background: rgba(255,255,255,.8);
-  padding: 18px;
-  border-radius: 22px;
-  margin: 12px auto;
-  max-width: 520px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+    gap:10px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 12px;
+.choice{
+    padding:12px;
+    min-height:90px;
+    text-align:center;
+    border:3px solid transparent;
 }
 
-.choice {
-  min-height: 105px;
+.choice.selected{
+    border-color:#6c63ff;
+    background:#f0efff;
 }
 
-.choice.selected {
-  outline: 4px solid #d967a5;
+.preview{
+    text-align:center;
+    background:linear-gradient(#dff3ff,#fff);
+    border-radius:25px;
+    padding:20px;
+    margin-bottom:18px;
 }
 
-.big-face {
-  width: 120px;
-  height: 120px;
-  margin: 15px auto;
-  position: relative;
+.avatar{
+    position:relative;
+    width:130px;
+    height:230px;
+    margin:auto;
 }
 
-/* =========================
-   PERSONNAGE
-========================= */
-
-.avatar {
-  width: 120px;
-  height: 180px;
-  position: relative;
-  margin: auto;
+.body{
+    position:absolute;
+    left:25px;
+    top:105px;
+    width:80px;
+    height:105px;
+    border-radius:30px 30px 15px 15px;
 }
 
-.avatar .head {
-  width: 72px;
-  height: 78px;
-  border-radius: 45% 45% 48% 48%;
-  position: absolute;
-  left: 24px;
-  top: 15px;
-  background: var(--skin);
-  z-index: 3;
-  box-shadow: inset 0 -3px rgba(0,0,0,.08);
+.head{
+    position:absolute;
+    left:35px;
+    top:18px;
+    width:60px;
+    height:70px;
+    border-radius:45% 45% 48% 48%;
+    z-index:4;
 }
 
-.avatar .hair {
-  width: 78px;
-  height: 48px;
-  position: absolute;
-  left: 21px;
-  top: 7px;
-  background: var(--hair);
-  border-radius: 48px 48px 22px 22px;
-  z-index: 5;
+.eye{
+    position:absolute;
+    width:6px;
+    height:8px;
+    background:#222;
+    border-radius:50%;
+    top:43px;
+    z-index:7;
 }
 
-.avatar .eye {
-  width: 8px;
-  height: 10px;
-  border-radius: 50%;
-  background: #33283b;
-  position: absolute;
-  top: 47px;
-  z-index: 6;
+.eye.left{left:17px}
+.eye.right{right:17px}
+
+.mouth{
+    position:absolute;
+    width:18px;
+    height:8px;
+    border-bottom:3px solid #702;
+    border-radius:50%;
+    left:21px;
+    top:58px;
+    z-index:7;
 }
 
-.avatar .eye.left {
-  left: 42px;
+.hair{
+    position:absolute;
+    left:29px;
+    top:9px;
+    width:72px;
+    height:65px;
+    z-index:6;
+    pointer-events:none;
 }
 
-.avatar .eye.right {
-  left: 69px;
+.hair.short{
+    border-radius:48% 48% 30% 25%;
 }
 
-.avatar .nose {
-  width: 5px;
-  height: 9px;
-  border-right: 2px solid rgba(80,50,40,.4);
-  position: absolute;
-  left: 58px;
-  top: 57px;
-  z-index: 6;
+.hair.long{
+    width:82px;
+    height:105px;
+    left:24px;
+    border-radius:48% 48% 40% 40%;
 }
 
-.avatar .mouth {
-  width: 19px;
-  height: 9px;
-  border-bottom: 3px solid #9d4f69;
-  border-radius: 50%;
-  position: absolute;
-  left: 51px;
-  top: 68px;
-  z-index: 6;
+.hair.bob{
+    width:82px;
+    height:88px;
+    left:24px;
+    border-radius:48% 48% 35% 35%;
 }
 
-.avatar .body {
-  position: absolute;
-  top: 88px;
-  left: 29px;
-  width: 62px;
-  height: 65px;
-  border-radius: 22px 22px 10px 10px;
-  background: var(--shirt);
-  z-index: 2;
+.hair.curly{
+    width:82px;
+    height:80px;
+    left:24px;
+    border-radius:50%;
 }
 
-.avatar .leg {
-  position: absolute;
-  top: 145px;
-  width: 24px;
-  height: 38px;
-  background: var(--pants);
-  border-radius: 8px;
-  z-index: 1;
+.hair.pony{
+    border-radius:48% 48% 35% 30%;
 }
 
-.avatar .leg.left {
-  left: 34px;
+.hair.pony:after{
+    content:"";
+    position:absolute;
+    right:-16px;
+    top:20px;
+    width:35px;
+    height:65px;
+    border-radius:50%;
+    background:inherit;
 }
 
-.avatar .leg.right {
-  left: 63px;
+.hair.spiky{
+    clip-path:polygon(0 35%,10% 0,22% 25%,35% 0,48% 27%,62% 0,75% 25%,90% 0,100% 35%,90% 100%,10% 100%);
 }
 
-.avatar .shoe {
-  position: absolute;
-  top: 176px;
-  width: 29px;
-  height: 10px;
-  border-radius: 10px;
-  background: #403d48;
-  z-index: 2;
+.outfit{
+    position:absolute;
+    left:25px;
+    top:105px;
+    width:80px;
+    height:105px;
+    border-radius:28px 28px 12px 12px;
+    z-index:3;
 }
 
-.avatar .shoe.left {
-  left: 30px;
+.legs{
+    position:absolute;
+    top:195px;
+    left:42px;
+    width:18px;
+    height:30px;
+    background:#333;
+    border-radius:10px;
 }
 
-.avatar .shoe.right {
-  left: 61px;
+.legs.right{
+    left:70px;
 }
 
-/* =========================
-   VILLE
-========================= */
-
-.city {
-  height: 65vh;
-  min-height: 440px;
-  max-width: 650px;
-  margin: auto;
-  border-radius: 25px;
-  position: relative;
-  overflow: hidden;
-  background: #b8dfa8;
-  border: 5px solid #6c9b62;
+.avatar.small{
+    transform:scale(.55);
+    transform-origin:center;
+    height:125px;
 }
 
-.road {
-  position: absolute;
-  background: #a6a0a0;
+.avatar.tiny{
+    transform:scale(.35);
+    transform-origin:center;
+    height:90px;
 }
 
-.road.horizontal {
-  width: 100%;
-  height: 55px;
-  top: 47%;
+.stat-list{
+    display:grid;
+    gap:8px;
 }
 
-.road.vertical {
-  width: 55px;
-  height: 100%;
-  left: 47%;
+.stat{
+    display:grid;
+    grid-template-columns:95px 1fr 45px;
+    gap:8px;
+    align-items:center;
+    font-size:13px;
 }
 
-.tree {
-  position: absolute;
-  font-size: 35px;
+.bar{
+    height:13px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-.building {
-  position: absolute;
-  width: 110px;
-  min-height: 85px;
-  border-radius: 15px;
-  background: #fff7e7;
-  border: 3px solid #956b53;
-  text-align: center;
-  padding: 8px;
-  font-weight: 700;
-  z-index: 4;
+.fill{
+    height:100%;
+    border-radius:20px;
+    transition:.3s;
 }
 
-.house1 {
-  left: 5%;
-  top: 8%;
+.game-top{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:#ffffffee;
+    backdrop-filter:blur(10px);
+    padding:8px 10px;
+    border-radius:0 0 18px 18px;
+    box-shadow:0 3px 15px #0002;
 }
 
-.house2 {
-  right: 5%;
-  top: 10%;
+.top-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
 }
 
-.house3 {
-  left: 5%;
-  bottom: 8%;
+.money{
+    font-weight:800;
+    font-size:17px;
 }
 
-.shop {
-  right: 5%;
-  bottom: 10%;
-  background: #ffe2ef;
+.time{
+    color:#666;
+    font-size:13px;
 }
 
-.park {
-  position: absolute;
-  left: 34%;
-  top: 10%;
-  width: 30%;
-  height: 25%;
-  background: #8fcf83;
-  border-radius: 30px;
-  text-align: center;
-  padding-top: 25px;
+.game-world{
+    margin-top:12px;
+    background:#9bd58b;
+    border-radius:25px;
+    padding:12px;
+    min-height:520px;
+    position:relative;
+    overflow:hidden;
 }
 
-.city-player {
-  position: absolute;
-  width: 70px;
-  height: 100px;
-  z-index: 20;
-  transform: translate(-50%,-50%);
-  pointer-events: none;
+.house{
+    width:88%;
+    max-width:700px;
+    height:400px;
+    margin:35px auto;
+    background:#ead4ad;
+    border:8px solid #76543a;
+    position:relative;
+    box-shadow:0 10px 25px #0003;
 }
 
-/* =========================
-   MAISON
-========================= */
-
-.house {
-  height: 62vh;
-  min-height: 420px;
-  max-width: 650px;
-  margin: auto;
-  border: 5px solid #88624d;
-  border-radius: 22px;
-  background: #f7d9b5;
-  position: relative;
-  overflow: hidden;
+.house.rect{
+    width:92%;
 }
 
-.room {
-  position: absolute;
-  border: 3px solid rgba(80,50,40,.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  color: rgba(60,40,30,.4);
+.house.square{
+    width:70%;
 }
 
-.living {
-  left: 0;
-  top: 0;
-  width: 60%;
-  height: 55%;
-  background: #ffe9bd;
+.house.lshape{
+    width:90%;
 }
 
-.bedroom {
-  right: 0;
-  top: 0;
-  width: 40%;
-  height: 55%;
-  background: #ded2ff;
+.house.apartment{
+    width:70%;
+    height:360px;
 }
 
-.kitchen {
-  left: 0;
-  bottom: 0;
-  width: 60%;
-  height: 45%;
-  background: #d3efd9;
+.room{
+    position:absolute;
+    background:#f8efd9;
+    border:3px solid #8b6a48;
+    overflow:hidden;
 }
 
-.bathroom {
-  right: 0;
-  bottom: 0;
-  width: 40%;
-  height: 45%;
-  background: #cdeeff;
+.room.living{left:0;top:0;width:58%;height:58%}
+.room.kitchen{right:0;top:0;width:42%;height:58%}
+.room.bedroom{left:0;bottom:0;width:45%;height:42%}
+.room.bathroom{right:0;bottom:0;width:30%;height:42%}
+.room.office{right:30%;bottom:0;width:25%;height:42%}
+
+.door{
+    position:absolute;
+    bottom:-5px;
+    left:50%;
+    width:45px;
+    height:65px;
+    background:#8c5b3d;
+    border:3px solid #553523;
+    z-index:10;
 }
 
-.object {
-  position: absolute;
-  font-size: 38px;
-  z-index: 5;
-  pointer-events: none;
+.window{
+    position:absolute;
+    width:55px;
+    height:38px;
+    background:#aee4ff;
+    border:4px solid #654a37;
+    z-index:8;
 }
 
-.sofa { left: 13%; top: 28%; }
-.tv { left: 45%; top: 8%; }
-.bed { right: 8%; top: 25%; }
-.fridge { left: 8%; bottom: 10%; }
-.shower { right: 8%; bottom: 12%; }
+.window.w1{top:-20px;left:20%}
+.window.w2{top:-20px;right:20%}
 
-.house-player {
-  position: absolute;
-  z-index: 20;
-  transform: translate(-50%,-50%);
-  pointer-events: none;
+.player{
+    position:absolute;
+    width:60px;
+    height:100px;
+    z-index:30;
+    transition:.15s;
+    touch-action:none;
 }
 
-/* =========================
-   BESOINS
-========================= */
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
+.player .avatar{
+    transform:scale(.42);
+    transform-origin:top center;
+    margin:0;
 }
 
-.stat-card {
-  background: white;
-  border-radius: 15px;
-  padding: 12px;
+.furniture{
+    position:absolute;
+    z-index:20;
+    touch-action:none;
+    user-select:none;
+    cursor:grab;
+    text-align:center;
+    font-size:30px;
 }
 
-.progress {
-  height: 13px;
-  background: #ddd;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 6px;
+.furniture:active{
+    cursor:grabbing;
 }
 
-.progress div {
-  height: 100%;
-  width: 50%;
-  background: #d967a5;
+.nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:100;
+    background:white;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    padding:7px 4px calc(7px + env(safe-area-inset-bottom));
+    box-shadow:0 -5px 20px #0002;
 }
 
-/* =========================
-   NAVIGATION
-========================= */
-
-.bottom-nav {
-  position: fixed;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
-  height: 70px;
-  background: rgba(255,255,255,.96);
-  border-radius: 22px;
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
-  box-shadow: 0 -3px 18px rgba(0,0,0,.15);
-  z-index: 100;
+.nav button{
+    background:transparent;
+    box-shadow:none;
+    padding:8px 3px;
+    font-size:12px;
 }
 
-.bottom-nav button {
-  background: transparent;
-  box-shadow: none;
-  padding: 5px 2px;
-  font-size: 12px;
+.needs-mini{
+    background:white;
+    border-radius:18px;
+    padding:10px;
+    margin-top:10px;
 }
 
-.message {
-  position: fixed;
-  left: 50%;
-  bottom: 90px;
-  transform: translateX(-50%);
-  width: calc(100% - 30px);
-  max-width: 450px;
-  padding: 13px;
-  border-radius: 15px;
-  background: rgba(45,35,50,.94);
-  color: white;
-  text-align: center;
-  z-index: 200;
-  display: none;
+.catalog-item{
+    background:#fafafa;
+    border-radius:18px;
+    padding:12px;
+    text-align:center;
+    border:2px solid #eee;
 }
 
-@media(max-width:380px) {
-  .avatar {
-    transform: scale(.85);
-    transform-origin: center;
-  }
+.catalog-item .emoji{
+    font-size:40px;
+    display:block;
+    margin-bottom:5px;
+}
 
-  .building {
-    width: 90px;
-    font-size: 12px;
-  }
+.catalog-item button{
+    width:100%;
+    margin-top:8px;
+}
+
+.city{
+    background:#94d38a;
+    min-height:500px;
+    border-radius:25px;
+    padding:25px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.city-building{
+    min-height:120px;
+    border-radius:18px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px;
+    box-shadow:0 5px 15px #0002;
+}
+
+.log{
+    max-height:160px;
+    overflow:auto;
+    background:#f7f7f7;
+    border-radius:15px;
+    padding:10px;
+    font-size:13px;
+}
+
+@media(max-width:600px){
+    .screen{padding:12px;padding-bottom:95px}
+    .logo{font-size:34px}
+    .game-world{min-height:490px}
+    .house{height:360px}
+    .city{grid-template-columns:repeat(2,1fr);padding:15px}
+    .stat{grid-template-columns:80px 1fr 35px}
+}
+
+@media(min-width:800px){
+    .game-world{min-height:650px}
+    .house{height:500px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
- ACCUEIL
-========================= -->
+<!-- ACCUEIL -->
+<section id="homeScreen" class="screen active">
+<div class="center">
+    <div class="logo">🏡 Lili Life</div>
+    <p class="subtitle">Ta vie. Ta maison. Tes choix.</p>
 
-<section id="home" class="screen active">
-  <div class="logo">🏡</div>
-
-  <h1>Lili Life</h1>
-
-  <p class="subtitle">
-    Construis ta vie. Crée ta ville. Écris ton histoire.
-  </p>
-
-  <div class="menu">
-    <button class="main" onclick="newGame()">
-      ▶️ Nouvelle partie
-    </button>
-
-    <button onclick="continueGame()">
-      📂 Continuer
-    </button>
-
-    <button onclick="showMessage('⚙️ Les paramètres arrivent bientôt !')">
-      ⚙️ Paramètres
-    </button>
-  </div>
-</section>
-
-<!-- =========================
- CREATION PERSONNAGE
-========================= -->
-
-<section id="characterCreation" class="screen">
-  <div class="container">
-
-    <button class="back" onclick="showScreen('home')">
-      ← Retour
-    </button>
-
-    <h2>👤 Crée ton personnage</h2>
-
-    <div class="panel">
-      <div id="creatorAvatar"></div>
+    <div class="main-card">
+        <button class="big-button primary" onclick="newGame()">✨ Nouvelle partie</button>
+        <button class="big-button secondary" onclick="continueGame()">▶️ Continuer</button>
+        <button class="big-button" onclick="showScreen('settingsScreen')">⚙️ Paramètres</button>
     </div>
 
-    <input id="nameInput" maxlength="18"
-           placeholder="Prénom du personnage">
+    <div class="main-card">
+        <h3>🌟 Lili Life 6.0</h3>
+        <p>Crée ton personnage, construis ta maison, choisis tes meubles, travaille et développe ta vie.</p>
+    </div>
+</div>
+</section>
 
-    <h3>Genre</h3>
+<!-- CREATION -->
+<section id="createScreen" class="screen">
+<div class="center">
 
+<h2>👤 Créer ton personnage</h2>
+
+<div class="preview">
+    <div id="creatorPreview"></div>
+    <h3 id="previewName">Ton personnage</h3>
+</div>
+
+<div class="main-card">
+    <h3>Prénom</h3>
+    <input id="nameInput" type="text" maxlength="15" placeholder="Ex : Lili" style="width:100%;padding:13px;border-radius:12px;border:1px solid #ccc">
+</div>
+
+<div class="main-card">
+<h3>Personnage</h3>
+<div class="grid">
+<button class="choice selected" onclick="setGender('woman')" id="gender-woman">👩<br>Femme</button>
+<button class="choice" onclick="setGender('man')" id="gender-man">👨<br>Homme</button>
+<button class="choice" onclick="setGender('girl')" id="gender-girl">👧<br>Fille</button>
+<button class="choice" onclick="setGender('boy')" id="gender-boy">👦<br>Garçon</button>
+</div>
+</div>
+
+<div class="main-card">
+<h3>🙂 Visage</h3>
+<div id="faceChoices" class="grid"></div>
+</div>
+
+<div class="main-card">
+<h3>💇 Coiffure</h3>
+<div id="hairChoices" class="grid"></div>
+</div>
+
+<div class="main-card">
+<h3>🎨 Couleur des cheveux</h3>
+<div id="hairColorChoices" class="grid"></div>
+</div>
+
+<div class="main-card">
+<h3>👕 Tenue</h3>
+<div id="outfitChoices" class="grid"></div>
+</div>
+
+<div class="main-card">
+<h3>🎨 Couleur de la tenue</h3>
+<div id="outfitColorChoices" class="grid"></div>
+</div>
+
+<button class="big-button primary" onclick="goToCityCreation()">Continuer →</button>
+
+</div>
+</section>
+
+<!-- CREATION VILLE -->
+<section id="cityCreateScreen" class="screen">
+<div class="center">
+<h2>🏙️ Ta ville</h2>
+
+<div class="main-card">
+<h3>Nom de la ville</h3>
+<input id="cityNameInput" value="Lili City" maxlength="20"
+style="width:100%;padding:13px;border-radius:12px;border:1px solid #ccc">
+
+<p style="margin-top:15px;color:#666">
+Ta ville sera composée de différents lieux à visiter.
+</p>
+</div>
+
+<button class="big-button primary" onclick="goToHouseChoice()">Choisir ma maison →</button>
+</div>
+</section>
+
+<!-- CHOIX MAISON -->
+<section id="houseChoiceScreen" class="screen">
+<div class="center">
+<h2>🏠 Choisis ta maison</h2>
+
+<div id="houseChoices" class="grid"></div>
+
+<button class="big-button primary" onclick="startGame()">Entrer dans ma vie →</button>
+</div>
+</section>
+
+<!-- JEU -->
+<section id="gameScreen" class="screen">
+
+<div class="game-top">
+    <div class="top-line">
+        <strong id="gameCharacterName">Lili</strong>
+        <span class="money">💰 <span id="moneyValue">500</span> €</span>
+        <span class="time" id="timeValue">Jour 1 • 08:00</span>
+    </div>
+
+    <div class="needs-mini">
+        <div class="stat-list" id="gameNeeds"></div>
+    </div>
+</div>
+
+<div class="game-world" id="gameWorld">
+
+    <div id="houseWorld" class="house square">
+        <div class="room living"></div>
+        <div class="room kitchen"></div>
+        <div class="room bedroom"></div>
+        <div class="room bathroom"></div>
+        <div class="room office"></div>
+
+        <div class="window w1"></div>
+        <div class="window w2"></div>
+        <div class="door"></div>
+
+        <div id="furnitureLayer"></div>
+        <div id="player" class="player"></div>
+    </div>
+
+</div>
+
+<div class="main-card">
+    <h3>🎮 Actions</h3>
     <div class="grid">
-      <button id="femaleChoice"
-              class="choice"
-              onclick="setGender('female')">
-        👩<br>Femme
-      </button>
-
-      <button id="maleChoice"
-              class="choice"
-              onclick="setGender('male')">
-        👨<br>Homme
-      </button>
-
-      <button id="childChoice"
-              class="choice"
-              onclick="setGender('child')">
-        🧒<br>Enfant
-      </button>
+        <button onclick="doAction('eat')">🍎 Manger</button>
+        <button onclick="doAction('sleep')">😴 Dormir</button>
+        <button onclick="doAction('shower')">🚿 Douche</button>
+        <button onclick="doAction('fun')">🎮 Se divertir</button>
+        <button onclick="doAction('social')">💬 Appeler</button>
+        <button onclick="goWork()">💼 Travailler</button>
     </div>
+</div>
 
-    <h3>Teint</h3>
-
-    <div class="grid">
-      <button onclick="setSkin('#f8d2b2',this)">🤍</button>
-      <button onclick="setSkin('#eab18c',this)">🤎</button>
-      <button onclick="setSkin('#c98762',this)">🟤</button>
-      <button onclick="setSkin('#7a4b35',this)">🟫</button>
-    </div>
-
-    <h3>Cheveux</h3>
-
-    <div class="grid">
-      <button onclick="setHair('#3b241c',this)">Bruns</button>
-      <button onclick="setHair('#171717',this)">Noirs</button>
-      <button onclick="setHair('#b87935',this)">Blonds</button>
-      <button onclick="setHair('#8e2e28',this)">Roux</button>
-    </div>
-
-    <h3>Tenue</h3>
-
-    <div class="grid">
-      <button onclick="setShirt('#d86b9d',this)">👚 Rose</button>
-      <button onclick="setShirt('#6399d8',this)">👕 Bleu</button>
-      <button onclick="setShirt('#78b875',this)">👕 Vert</button>
-      <button onclick="setShirt('#8b75c9',this)">👕 Violet</button>
-    </div>
-
-    <button class="main"
-            style="width:100%;margin-top:20px"
-            onclick="finishCharacter()">
-      Continuer →
-    </button>
-
-  </div>
-</section>
-
-<!-- =========================
- VILLE
-========================= -->
-
-<section id="cityCreation" class="screen">
-  <div class="container">
-
-    <h2>🏙️ Crée ta ville</h2>
-
-    <div class="panel">
-
-      <input id="cityName"
-             maxlength="22"
-             placeholder="Nom de ta ville">
-
-      <select id="cityType">
-        <option>Petite ville</option>
-        <option>Ville moderne</option>
-        <option>Ville de campagne</option>
-        <option>Grande ville</option>
-      </select>
-
-    </div>
-
-    <div class="city">
-      <div class="road horizontal"></div>
-      <div class="road vertical"></div>
-
-      <div class="park">🌳<br>Parc</div>
-
-      <div class="building house1">
-        🏠<br>Maison 1
-      </div>
-
-      <div class="building house2">
-        🏡<br>Maison 2
-      </div>
-
-      <div class="building house3">
-        🏘️<br>Maison 3
-      </div>
-
-      <div class="building shop">
-        🛍️<br>Boutique
-      </div>
-
-      <div class="tree" style="left:20%;top:45%">🌳</div>
-      <div class="tree" style="left:72%;top:48%">🌳</div>
-      <div class="tree" style="left:28%;bottom:15%">🌲</div>
-      <div class="tree" style="right:25%;bottom:18%">🌳</div>
-
-      <div id="cityAvatar"
-           class="city-player"></div>
-    </div>
-
-    <button class="main"
-            style="width:100%;margin-top:15px"
-            onclick="finishCity()">
-      🏡 Choisir ma maison
-    </button>
-
-  </div>
-</section>
-
-<!-- =========================
- CHOIX MAISON
-========================= -->
-
-<section id="houseChoice" class="screen">
-  <div class="container">
-
-    <h2>🏠 Choisis ton logement</h2>
-
-    <div class="grid">
-
-      <button class="choice"
-              onclick="chooseHouse('Petite maison',0)">
-        🏠<br>
-        Petite maison<br>
-        <small>Gratuite</small>
-      </button>
-
-      <button class="choice"
-              onclick="chooseHouse('Maison familiale',150)">
-        🏡<br>
-        Maison familiale<br>
-        <small>150 €</small>
-      </button>
-
-      <button class="choice"
-              onclick="chooseHouse('Grande maison',400)">
-        🏘️<br>
-        Grande maison<br>
-        <small>400 €</small>
-      </button>
-
-      <button class="choice"
-              onclick="chooseHouse('Appartement',100)">
-        🏢<br>
-        Appartement<br>
-        <small>100 €</small>
-      </button>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- =========================
- JEU
-========================= -->
-
-<section id="game" class="screen">
-
-  <div class="container">
-
-    <div class="panel">
-      <b id="gameName">Lili</b>
-
-      <span> · </span>
-
-      💰 <span id="money">500</span> €
-
-      <span> · </span>
-
-      📅 Jour <span id="day">1</span>
-
-      <span> · </span>
-
-      🕐 <span id="clock">08:00</span>
-    </div>
-
-    <div class="house"
-         id="houseMap"
-         onclick="moveToHouse(event)">
-
-      <div class="room living">Salon</div>
-      <div class="room bedroom">Chambre</div>
-      <div class="room kitchen">Cuisine</div>
-      <div class="room bathroom">Salle de bain</div>
-
-      <div class="object sofa">🛋️</div>
-      <div class="object tv">📺</div>
-      <div class="object bed">🛏️</div>
-      <div class="object fridge">🧊</div>
-      <div class="object shower">🚿</div>
-
-      <div id="houseAvatar"
-           class="house-player"></div>
-    </div>
-
-    <div class="panel">
-      <b>👆 Déplacement</b>
-      <p class="subtitle" style="margin:5px">
-        Touche un endroit de la maison pour t'y déplacer.
-      </p>
-    </div>
-
-  </div>
-
-  <div class="bottom-nav">
-
-    <button onclick="showScreen('game')">
-      🏠<br>Maison
-    </button>
-
-    <button onclick="showNeeds()">
-      👤<br>Personnage
-    </button>
-
-    <button onclick="showJobs()">
-      💼<br>Travail
-    </button>
-
-    <button onclick="showShop()">
-      🛍️<br>Boutique
-    </button>
-
-    <button onclick="showCity()">
-      🏙️<br>Ville
-    </button>
-
-  </div>
+<div class="main-card">
+    <h3>📝 Journal</h3>
+    <div id="gameLog" class="log"></div>
+</div>
 
 </section>
 
-<!-- =========================
- BESOINS
-========================= -->
+<!-- PERSONNAGE -->
+<section id="characterScreen" class="screen">
+<div class="center">
+<h2>👤 Personnage</h2>
 
-<section id="needs" class="screen">
-  <div class="container">
+<div class="main-card">
+    <div id="characterBigPreview"></div>
+    <h3 id="characterInfo"></h3>
+</div>
 
-    <button class="back" onclick="showScreen('game')">
-      ← Retour
-    </button>
+<div class="main-card">
+    <h3>📊 Besoins</h3>
+    <div id="characterNeeds" class="stat-list"></div>
+</div>
 
-    <h2>👤 Mon personnage</h2>
-
-    <div class="panel">
-      <div id="needsAvatar"></div>
-      <h2 id="needsName"></h2>
-    </div>
-
-    <div class="stat-grid">
-
-      <div class="stat-card">
-        🍔 Faim
-        <div class="progress">
-          <div id="hungerBar"></div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        ⚡ Énergie
-        <div class="progress">
-          <div id="energyBar"></div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        🚿 Hygiène
-        <div class="progress">
-          <div id="hygieneBar"></div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        🎮 Amusement
-        <div class="progress">
-          <div id="funBar"></div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        ❤️ Social
-        <div class="progress">
-          <div id="socialBar"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="menu" style="margin-top:20px">
-
-      <button onclick="eat()">
-        🍔 Manger
-      </button>
-
-      <button onclick="sleep()">
-        🛌 Dormir
-      </button>
-
-      <button onclick="shower()">
-        🚿 Prendre une douche
-      </button>
-
-      <button onclick="haveFun()">
-        🎮 Se divertir
-      </button>
-
-    </div>
-
-  </div>
+<button class="big-button" onclick="showScreen('createScreen');renderCreator()">✏️ Modifier le personnage</button>
+</div>
 </section>
 
-<!-- =========================
- TRAVAIL
-========================= -->
+<!-- TRAVAIL -->
+<section id="workScreen" class="screen">
+<div class="center">
+<h2>💼 Travail</h2>
 
-<section id="jobs" class="screen">
-  <div class="container">
+<div class="main-card">
+<p>Choisis ton métier. Ton salaire est gagné chaque fois que tu travailles.</p>
+<div id="jobChoices" class="grid"></div>
+</div>
 
-    <button class="back" onclick="showScreen('game')">
-      ← Retour
-    </button>
-
-    <h2>💼 Travail</h2>
-
-    <div class="panel">
-      Métier actuel :
-      <b id="currentJob">Sans emploi</b>
-    </div>
-
-    <div class="menu">
-
-      <button onclick="selectJob('Serveur',55)">
-        🍽️ Serveur<br>
-        <small>55 € par journée</small>
-      </button>
-
-      <button onclick="selectJob('Médecin',130)">
-        🩺 Médecin<br>
-        <small>130 € par journée</small>
-      </button>
-
-      <button onclick="selectJob('Développeur',110)">
-        💻 Développeur<br>
-        <small>110 € par journée</small>
-      </button>
-
-      <button onclick="selectJob('Artiste',80)">
-        🎨 Artiste<br>
-        <small>80 € par journée</small>
-      </button>
-
-      <button class="main" onclick="work()">
-        💼 Aller travailler
-      </button>
-
-    </div>
-
-  </div>
+<div class="main-card">
+<h3>📈 Ton métier actuel</h3>
+<div id="currentJob"></div>
+</div>
+</div>
 </section>
 
-<!-- =========================
- BOUTIQUE
-========================= -->
+<!-- BOUTIQUE -->
+<section id="shopScreen" class="screen">
+<div class="center">
+<h2>🛒 Boutique</h2>
 
-<section id="shop" class="screen">
-  <div class="container">
-
-    <button class="back" onclick="showScreen('game')">
-      ← Retour
-    </button>
-
-    <h2>🛍️ Boutique</h2>
-
-    <div class="panel">
-      💰 Ton argent :
-      <b><span id="shopMoney">500</span> €</b>
-    </div>
-
-    <div class="grid">
-
-      <button onclick="buyItem('🛋️',120,'Canapé')">
-        🛋️<br>Canapé<br>120 €
-      </button>
-
-      <button onclick="buyItem('📺',200,'Télévision')">
-        📺<br>Télévision<br>200 €
-      </button>
-
-      <button onclick="buyItem('🛏️',250,'Lit')">
-        🛏️<br>Lit<br>250 €
-      </button>
-
-      <button onclick="buyItem('🌱',30,'Plante')">
-        🌱<br>Plante<br>30 €
-      </button>
-
-      <button onclick="buyItem('🚿',180,'Douche')">
-        🚿<br>Douche<br>180 €
-      </button>
-
-      <button onclick="buyItem('🍳',300,'Cuisine')">
-        🍳<br>Cuisine<br>300 €
-      </button>
-
-    </div>
-
-  </div>
+<div class="main-card">
+<p>Choisis un objet. Certains objets ont plusieurs modèles.</p>
+<div id="shopItems" class="grid"></div>
+</div>
+</div>
 </section>
 
-<!-- =========================
- VILLE EN JEU
-========================= -->
+<!-- VILLE -->
+<section id="cityScreen" class="screen">
+<div class="center">
+<h2>🏙️ <span id="cityTitle">Lili City</span></h2>
 
-<section id="city" class="screen">
+<div class="city">
+    <div class="city-building">🏠<br>Ma maison</div>
+    <div class="city-building">🛒<br>Boutique</div>
+    <div class="city-building">🍔<br>Restaurant</div>
+    <div class="city-building">🌳<br>Parc</div>
+    <div class="city-building">🏥<br>Hôpital</div>
+    <div class="city-building">🏦<br>Banque</div>
+</div>
 
-  <div class="container">
-
-    <button class="back" onclick="showScreen('game')">
-      ← Retour à la maison
-    </button>
-
-    <h2 id="cityTitle">🏙️ Ma ville</h2>
-
-    <div class="city"
-         onclick="moveToCity(event)">
-
-      <div class="road horizontal"></div>
-      <div class="road vertical"></div>
-
-      <div class="park">
-        🌳<br>
-        Parc
-      </div>
-
-      <div class="building house1">
-        🏠<br>
-        Maison 1
-      </div>
-
-      <div class="building house2">
-        🏡<br>
-        Maison 2
-      </div>
-
-      <div class="building house3">
-        🏘️<br>
-        Maison 3
-      </div>
-
-      <div class="building shop">
-        🛍️<br>
-        Boutique
-      </div>
-
-      <div id="cityGameAvatar"
-           class="city-player"></div>
-
-    </div>
-
-    <div class="panel">
-      <h3>🏘️ Les maisons</h3>
-
-      <button style="width:100%;margin:5px"
-              onclick="visitHouse('Maison de Emma')">
-        🏡 Visiter Emma
-      </button>
-
-      <button style="width:100%;margin:5px"
-              onclick="visitHouse('Maison de Lucas')">
-        🏠 Visiter Lucas
-      </button>
-
-      <button style="width:100%;margin:5px"
-              onclick="showMessage('🏗️ La construction de nouvelles maisons arrive bientôt !')">
-        ➕ Construire une maison
-      </button>
-    </div>
-
-  </div>
-
+<div class="main-card" style="margin-top:15px">
+<h3>👥 Relations</h3>
+<p>Emma — amie</p>
+<button onclick="socialEvent()">💬 Passer du temps avec Emma</button>
+</div>
+</div>
 </section>
 
-<div id="message" class="message"></div>
+<!-- PARAMETRES -->
+<section id="settingsScreen" class="screen">
+<div class="center">
+<h2>⚙️ Paramètres</h2>
+
+<div class="main-card">
+<button class="big-button" onclick="saveGame()">💾 Sauvegarder</button>
+<button class="big-button" onclick="continueGame()">▶️ Continuer</button>
+<button class="big-button danger" onclick="deleteSave()">🗑️ Nouvelle sauvegarde</button>
+</div>
+
+<button class="big-button" onclick="showScreen('homeScreen')">← Retour</button>
+</div>
+</section>
+
+<!-- NAVIGATION -->
+<nav id="bottomNav" class="nav" style="display:none">
+<button onclick="showScreen('gameScreen')">🏠<br>Maison</button>
+<button onclick="showScreen('characterScreen');renderCharacter()">👤<br>Personnage</button>
+<button onclick="showScreen('workScreen');renderJobs()">💼<br>Travail</button>
+<button onclick="showScreen('shopScreen');renderShop()">🛒<br>Boutique</button>
+<button onclick="showScreen('cityScreen')">🏙️<br>Ville</button>
+</nav>
 
 <script>
 
 /* =========================
- ETAT DU JEU
+   DONNÉES
 ========================= */
 
-let game = {
-  name: "Lili",
-  gender: "female",
+const saveKey="liliLife6Save";
 
-  skin: "#eab18c",
-  hair: "#3b241c",
-  shirt: "#d86b9d",
-
-  money: 500,
-
-  day: 1,
-  minutes: 8 * 60,
-
-  city: "Lili City",
-  cityType: "Petite ville",
-
-  house: "Petite maison",
-
-  job: "Sans emploi",
-  salary: 0,
-
-  hunger: 80,
-  energy: 80,
-  hygiene: 80,
-  fun: 80,
-  social: 80,
-
-  houseX: 45,
-  houseY: 45,
-
-  cityX: 50,
-  cityY: 50
+const faceData={
+    woman:["😊","🙂","😌","😃","😏","🥰"],
+    man:["😀","🙂","😎","😄","😏","😁"],
+    girl:["😊","🥰","🙂","😄","😇","🤗"],
+    boy:["😀","😄","😎","🙂","😁","🤗"]
 };
 
-/* =========================
- ECRANS
-========================= */
-
-function showScreen(id) {
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(s => s.classList.remove("active"));
-
-  document
-    .getElementById(id)
-    .classList.add("active");
-
-  updateUI();
-}
-
-/* =========================
- NOUVELLE PARTIE
-========================= */
-
-function newGame() {
-
-  game = {
-    name: "Lili",
-    gender: "female",
-
-    skin: "#eab18c",
-    hair: "#3b241c",
-    shirt: "#d86b9d",
-
-    money: 500,
-
-    day: 1,
-    minutes: 8 * 60,
-
-    city: "Lili City",
-    cityType: "Petite ville",
-
-    house: "Petite maison",
-
-    job: "Sans emploi",
-    salary: 0,
-
-    hunger: 80,
-    energy: 80,
-    hygiene: 80,
-    fun: 80,
-    social: 80,
-
-    houseX: 45,
-    houseY: 45,
-
-    cityX: 50,
-    cityY: 50
-  };
-
-  document.getElementById("nameInput").value = "";
-
-  showScreen("characterCreation");
-}
-
-/* =========================
- PERSONNAGE
-========================= */
-
-function setGender(gender) {
-
-  game.gender = gender;
-
-  document
-    .querySelectorAll("#characterCreation .choice")
-    .forEach(b => b.classList.remove("selected"));
-
-  if (gender === "female")
-    document.getElementById("femaleChoice").classList.add("selected");
-
-  if (gender === "male")
-    document.getElementById("maleChoice").classList.add("selected");
-
-  if (gender === "child")
-    document.getElementById("childChoice").classList.add("selected");
-
-  updateAvatars();
-}
-
-function setSkin(value, button) {
-
-  game.skin = value;
-
-  button.parentElement
-    .querySelectorAll("button")
-    .forEach(b => b.classList.remove("selected"));
-
-  button.classList.add("selected");
-
-  updateAvatars();
-}
-
-function setHair(value, button) {
-
-  game.hair = value;
-
-  button.parentElement
-    .querySelectorAll("button")
-    .forEach(b => b.classList.remove("selected"));
-
-  button.classList.add("selected");
-
-  updateAvatars();
-}
-
-function setShirt(value, button) {
-
-  game.shirt = value;
-
-  button.parentElement
-    .querySelectorAll("button")
-    .forEach(b => b.classList.remove("selected"));
-
-  button.classList.add("selected");
-
-  updateAvatars();
-}
-
-function createAvatar() {
-
-  const size =
-    game.gender === "child"
-      ? "transform:scale(.82);transform-origin:center;"
-      : "";
-
-  return `
-    <div class="avatar" style="
-      --skin:${game.skin};
-      --hair:${game.hair};
-      --shirt:${game.shirt};
-      ${size}
-    ">
-      <div class="head"></div>
-      <div class="hair"></div>
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-      <div class="nose"></div>
-      <div class="mouth"></div>
-      <div class="body"></div>
-      <div class="leg left"></div>
-      <div class="leg right"></div>
-      <div class="shoe left"></div>
-      <div class="shoe right"></div>
-    </div>
-  `;
-}
-
-function updateAvatars() {
-
-  const html = createAvatar();
-
-  const ids = [
-    "creatorAvatar",
-    "needsAvatar",
-    "houseAvatar",
-    "cityAvatar",
-    "cityGameAvatar"
-  ];
-
-  ids.forEach(id => {
-
-    const element = document.getElementById(id);
-
-    if (element)
-      element.innerHTML = html;
-
-  });
-}
-
-function finishCharacter() {
-
-  const name =
-    document
-      .getElementById("nameInput")
-      .value
-      .trim();
-
-  if (name)
-    game.name = name;
-
-  if (!game.name)
-    game.name = "Lili";
-
-  updateAvatars();
-
-  showScreen("cityCreation");
-}
-
-/* =========================
- VILLE
-========================= */
-
-function finishCity() {
-
-  const cityName =
-    document
-      .getElementById("cityName")
-      .value
-      .trim();
-
-  if (cityName)
-    game.city = cityName;
-
-  game.cityType =
-    document.getElementById("cityType").value;
-
-  document.getElementById("cityTitle").textContent =
-    "🏙️ " + game.city;
-
-  updateAvatars();
-
-  showScreen("houseChoice");
-
-  showMessage(
-    "Bienvenue dans " + game.city + " ! 🏙️"
-  );
-}
-
-/* =========================
- MAISON
-========================= */
-
-function chooseHouse(name, price) {
-
-  if (game.money < price) {
-
-    showMessage(
-      "💰 Tu n'as pas assez d'argent."
-    );
-
-    return;
-  }
-
-  game.money -= price;
-  game.house = name;
-
-  showScreen("game");
-
-  showMessage(
-    "🏡 Tu habites maintenant dans : " + name
-  );
-
-  saveGame();
-}
-
-/* =========================
- DEPLACEMENT MAISON
-========================= */
-
-function moveToHouse(event) {
-
-  const house =
-    document.getElementById("houseMap");
-
-  const rect =
-    house.getBoundingClientRect();
-
-  game.houseX =
-    ((event.clientX - rect.left) / rect.width) * 100;
-
-  game.houseY =
-    ((event.clientY - rect.top) / rect.height) * 100;
-
-  game.houseX =
-    Math.max(5, Math.min(95, game.houseX));
-
-  game.houseY =
-    Math.max(5, Math.min(95, game.houseY));
-
-  updatePlayerPosition();
-}
-
-function updatePlayerPosition() {
-
-  const player =
-    document.getElementById("houseAvatar");
-
-  if (!player)
-    return;
-
-  player.style.left =
-    game.houseX + "%";
-
-  player.style.top =
-    game.houseY + "%";
-}
-
-/* =========================
- DEPLACEMENT VILLE
-========================= */
-
-function moveToCity(event) {
-
-  const city =
-    event.currentTarget;
-
-  const rect =
-    city.getBoundingClientRect();
-
-  game.cityX =
-    ((event.clientX - rect.left) / rect.width) * 100;
-
-  game.cityY =
-    ((event.clientY - rect.top) / rect.height) * 100;
-
-  game.cityX =
-    Math.max(5, Math.min(95, game.cityX));
-
-  game.cityY =
-    Math.max(5, Math.min(95, game.cityY));
-
-  const player =
-    document.getElementById("cityGameAvatar");
-
-  if (player) {
-
-    player.style.left =
-      game.cityX + "%";
-
-    player.style.top =
-      game.cityY + "%";
-  }
-}
-
-/* =========================
- BESOINS
-========================= */
-
-function addTime(minutes) {
-
-  game.minutes += minutes;
-
-  while (game.minutes >= 1440) {
-
-    game.minutes -= 1440;
-
-    game.day++;
-
-    if (game.salary > 0) {
-
-      game.money += game.salary;
-
-      showMessage(
-        "💰 Nouveau jour : +" +
-        game.salary +
-        " €"
-      );
+const hairData={
+    woman:["short","long","bob","curly","pony","spiky"],
+    man:["short","curly","spiky","long","bob","pony"],
+    girl:["long","bob","curly","pony","short","spiky"],
+    boy:["short","curly","spiky","bob","long","pony"]
+};
+
+const hairNames={
+    short:"Courte",
+    long:"Longue",
+    bob:"Carré",
+    curly:"Bouclée",
+    pony:"Queue de cheval",
+    spiky:"Ébouriffée"
+};
+
+const hairColors=[
+    ["#24170f","Noir"],
+    ["#57321e","Brun"],
+    ["#9a5b24","Châtain"],
+    ["#d9a441","Blond"],
+    ["#e6d7b5","Blond clair"],
+    ["#b9473c","Roux"],
+    ["#7a4ea0","Violet"],
+    ["#3d78c5","Bleu"]
+];
+
+const outfitColors=[
+    ["#6c63ff","Violet"],
+    ["#ef5b72","Rose"],
+    ["#3c8d70","Vert"],
+    ["#3182ce","Bleu"],
+    ["#e3a72f","Jaune"],
+    ["#555","Noir"],
+    ["#eeeeee","Blanc"],
+    ["#e77d35","Orange"]
+];
+
+const outfitData={
+    woman:[
+        ["👗","Robe"],
+        ["👚","Décontractée"],
+        ["🧥","Veste"],
+        ["👔","Chic"],
+        ["👕","Casual"]
+    ],
+    man:[
+        ["👕","T-shirt"],
+        ["👔","Chemise"],
+        ["🧥","Veste"],
+        ["🥼","Professionnelle"],
+        ["👖","Casual"]
+    ],
+    girl:[
+        ["👗","Robe"],
+        ["👚","T-shirt"],
+        ["🧥","Veste"],
+        ["👕","Casual"],
+        ["🎀","Mignonne"]
+    ],
+    boy:[
+        ["👕","T-shirt"],
+        ["🧥","Veste"],
+        ["👔","Chemise"],
+        ["👖","Casual"],
+        ["🎽","Sport"]
+    ]
+};
+
+const houseData=[
+    {id:"square",name:"Maison carrée",price:50,emoji:"⬜"},
+    {id:"rect",name:"Maison rectangulaire",price:120,emoji:"▭"},
+    {id:"lshape",name:"Maison en L",price:220,emoji:"└"},
+    {id:"apartment",name:"Appartement",price:150,emoji:"🏢"}
+];
+
+const jobs=[
+    {id:"server",name:"Serveur",salary:55,energy:18},
+    {id:"doctor",name:"Médecin",salary:130,energy:25},
+    {id:"developer",name:"Développeur",salary:110,energy:22},
+    {id:"artist",name:"Artiste",salary:80,energy:20},
+    {id:"teacher",name:"Professeur",salary:95,energy:20}
+];
+
+const furnitureCatalog=[
+    {
+        type:"sofa",
+        name:"Canapé",
+        models:[
+            ["🛋️","Classique",120],
+            ["🛋️","Moderne",170],
+            ["🛋️","Luxe",260]
+        ]
+    },
+    {
+        type:"bed",
+        name:"Lit",
+        models:[
+            ["🛏️","Simple",180],
+            ["🛏️","Double",260],
+            ["🛏️","Luxe",380]
+        ]
+    },
+    {
+        type:"tv",
+        name:"Télévision",
+        models:[
+            ["📺","Petite",120],
+            ["📺","Grande",220],
+            ["📺","Écran géant",350]
+        ]
+    },
+    {
+        type:"table",
+        name:"Table",
+        models:[
+            ["🪑","Petite",60],
+            ["🍽️","Familiale",110],
+            ["🪵","Grande",170]
+        ]
+    },
+    {
+        type:"shower",
+        name:"Douche",
+        models:[
+            ["🚿","Simple",100],
+            ["🚿","Moderne",180],
+            ["🛁","Baignoire",280]
+        ]
+    },
+    {
+        type:"plant",
+        name:"Plante",
+        models:[
+            ["🪴","Petite",25],
+            ["🌿","Verte",45],
+            ["🌴","Grande",80]
+        ]
+    },
+    {
+        type:"kitchen",
+        name:"Cuisine",
+        models:[
+            ["🍳","Simple",220],
+            ["🍳","Moderne",350],
+            ["🍽️","Luxe",500]
+        ]
+    },
+    {
+        type:"desk",
+        name:"Bureau",
+        models:[
+            ["🖥️","Simple",120],
+            ["💻","Moderne",200],
+            ["🖥️","Gamer",320]
+        ]
     }
-  }
+];
 
-  game.hunger =
-    Math.max(0, game.hunger - minutes / 100);
+let game={
+    name:"Lili",
+    gender:"woman",
+    face:0,
+    hair:"long",
+    hairColor:"#57321e",
+    outfit:0,
+    outfitColor:"#6c63ff",
+    city:"Lili City",
+    house:"square",
+    money:500,
+    job:"server",
+    day:1,
+    minutes:480,
+    needs:{
+        hunger:80,
+        energy:80,
+        hygiene:80,
+        fun:80,
+        social:80
+    },
+    furniture:[],
+    log:[]
+};
 
-  game.energy =
-    Math.max(0, game.energy - minutes / 130);
+let dragging=null;
+let dragOffset={x:0,y:0};
 
-  game.hygiene =
-    Math.max(0, game.hygiene - minutes / 150);
-
-  game.fun =
-    Math.max(0, game.fun - minutes / 160);
-
-  game.social =
-    Math.max(0, game.social - minutes / 180);
-
-  updateUI();
-}
-
-function eat() {
-
-  if (game.money < 8) {
-
-    showMessage(
-      "💰 Tu n'as pas assez d'argent."
-    );
-
-    return;
-  }
-
-  game.money -= 8;
-
-  game.hunger =
-    Math.min(100, game.hunger + 35);
-
-  addTime(30);
-
-  showMessage("🍔 Tu as mangé.");
-}
-
-function sleep() {
-
-  game.energy =
-    Math.min(100, game.energy + 60);
-
-  addTime(240);
-
-  showMessage("🛌 Tu as bien dormi.");
-}
-
-function shower() {
-
-  game.hygiene =
-    Math.min(100, game.hygiene + 45);
-
-  addTime(20);
-
-  showMessage("🚿 Tu es propre.");
-}
-
-function haveFun() {
-
-  game.fun =
-    Math.min(100, game.fun + 30);
-
-  addTime(40);
-
-  showMessage("🎮 Tu t'es bien amusé.");
-}
 
 /* =========================
- TRAVAIL
+   ÉCRANS
 ========================= */
 
-function showJobs() {
-  showScreen("jobs");
+function showScreen(id){
+    document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+
+    const gameScreens=[
+        "gameScreen",
+        "characterScreen",
+        "workScreen",
+        "shopScreen",
+        "cityScreen"
+    ];
+
+    document.getElementById("bottomNav").style.display=
+        gameScreens.includes(id) ? "grid":"none";
 }
 
-function selectJob(job, salary) {
-
-  game.job = job;
-  game.salary = salary;
-
-  showMessage(
-    "💼 Tu es maintenant " + job + " !"
-  );
-
-  updateUI();
-  saveGame();
-}
-
-function work() {
-
-  if (game.job === "Sans emploi") {
-
-    showMessage(
-      "💼 Choisis d'abord un métier."
-    );
-
-    return;
-  }
-
-  if (game.energy < 20) {
-
-    showMessage(
-      "😴 Tu es trop fatigué pour travailler."
-    );
-
-    return;
-  }
-
-  game.money += game.salary;
-
-  game.energy =
-    Math.max(0, game.energy - 25);
-
-  game.hunger =
-    Math.max(0, game.hunger - 10);
-
-  addTime(480);
-
-  showMessage(
-    "💼 Journée terminée : +" +
-    game.salary +
-    " €"
-  );
-
-  saveGame();
-}
 
 /* =========================
- BOUTIQUE
+   CRÉATION PERSONNAGE
 ========================= */
 
-function showShop() {
-  showScreen("shop");
+function newGame(){
+    game={
+        name:"Lili",
+        gender:"woman",
+        face:0,
+        hair:"long",
+        hairColor:"#57321e",
+        outfit:0,
+        outfitColor:"#6c63ff",
+        city:"Lili City",
+        house:"square",
+        money:500,
+        job:"server",
+        day:1,
+        minutes:480,
+        needs:{
+            hunger:80,
+            energy:80,
+            hygiene:80,
+            fun:80,
+            social:80
+        },
+        furniture:[],
+        log:[]
+    };
+
+    document.getElementById("nameInput").value="Lili";
+    renderCreator();
+    showScreen("createScreen");
 }
 
-function buyItem(icon, price, name) {
+function setGender(g){
+    game.gender=g;
+    game.face=0;
+    game.hair=hairData[g][0];
+    game.outfit=0;
 
-  if (game.money < price) {
+    ["woman","man","girl","boy"].forEach(x=>{
+        document.getElementById("gender-"+x).classList.toggle("selected",x===g);
+    });
 
-    showMessage(
-      "💰 Pas assez d'argent."
-    );
-
-    return;
-  }
-
-  game.money -= price;
-
-  showMessage(
-    icon + " " + name + " acheté !"
-  );
-
-  saveGame();
-  updateUI();
+    renderCreator();
 }
 
-/* =========================
- VILLE
-========================= */
+function renderCreator(){
 
-function showCity() {
+    const gender=game.gender;
 
-  showScreen("city");
+    document.getElementById("nameInput").value=game.name;
 
-  setTimeout(() => {
+    document.getElementById("faceChoices").innerHTML=
+        faceData[gender].map((f,i)=>`
+            <button class="choice ${i===game.face?"selected":""}"
+            onclick="game.face=${i};renderCreator()">
+            <span style="font-size:35px">${f}</span><br>
+            Visage ${i+1}
+            </button>
+        `).join("");
 
-    const player =
-      document.getElementById("cityGameAvatar");
+    document.getElementById("hairChoices").innerHTML=
+        hairData[gender].map(h=>`
+            <button class="choice ${h===game.hair?"selected":""}"
+            onclick="game.hair='${h}';renderCreator()">
+            <div class="hairSample ${h}" style="width:45px;height:35px;background:${game.hairColor};margin:auto;border-radius:50%"></div>
+            ${hairNames[h]}
+            </button>
+        `).join("");
 
-    if (player) {
+    document.getElementById("hairColorChoices").innerHTML=
+        hairColors.map(c=>`
+            <button class="choice ${c[0]===game.hairColor?"selected":""}"
+            onclick="game.hairColor='${c[0]}';renderCreator()">
+            <div style="width:35px;height:35px;border-radius:50%;background:${c[0]};margin:auto;border:2px solid #aaa"></div>
+            ${c[1]}
+            </button>
+        `).join("");
 
-      player.style.left =
-        game.cityX + "%";
+    document.getElementById("outfitChoices").innerHTML=
+        outfitData[gender].map((o,i)=>`
+            <button class="choice ${i===game.outfit?"selected":""}"
+            onclick="game.outfit=${i};renderCreator()">
+            <span style="font-size:35px">${o[0]}</span><br>${o[1]}
+            </button>
+        `).join("");
 
-      player.style.top =
-        game.cityY + "%";
+    document.getElementById("outfitColorChoices").innerHTML=
+        outfitColors.map(c=>`
+            <button class="choice ${c[0]===game.outfitColor?"selected":""}"
+            onclick="game.outfitColor='${c[0]}';renderCreator()">
+            <div style="width:35px;height:35px;border-radius:8px;background:${c[0]};margin:auto;border:2px solid #aaa"></div>
+            ${c[1]}
+            </button>
+        `).join("");
+
+    document.getElementById("creatorPreview").innerHTML=createAvatar(false);
+    document.getElementById("previewName").textContent=
+        document.getElementById("nameInput").value || "Ton personnage";
+}
+
+function createAvatar(small=false){
+
+    const face=faceData[game.gender][game.face] || "🙂";
+    const outfit=outfitData[game.gender][game.outfit] || ["👕","Casual"];
+
+    let skin="#f2c6a5";
+
+    if(game.gender==="girl" || game.gender==="boy"){
+        skin="#f4c7a1";
     }
 
-  }, 50);
+    return `
+    <div class="avatar ${small?"small":""}">
+        <div class="hair ${game.hair}" style="background:${game.hairColor}"></div>
+        <div class="head" style="background:${skin}">
+            <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:38px;z-index:8">${face}</span>
+        </div>
+        <div class="body" style="background:${game.outfitColor}"></div>
+        <div class="outfit" style="background:${game.outfitColor}"></div>
+        <div class="legs"></div>
+        <div class="legs right"></div>
+    </div>`;
 }
 
-function visitHouse(name) {
-
-  showMessage(
-    "🏡 Tu visites " + name + "."
-  );
+function goToCityCreation(){
+    game.name=document.getElementById("nameInput").value.trim() || "Lili";
+    showScreen("cityCreateScreen");
 }
+
+function goToHouseChoice(){
+    game.city=document.getElementById("cityNameInput").value.trim() || "Lili City";
+
+    document.getElementById("houseChoices").innerHTML=
+        houseData.map(h=>`
+            <button class="choice ${game.house===h.id?"selected":""}"
+            onclick="game.house='${h.id}';renderHouseChoices()">
+            <span style="font-size:45px">${h.emoji}</span>
+            <br><strong>${h.name}</strong>
+            <br>💰 ${h.price} €
+            </button>
+        `).join("");
+
+    renderHouseChoices();
+    showScreen("houseChoiceScreen");
+}
+
+function renderHouseChoices(){
+    document.getElementById("houseChoices").innerHTML=
+        houseData.map(h=>`
+            <button class="choice ${game.house===h.id?"selected":""}"
+            onclick="game.house='${h.id}';renderHouseChoices()">
+            <span style="font-size:45px">${h.emoji}</span>
+            <br><strong>${h.name}</strong>
+            <br>💰 ${h.price} €
+            </button>
+        `).join("");
+}
+
 
 /* =========================
- UI
+   DÉBUT PARTIE
 ========================= */
 
-function updateUI() {
+function startGame(){
 
-  const money =
-    document.getElementById("money");
+    const house=houseData.find(h=>h.id===game.house);
 
-  if (money)
-    money.textContent =
-      Math.floor(game.money);
+    if(game.money<house.price){
+        alert("Tu n'as pas assez d'argent pour cette maison.");
+        return;
+    }
 
-  const shopMoney =
-    document.getElementById("shopMoney");
+    game.money-=house.price;
 
-  if (shopMoney)
-    shopMoney.textContent =
-      Math.floor(game.money);
+    document.getElementById("cityTitle").textContent=game.city;
+    document.getElementById("gameCharacterName").textContent=game.name;
 
-  const day =
-    document.getElementById("day");
+    setupHouse();
+    renderGame();
+    addLog(`Bienvenue dans ${game.city} !`);
+    addLog(`Tu as choisi ${house.name}.`);
+    saveGame();
 
-  if (day)
-    day.textContent =
-      game.day;
-
-  const clock =
-    document.getElementById("clock");
-
-  if (clock) {
-
-    const h =
-      Math.floor(game.minutes / 60);
-
-    const m =
-      game.minutes % 60;
-
-    clock.textContent =
-      String(h).padStart(2,"0") +
-      ":" +
-      String(m).padStart(2,"0");
-  }
-
-  const name =
-    document.getElementById("gameName");
-
-  if (name)
-    name.textContent =
-      game.name;
-
-  const currentJob =
-    document.getElementById("currentJob");
-
-  if (currentJob)
-    currentJob.textContent =
-      game.job;
-
-  const needsName =
-    document.getElementById("needsName");
-
-  if (needsName)
-    needsName.textContent =
-      game.name;
-
-  setBar("hungerBar", game.hunger);
-  setBar("energyBar", game.energy);
-  setBar("hygieneBar", game.hygiene);
-  setBar("funBar", game.fun);
-  setBar("socialBar", game.social);
-
-  updatePlayerPosition();
+    showScreen("gameScreen");
 }
 
-function setBar(id,value) {
+function setupHouse(){
 
-  const bar =
-    document.getElementById(id);
+    const house=document.getElementById("houseWorld");
 
-  if (bar)
-    bar.style.width =
-      Math.max(0,Math.min(100,value)) + "%";
+    house.className="house "+game.house;
+
+    /*
+      Les dimensions sont volontairement basées
+      sur la maison, afin que le personnage et les meubles
+      gardent une échelle cohérente.
+    */
+
+    document.getElementById("player").style.left="45%";
+    document.getElementById("player").style.top="42%";
+
+    renderFurniture();
 }
 
+
 /* =========================
- SAUVEGARDE
+   BESOINS
 ========================= */
 
-function saveGame() {
-
-  localStorage.setItem(
-    "liliLife5Save",
-    JSON.stringify(game)
-  );
+function needColor(value){
+    if(value<25)return "#e74c3c";
+    if(value<50)return "#f1c40f";
+    return "#55b86a";
 }
 
-function continueGame() {
+function renderNeeds(target){
 
-  const save =
-    localStorage.getItem("liliLife5Save");
+    const labels={
+        hunger:"🍎 Faim",
+        energy:"⚡ Énergie",
+        hygiene:"🚿 Hygiène",
+        fun:"🎮 Amusement",
+        social:"❤️ Social"
+    };
 
-  if (!save) {
-
-    showMessage(
-      "📂 Aucune partie sauvegardée."
-    );
-
-    return;
-  }
-
-  try {
-
-    game = JSON.parse(save);
-
-    showScreen("game");
-
-    updateAvatars();
-    updateUI();
-
-    showMessage(
-      "📂 Partie chargée !"
-    );
-
-  } catch(e) {
-
-    showMessage(
-      "❌ Sauvegarde impossible à charger."
-    );
-  }
+    document.getElementById(target).innerHTML=
+        Object.entries(game.needs).map(([key,value])=>`
+            <div class="stat">
+                <span>${labels[key]}</span>
+                <div class="bar">
+                    <div class="fill"
+                    style="width:${value}%;background:${needColor(value)}"></div>
+                </div>
+                <strong>${Math.round(value)}</strong>
+            </div>
+        `).join("");
 }
 
-/* =========================
- MESSAGES
-========================= */
+function renderGame(){
+    document.getElementById("moneyValue").textContent=Math.floor(game.money);
+    document.getElementById("gameCharacterName").textContent=game.name;
+    document.getElementById("timeValue").textContent=
+        `Jour ${game.day} • ${formatTime()}`;
 
-function showMessage(text) {
-
-  const box =
-    document.getElementById("message");
-
-  box.textContent = text;
-  box.style.display = "block";
-
-  clearTimeout(window.messageTimer);
-
-  window.messageTimer =
-    setTimeout(() => {
-
-      box.style.display = "none";
-
-    },2500);
+    renderNeeds("gameNeeds");
+    document.getElementById("player").innerHTML=createAvatar(true);
+    document.getElementById("gameLog").innerHTML=game.log.slice(-15).reverse().join("<br>");
 }
 
-/* =========================
- TEMPS AUTOMATIQUE
-========================= */
+function renderCharacter(){
+    document.getElementById("characterBigPreview").innerHTML=createAvatar();
+    document.getElementById("characterInfo").textContent=
+        `${game.name} • ${genderLabel(game.gender)}`;
 
-setInterval(() => {
+    renderNeeds("characterNeeds");
+}
 
-  if (
-    document
-      .getElementById("game")
-      .classList
-      .contains("active")
-  ) {
+function genderLabel(g){
+    return {
+        woman:"Femme",
+        man:"Homme",
+        girl:"Fille",
+        boy:"Garçon"
+    }[g];
+}
 
-    addTime(5);
-  }
-
-},5000);
-
-/* =========================
- SAUVEGARDE AUTOMATIQUE
-========================= */
-
-setInterval(() => {
-
-  saveGame();
-
-},15000);
 
 /* =========================
- INITIALISATION
+   ACTIONS
 ========================= */
 
-updateAvatars();
-updateUI();
+function doAction(action){
+
+    if(action==="eat"){
+        game.needs.hunger=Math.min(100,game.needs.hunger+30);
+        advanceTime(20);
+        addLog("🍎 Tu as mangé.");
+    }
+
+    if(action==="sleep"){
+        game.needs.energy=Math.min(100,game.needs.energy+55);
+        game.needs.hunger=Math.max(0,game.needs.hunger-15);
+        advanceTime(240);
+        addLog("😴 Tu as dormi.");
+    }
+
+    if(action==="shower"){
+        game.needs.hygiene=Math.min(100,game.needs.hygiene+45);
+        advanceTime(20);
+        addLog("🚿 Tu as pris une douche.");
+    }
+
+    if(action==="fun"){
+        game.needs.fun=Math.min(100,game.needs.fun+30);
+        game.needs.energy=Math.max(0,game.needs.energy-5);
+        advanceTime(30);
+        addLog("🎮 Tu t'es amusé.");
+    }
+
+    if(action==="social"){
+        game.needs.social=Math.min(100,game.needs.social+30);
+        advanceTime(20);
+        addLog("💬 Tu as discuté avec quelqu'un.");
+    }
+
+    renderGame();
+    saveGame();
+}
+
+function advanceTime(minutes){
+
+    game.minutes+=minutes;
+
+    game.needs.hunger=Math.max(0,game.needs.hunger-minutes/100);
+    game.needs.energy=Math.max(0,game.needs.energy-minutes/180);
+    game.needs.hygiene=Math.max(0,game.needs.hygiene-minutes/250);
+    game.needs.fun=Math.max(0,game.needs.fun-minutes/220);
+    game.needs.social=Math.max(0,game.needs.social-minutes/300);
+
+    while(game.minutes>=1440){
+        game.minutes-=1440;
+        game.day++;
+        addLog(`🌅 Jour ${game.day}.`);
+    }
+}
+
+function formatTime(){
+    let h=Math.floor(game.minutes/60);
+    let m=game.minutes%60;
+    return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+}
+
+function addLog(text){
+    game.log.push(text);
+}
+
+
+/* =========================
+   TRAVAIL
+========================= */
+
+function renderJobs(){
+
+    document.getElementById("jobChoices").innerHTML=
+        jobs.map(j=>`
+            <button class="choice ${game.job===j.id?"selected":""}"
+            onclick="chooseJob('${j.id}')">
+            💼<br>
+            <strong>${j.name}</strong>
+            <br>${j.salary} €/jour
+            </button>
+        `).join("");
+
+    const current=jobs.find(j=>j.id===game.job);
+
+    document.getElementById("currentJob").innerHTML=`
+        <strong>${current.name}</strong><br>
+        Salaire : ${current.salary} €<br>
+        Énergie consommée : ${current.energy}
+    `;
+}
+
+function chooseJob(id){
+    game.job=id;
+    renderJobs();
+    addLog(`💼 Nouveau métier : ${jobs.find(j=>j.id===id).name}.`);
+    saveGame();
+}
+
+function goWork(){
+
+    const job=jobs.find(j=>j.id===game.job);
+
+    if(game.needs.energy<job.energy){
+        alert("Tu n'as pas assez d'énergie pour travailler.");
+        return;
+    }
+
+    game.money+=job.salary;
+    game.needs.energy=Math.max(0,game.needs.energy-job.energy);
+    game.needs.hunger=Math.max(0,game.needs.hunger-10);
+    game.needs.fun=Math.max(0,game.needs.fun-8);
+
+    advanceTime(480);
+
+    addLog(`💼 Travail terminé : +${job.salary} €.`);
+    renderGame();
+    saveGame();
+}
+
+
+/* =========================
+   BOUTIQUE
+========================= */
+
+function renderShop(){
+
+    let html="";
+
+    furnitureCatalog.forEach(item=>{
+
+        html+=`
+        <div class="catalog-item">
+            <strong>${item.name}</strong>
+            <div style="margin-top:8px">
+        `;
+
+        item.models.forEach((model,index)=>{
+            html+=`
+            <div style="background:white;border-radius:12px;padding:8px;margin-top:7px;border:1px solid #ddd">
+                <span class="emoji">${model[0]}</span>
+                <strong>${model[1]}</strong><br>
+                💰 ${model[2]} €
+                <button onclick="buyFurniture('${item.type}',${index})">
+                    Acheter
+                </button>
+            </div>`;
+        });
+
+        html+=`</div></div>`;
+    });
+
+    document.getElementById("shopItems").innerHTML=html;
+}
+
+function buyFurniture(type,modelIndex){
+
+    const item=furnitureCatalog.find(x=>x.type===type);
+    const model=item.models[modelIndex];
+
+    if(game.money<model[2]){
+        alert("Tu n'as pas assez d'argent.");
+        return;
+    }
+
+    game.money-=model[2];
+
+    game.furniture.push({
+        id:Date.now()+Math.random(),
+        type:type,
+        name:item.name,
+        model:model[1],
+        emoji:model[0],
+        x:40+Math.random()*20,
+        y:40+Math.random()*20,
+        rotation:0
+    });
+
+    addLog(`🛋️ ${item.name} ${model[1]} acheté. Tu peux maintenant le placer.`);
+
+    renderFurniture();
+    renderGame();
+    saveGame();
+
+    alert("Objet acheté ! Fais-le glisser avec ton doigt dans la maison.");
+}
+
+
+/* =========================
+   PLACEMENT DES MEUBLES
+========================= */
+
+function renderFurniture(){
+
+    const layer=document.getElementById("furnitureLayer");
+    if(!layer)return;
+
+    layer.innerHTML="";
+
+    game.furniture.forEach(f=>{
+
+        const el=document.createElement("div");
+
+        el.className="furniture";
+        el.textContent=f.emoji;
+        el.dataset.id=f.id;
+
+        el.style.left=f.x+"%";
+        el.style.top=f.y+"%";
+        el.style.transform=`rotate(${f.rotation}deg)`;
+
+        el.addEventListener("pointerdown",startDrag);
+
+        layer.appendChild(el);
+    });
+}
+
+function startDrag(e){
+
+    e.preventDefault();
+
+    const el=e.currentTarget;
+
+    dragging=el;
+
+    const rect=el.getBoundingClientRect();
+
+    dragOffset.x=e.clientX-rect.left;
+    dragOffset.y=e.clientY-rect.top;
+
+    el.setPointerCapture(e.pointerId);
+
+    el.addEventListener("pointermove",dragMove);
+    el.addEventListener("pointerup",stopDrag);
+    el.addEventListener("pointercancel",stopDrag);
+}
+
+function dragMove(e){
+
+    if(!dragging)return;
+
+    const house=document.getElementById("houseWorld");
+    const rect=house.getBoundingClientRect();
+
+    let x=((e.clientX-rect.left-dragOffset.x)/rect.width)*100;
+    let y=((e.clientY-rect.top-dragOffset.y)/rect.height)*100;
+
+    x=Math.max(1,Math.min(90,x));
+    y=Math.max(1,Math.min(85,y));
+
+    dragging.style.left=x+"%";
+    dragging.style.top=y+"%";
+
+    const id=Number(dragging.dataset.id);
+
+    const furniture=game.furniture.find(f=>Number(f.id)===id);
+
+    if(furniture){
+        furniture.x=x;
+        furniture.y=y;
+    }
+}
+
+function stopDrag(e){
+
+    if(!dragging)return;
+
+    dragging.releasePointerCapture?.(e.pointerId);
+
+    dragging.removeEventListener("pointermove",dragMove);
+    dragging.removeEventListener("pointerup",stopDrag);
+    dragging.removeEventListener("pointercancel",stopDrag);
+
+    dragging=null;
+
+    saveGame();
+}
+
+
+/* =========================
+   PERSONNAGE DÉPLAÇABLE
+========================= */
+
+const player=document.getElementById("player");
+
+let playerPos={
+    x:45,
+    y:42
+};
+
+let playerTouch=null;
+
+player.addEventListener("pointerdown",e=>{
+    playerTouch={
+        x:e.clientX,
+        y:e.clientY
+    };
+    player.setPointerCapture(e.pointerId);
+});
+
+player.addEventListener("pointerup",e=>{
+
+    if(!playerTouch)return;
+
+    let dx=e.clientX-playerTouch.x;
+    let dy=e.clientY-playerTouch.y;
+
+    if(Math.abs(dx)>15 || Math.abs(dy)>15){
+
+        if(Math.abs(dx)>Math.abs(dy)){
+            playerPos.x+=dx>0?5:-5;
+        }else{
+            playerPos.y+=dy>0?5:-5;
+        }
+
+        playerPos.x=Math.max(3,Math.min(88,playerPos.x));
+        playerPos.y=Math.max(3,Math.min(82,playerPos.y));
+
+        player.style.left=playerPos.x+"%";
+        player.style.top=playerPos.y+"%";
+    }
+
+    playerTouch=null;
+});
+
+
+/* =========================
+   RELATIONS
+========================= */
+
+function socialEvent(){
+
+    if(game.needs.energy<5){
+        alert("Tu es trop fatigué.");
+        return;
+    }
+
+    game.needs.social=Math.min(100,game.needs.social+35);
+    game.needs.fun=Math.min(100,game.needs.fun+15);
+    game.needs.energy=Math.max(0,game.needs.energy-5);
+
+    advanceTime(45);
+
+    addLog("❤️ Tu as passé du temps avec Emma.");
+    renderGame();
+    saveGame();
+
+    alert("Emma est contente de t'avoir vu !");
+}
+
+
+/* =========================
+   SAUVEGARDE
+========================= */
+
+function saveGame(){
+
+    localStorage.setItem(saveKey,JSON.stringify(game));
+}
+
+function continueGame(){
+
+    const saved=localStorage.getItem(saveKey);
+
+    if(!saved){
+        alert("Aucune partie sauvegardée.");
+        return;
+    }
+
+    try{
+        game=JSON.parse(saved);
+
+        document.getElementById("cityTitle").textContent=game.city;
+        document.getElementById("gameCharacterName").textContent=game.name;
+
+        renderGame();
+        renderCharacter();
+        renderJobs();
+        renderShop();
+        setupHouse();
+
+        showScreen("gameScreen");
+
+    }catch(e){
+        alert("Impossible de charger la sauvegarde.");
+    }
+}
+
+function deleteSave(){
+
+    if(confirm("Supprimer la sauvegarde ?")){
+        localStorage.removeItem(saveKey);
+        alert("Sauvegarde supprimée.");
+        showScreen("homeScreen");
+    }
+}
+
+
+/* =========================
+   TEMPS AUTOMATIQUE
+========================= */
+
+setInterval(()=>{
+
+    if(game && document.getElementById("gameScreen").classList.contains("active")){
+
+        advanceTime(5);
+        renderGame();
+        saveGame();
+    }
+
+},3000);
+
+
+/* =========================
+   INITIALISATION
+========================= */
+
+renderCreator();
 
 </script>
 
