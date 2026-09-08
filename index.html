@@ -2,466 +2,215 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#f7f2ff">
-<title>Lili Life 6.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Lili Life 6.2</title>
 
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:#f5f1fa;color:#292638;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html,body{margin:0;padding:0;background:#f5f3f8;font-family:Arial,sans-serif;color:#25232a}
+body{min-height:100vh;overflow-x:hidden}
 button,input{font:inherit}
-button{border:0;cursor:pointer}
-body{min-height:100vh}
+button{cursor:pointer;border:0}
 .app{max-width:900px;margin:auto;min-height:100vh;background:#fff}
-.screen{display:none;min-height:100vh;padding-bottom:92px}
-.screen.active{display:block}
-
 .top{
-  padding:18px 18px 12px;
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid #eee8f4;
+  position:sticky;top:0;z-index:50;
+  background:#fff;padding:12px 14px 10px;
+  border-bottom:1px solid #ddd;
 }
-h1,h2,h3{margin:0}
-h1{font-size:27px}
-h2{font-size:22px;margin-bottom:12px}
-h3{font-size:17px}
-p{line-height:1.45}
-.container{padding:16px}
-
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.logo{font-size:22px;font-weight:800}
+.money{font-weight:800}
+.screen{display:none;padding:14px 14px 100px}
+.screen.active{display:block}
+h1,h2,h3{margin:8px 0 12px}
 .card{
-  background:#fff;
-  border:1px solid #ebe5f0;
-  border-radius:22px;
-  padding:16px;
-  box-shadow:0 6px 22px rgba(50,30,80,.06);
-  margin-bottom:14px;
+  background:#fff;border:1px solid #ddd;border-radius:18px;
+  padding:14px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)
 }
+.btn{
+  padding:12px 15px;border-radius:13px;background:#eee;
+  font-weight:700;margin:4px 0
+}
+.btn.primary{background:#25232a;color:#fff}
+.btn.good{background:#dff5e5}
+.btn.warn{background:#fff0cf}
+.btn.danger{background:#ffe1e1}
+.btn.small{padding:8px 10px;font-size:13px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
+.muted{color:#777;font-size:13px}
+.center{text-align:center}
 
-.primary{
-  width:100%;
-  background:#7c5cff;
-  color:white;
-  padding:14px 18px;
-  border-radius:16px;
-  font-weight:700;
-  margin-top:10px;
+/* NAV */
+.nav{
+ position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+ width:min(900px,100%);z-index:100;
+ display:grid;grid-template-columns:repeat(5,1fr);
+ background:#fff;border-top:1px solid #ddd;
+ padding:7px 4px calc(7px + env(safe-area-inset-bottom))
 }
-.secondary{
-  width:100%;
-  background:#f0ebf8;
-  color:#443b55;
-  padding:13px 16px;
-  border-radius:15px;
-  font-weight:650;
-  margin-top:8px;
-}
-.smallBtn{
-  background:#f0ebf8;
-  padding:9px 12px;
-  border-radius:12px;
-  font-weight:650;
-}
-.danger{background:#ffe8e8;color:#a93636}
+.nav button{background:none;font-size:11px;font-weight:700;padding:5px}
+.nav .ico{display:block;font-size:21px;margin-bottom:2px}
 
-input[type=text]{
-  width:100%;
-  border:1px solid #ddd4e7;
-  border-radius:14px;
-  padding:13px;
-  outline:none;
-  background:#fff;
+/* CREATOR */
+.creatorPreview{
+ position:sticky;top:61px;z-index:20;
+ background:#fff;border:1px solid #ddd;border-radius:20px;
+ padding:10px;margin-bottom:10px;
 }
-input[type=text]:focus{border-color:#7c5cff}
-
-.homeHero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:25px;
-  background:linear-gradient(150deg,#faf7ff,#f0eaff);
+.previewName{text-align:center;font-weight:800;margin-bottom:5px}
+.previewAvatar{height:230px;display:flex;align-items:center;justify-content:center}
+.previewAvatar svg{height:220px;width:130px}
+.accordion{
+ border:1px solid #ddd;border-radius:16px;margin:9px 0;overflow:hidden
 }
-.homeBox{width:min(470px,100%)}
-.logo{
-  font-size:54px;
-  font-weight:900;
-  letter-spacing:-3px;
-  color:#7255e8;
+.accordion summary{
+ padding:14px;font-weight:800;background:#fafafa;cursor:pointer
 }
-.logoSub{font-size:18px;color:#766c82;margin:5px 0 28px}
-
-.previewSticky{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,.97);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid #e9e2f0;
-  padding:8px 12px;
-}
-.previewInner{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  min-height:210px;
-}
-.previewAvatar{
-  width:150px;
-  height:195px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-}
-.previewInfo{
-  min-width:110px;
-}
-.previewInfo strong{display:block;font-size:17px}
-.previewInfo span{font-size:13px;color:#7c7387}
-
-.creatorBody{padding:12px}
-.creatorSection{
-  border:1px solid #e9e2ef;
-  border-radius:18px;
-  overflow:hidden;
-  margin-bottom:10px;
-  background:white;
-}
-.creatorHeader{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px;
-  background:white;
-  font-weight:750;
-  text-align:left;
-}
-.creatorContent{
-  padding:0 12px 14px;
-  display:none;
-}
-.creatorSection.open .creatorContent{display:block}
-
 .choiceRow{
-  display:flex;
-  gap:9px;
-  overflow-x:auto;
-  padding:3px 2px 7px;
-  scrollbar-width:none;
+ display:flex;gap:8px;overflow-x:auto;padding:10px;
+ scrollbar-width:none
 }
 .choiceRow::-webkit-scrollbar{display:none}
-
 .choice{
-  flex:0 0 auto;
-  min-width:78px;
-  min-height:70px;
-  padding:8px;
-  border:2px solid #eee8f3;
-  background:#faf8fc;
-  border-radius:15px;
-  text-align:center;
+ min-width:82px;background:#f5f5f5;border:2px solid transparent;
+ border-radius:13px;padding:7px;text-align:center
 }
-.choice.selected{
-  border-color:#7c5cff;
-  background:#f0ebff;
-}
-.choiceLabel{font-size:11px;margin-top:4px}
-.faceMini{
-  width:48px;
-  height:48px;
-  margin:auto;
-}
-
+.choice.selected{border-color:#25232a;background:#fff}
+.choice svg{width:60px;height:72px}
+.choiceName{font-size:11px;margin-top:4px}
 .colorDot{
-  width:38px;height:38px;border-radius:50%;
-  margin:auto;
-  border:2px solid #ddd;
+ width:30px;height:30px;border-radius:50%;margin:auto;border:2px solid #bbb
 }
-.colorDot.selected{outline:3px solid #7c5cff;outline-offset:2px}
-
-.stickyContinue{
-  position:sticky;
-  bottom:0;
-  z-index:40;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);
-  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-  border-top:1px solid #e9e2ef;
+.nameInput{
+ width:100%;padding:13px;border:1px solid #ccc;border-radius:12px
 }
 
-.stats{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:6px;
-  margin-bottom:12px;
-}
-.stat{
-  background:#faf8fc;
-  border-radius:13px;
-  padding:7px 5px;
-  text-align:center;
-  font-size:10px;
-}
-.bar{
-  height:7px;
-  background:#e5dfeb;
-  border-radius:99px;
-  overflow:hidden;
-  margin-top:5px;
-}
-.bar i{
-  display:block;
-  height:100%;
-  background:#7c5cff;
-  border-radius:99px;
-}
+/* NEEDS */
+.need{margin:8px 0}
+.needHead{display:flex;justify-content:space-between;font-size:13px;font-weight:700}
+.bar{height:11px;background:#e8e8e8;border-radius:20px;overflow:hidden}
+.fill{height:100%;border-radius:20px}
 
-.gameHeader{
-  padding:14px;
-  background:#fff;
-  border-bottom:1px solid #eee8f4;
-  position:sticky;
-  top:0;
-  z-index:30;
+/* GAME HOUSE */
+.houseScene{
+ position:relative;height:500px;overflow:hidden;
+ border-radius:20px;border:3px solid #333;background:#e8e1d7;
+ touch-action:none;
 }
-.gameTitle{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
+.houseFloor{position:absolute;inset:0;background:
+ linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px),
+ linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px);
+ background-size:35px 35px}
+.wallTop,.wallLeft,.wallRight,.wallBottom{
+ position:absolute;background:#fff;border:3px solid #333
 }
-.money{font-weight:800;color:#4d9a50}
+.wallTop{left:5%;right:5%;top:5%;height:18px}
+.wallBottom{left:5%;right:5%;bottom:5%;height:18px}
+.wallLeft{left:5%;top:5%;bottom:5%;width:18px}
+.wallRight{right:5%;top:5%;bottom:5%;width:18px}
+.door{
+ position:absolute;bottom:5%;left:47%;width:55px;height:75px;
+ background:#9b6d45;border:3px solid #5f4028;border-bottom:0
+}
+.playerHome{
+ position:absolute;width:78px;height:145px;
+ transform:translate(-50%,-100%);z-index:30;touch-action:none
+}
+.playerHome svg{width:100%;height:100%}
 
-.world{
-  position:relative;
-  height:390px;
-  margin:12px;
-  border-radius:25px;
-  overflow:hidden;
-  background:#bfe2ad;
-  border:2px solid #9fc78e;
-  touch-action:none;
-}
-.street{
-  position:absolute;
-  left:0;right:0;
-  top:45%;
-  height:90px;
-  background:#a7a2a9;
-}
-.street:before,.street:after{
-  content:"";
-  position:absolute;
-  top:42px;
-  width:100%;
-  border-top:4px dashed #e8e4d8;
-}
-.street:before{top:20px}
-.street:after{top:65px}
-
-.cityHouse{
-  position:absolute;
-  width:125px;
-  height:105px;
-  background:#f8e5c7;
-  border:5px solid #805f48;
-  border-radius:8px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-}
-.cityHouse:before{
-  content:"";
-  position:absolute;
-  top:-37px;
-  left:-8px;
-  width:128px;
-  height:62px;
-  background:#c87869;
-  transform:skewX(-8deg) rotate(0deg);
-  border:5px solid #805f48;
-  border-bottom:0;
-}
-.cityDoor{
-  width:25px;height:43px;background:#765244;
-  position:relative;z-index:2;
-}
-.cityWindow{
-  width:25px;height:25px;background:#bde5ef;
-  border:3px solid #765244;
-  position:absolute;z-index:2;top:25px;left:15px;
-}
-.cityHouse2{left:25px;top:35px}
-.cityHouse3{right:20px;top:75px;transform:scale(.85)}
-.cityHouse4{left:42%;bottom:18px;transform:scale(.72)}
-
-.playerCity{
-  position:absolute;
-  width:35px;
-  height:65px;
-  transform:translate(-50%,-50%);
-  z-index:10;
-  touch-action:none;
-}
-.playerCity svg{width:100%;height:100%}
-
-.place{
-  position:absolute;
-  background:#fff;
-  border:3px solid #715e87;
-  border-radius:16px;
-  padding:9px;
-  font-size:22px;
-  box-shadow:0 5px 12px rgba(0,0,0,.12);
-}
-.place.shop{right:15px;top:15px}
-.place.work{left:15px;top:15px}
-.place.park{right:30px;bottom:25px}
-
-.houseInterior{
-  position:relative;
-  margin:12px;
-  height:420px;
-  border:8px solid #9b7557;
-  background:#ead9c5;
-  overflow:hidden;
-  border-radius:12px;
-  touch-action:none;
-}
-.floor{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,rgba(130,90,60,.08) 1px,transparent 1px),
-    linear-gradient(rgba(130,90,60,.08) 1px,transparent 1px);
-  background-size:42px 42px;
-}
-.roomLabel{
-  position:absolute;
-  top:10px;left:12px;
-  font-size:11px;
-  font-weight:700;
-  color:#806f62;
-}
-.doorInterior{
-  position:absolute;
-  bottom:-8px;
-  left:45%;
-  width:48px;height:58px;
-  background:#754e3d;
-  border:5px solid #5e4033;
-}
+/* furniture */
 .furniture{
-  position:absolute;
-  transform-origin:center;
-  user-select:none;
-  touch-action:none;
-  z-index:5;
-  font-size:38px;
+ position:absolute;touch-action:none;user-select:none;
+ transform-origin:center;z-index:20
 }
-.furniture.selected{filter:drop-shadow(0 0 5px #7c5cff)}
-.rotateControl{
-  position:absolute;
-  display:none;
-  z-index:20;
-  background:white;
-  border-radius:14px;
-  box-shadow:0 5px 18px rgba(0,0,0,.18);
-  padding:5px;
+.furniture.selected{outline:3px dashed #25232a;outline-offset:3px}
+.furnitureEmoji{font-size:45px;line-height:1}
+.furnitureLabel{
+ position:absolute;top:-17px;left:50%;transform:translateX(-50%);
+ background:#25232a;color:#fff;border-radius:8px;padding:2px 5px;
+ font-size:9px;white-space:nowrap
 }
-.rotateControl button{background:#f0ebf8;padding:7px;border-radius:10px}
+.furnitureMenu{
+ position:absolute;z-index:60;background:#fff;border:1px solid #bbb;
+ box-shadow:0 5px 20px rgba(0,0,0,.15);border-radius:14px;
+ padding:8px;display:none
+}
+.furnitureMenu.show{display:flex;gap:5px;flex-wrap:wrap}
+.furnitureMenu button{font-size:12px;padding:8px;border-radius:9px;background:#eee}
 
-.bottomNav{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:0;
-  width:min(900px,100%);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(15px);
-  border-top:1px solid #e7e0ed;
-  z-index:100;
-  padding-bottom:env(safe-area-inset-bottom);
+/* city */
+.city{
+ height:540px;border-radius:20px;border:3px solid #333;
+ position:relative;overflow:hidden;
+ background:
+ linear-gradient(90deg,transparent 47%,#aaa 47%,#aaa 53%,transparent 53%),
+ linear-gradient(transparent 47%,#aaa 47%,#aaa 53%,transparent 53%),
+ #b8d9a8;
+ touch-action:none
 }
-.navBtn{
-  padding:9px 3px;
-  background:transparent;
-  font-size:11px;
-  color:#786e80;
+.roadLine{position:absolute;background:#777}
+.cityPlace{
+ position:absolute;width:105px;padding:9px;border-radius:15px;
+ background:#fff;border:2px solid #555;text-align:center;
+ font-size:12px;font-weight:800;z-index:5
 }
-.navBtn.active{color:#7054e8;font-weight:800}
-.navIcon{font-size:21px;display:block}
+.cityPlace small{display:block;font-weight:400;color:#666;margin-top:2px}
+.cityPlayer{
+ position:absolute;width:38px;height:72px;z-index:20;
+ transform:translate(-50%,-90%);touch-action:none
+}
+.cityPlayer svg{width:100%;height:100%}
+.npc{
+ position:absolute;width:42px;height:76px;z-index:15;
+ transform:translate(-50%,-90%);touch-action:none
+}
+.npc svg{width:100%;height:100%}
+.speech{
+ position:absolute;z-index:40;background:#fff;border:1px solid #bbb;
+ border-radius:14px;padding:10px;box-shadow:0 4px 15px rgba(0,0,0,.18);
+ min-width:220px;max-width:280px;display:none
+}
+.speech.show{display:block}
 
-.houseGrid,.shopGrid,.jobGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-.item{
-  border:1px solid #e8e1ee;
-  border-radius:17px;
-  padding:13px;
-  background:#fff;
-}
-.item.selected{border:2px solid #7c5cff}
-.itemVisual{
-  height:100px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:50px;
-}
-.item button{margin-top:7px}
+/* skills */
+.skill{margin:12px 0}
+.skillTitle{display:flex;justify-content:space-between;font-weight:800;font-size:13px}
+.skillLevel{font-size:11px;color:#666}
+.skill button{margin-top:5px}
 
-.rel{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:10px;
-  background:#faf8fc;
-  border-radius:14px;
-  margin-bottom:8px;
-}
-.relAvatar{
-  width:44px;height:44px;
-  border-radius:50%;
-  background:#eee4ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+/* jobs */
+.jobCard{position:relative}
+.locked{opacity:.55}
+.jobLevel{font-weight:800}
+.req{font-size:12px;color:#666;margin-top:5px}
 
-.notice{
-  background:#f0ebff;
-  color:#5846a3;
-  border-radius:15px;
-  padding:12px;
-  font-size:13px;
-  margin-bottom:12px;
+/* modal */
+.modal{
+ position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;
+ display:none;align-items:flex-end;justify-content:center
 }
-
-@media(max-width:600px){
-  .previewInner{min-height:190px}
-  .previewAvatar{width:135px;height:180px}
-  .previewInfo{display:none}
-  .stats{gap:4px}
-  .stat{font-size:9px;padding:6px 2px}
-  .world{height:360px;margin:9px}
-  .houseInterior{height:390px;margin:9px}
-  .houseGrid,.shopGrid,.jobGrid{grid-template-columns:1fr 1fr}
-  .itemVisual{height:82px}
+.modal.show{display:flex}
+.modalBox{
+ width:min(600px,100%);background:#fff;border-radius:22px 22px 0 0;
+ padding:18px;max-height:85vh;overflow:auto
 }
+.modalTitle{font-size:20px;font-weight:800}
+.modalText{margin:10px 0;line-height:1.5}
 
-@media(min-width:700px){
-  .creatorBody{max-width:760px;margin:auto}
+/* toast */
+.toast{
+ position:fixed;left:50%;bottom:92px;transform:translateX(-50%);
+ background:#25232a;color:#fff;padding:11px 16px;border-radius:13px;
+ z-index:300;display:none;font-weight:700;font-size:13px
+}
+.toast.show{display:block}
+
+/* inventory */
+.invItem{
+ display:flex;justify-content:space-between;align-items:center;
+ border:1px solid #ddd;border-radius:14px;padding:10px;margin:7px 0
 }
 </style>
 </head>
@@ -469,1343 +218,1550 @@ input[type=text]:focus{border-color:#7c5cff}
 <body>
 <div class="app">
 
+<header class="top">
+ <div class="topline">
+  <div class="logo">🌸 Lili Life</div>
+  <div class="money">💰 <span id="moneyTop">500</span> €</div>
+ </div>
+</header>
+
 <!-- ACCUEIL -->
-<section id="home" class="screen active">
-  <div class="homeHero">
-    <div class="homeBox">
-      <div class="logo">Lili Life</div>
-      <div class="logoSub">Ta petite vie. Ton histoire. Ton monde.</div>
-      <button class="primary" onclick="startNewGame()">Créer ma vie</button>
-      <button class="secondary" onclick="loadGame()">Charger ma partie</button>
-    </div>
-  </div>
+<section id="screen-home" class="screen active">
+ <div class="card center">
+  <h1>Bienvenue dans Lili Life</h1>
+  <p>Crée ton personnage, construis ta maison et fais évoluer sa vie.</p>
+  <button class="btn primary" onclick="startNewGame()">✨ Nouveau personnage</button>
+  <button class="btn" onclick="loadGame()">💾 Charger la partie</button>
+ </div>
 </section>
 
-<!-- CREATEUR -->
-<section id="creator" class="screen">
-  <div class="previewSticky">
-    <div class="previewInner">
-      <div id="creatorPreview" class="previewAvatar"></div>
-      <div class="previewInfo">
-        <strong id="previewName">Lili</strong>
-        <span id="previewCategory">Femme</span>
-      </div>
-    </div>
-  </div>
+<!-- CREATION -->
+<section id="screen-create" class="screen">
+ <h2>Création du personnage</h2>
 
-  <div class="creatorBody">
+ <div class="creatorPreview">
+  <div class="previewName" id="previewName">Ton personnage</div>
+  <div class="previewAvatar" id="previewAvatar"></div>
+ </div>
 
-    <div class="creatorSection open">
-      <button class="creatorHeader" onclick="toggleSection(this)">
-        <span>👤 Identité</span><span>⌃</span>
-      </button>
-      <div class="creatorContent">
-        <input id="nameInput" type="text" maxlength="18" placeholder="Prénom">
-        <h3 style="margin:14px 0 8px">Personnage</h3>
-        <div id="genderChoices" class="choiceRow"></div>
-      </div>
-    </div>
+ <div class="card">
+  <input id="charName" class="nameInput" placeholder="Prénom du personnage" maxlength="20"
+         oninput="state.name=this.value||'Lili';renderPreview()">
+ </div>
 
-    <div class="creatorSection">
-      <button class="creatorHeader" onclick="toggleSection(this)">
-        <span>🙂 Visage</span><span>⌄</span>
-      </button>
-      <div class="creatorContent">
-        <div id="faceChoices" class="choiceRow"></div>
-      </div>
-    </div>
+ <details class="accordion" open>
+  <summary>👤 Catégorie</summary>
+  <div class="choiceRow" id="genderChoices"></div>
+ </details>
 
-    <div class="creatorSection">
-      <button class="creatorHeader" onclick="toggleSection(this)">
-        <span>💇 Cheveux</span><span>⌄</span>
-      </button>
-      <div class="creatorContent">
-        <div id="hairChoices" class="choiceRow"></div>
-      </div>
-    </div>
+ <details class="accordion" open>
+  <summary>🙂 Visage</summary>
+  <div class="choiceRow" id="faceChoices"></div>
+ </details>
 
-    <div class="creatorSection">
-      <button class="creatorHeader" onclick="toggleSection(this)">
-        <span>👕 Tenue</span><span>⌄</span>
-      </button>
-      <div class="creatorContent">
-        <div id="outfitChoices" class="choiceRow"></div>
-      </div>
-    </div>
+ <details class="accordion">
+  <summary>💇 Coiffure</summary>
+  <div class="choiceRow" id="hairChoices"></div>
+ </details>
 
-    <div class="creatorSection">
-      <button class="creatorHeader" onclick="toggleSection(this)">
-        <span>🎨 Couleurs</span><span>⌄</span>
-      </button>
-      <div class="creatorContent">
-        <h3 style="margin:4px 0 8px">Peau</h3>
-        <div id="skinChoices" class="choiceRow"></div>
+ <details class="accordion">
+  <summary>🎨 Couleur des cheveux</summary>
+  <div class="choiceRow" id="hairColorChoices"></div>
+ </details>
 
-        <h3 style="margin:12px 0 8px">Cheveux</h3>
-        <div id="hairColorChoices" class="choiceRow"></div>
+ <details class="accordion">
+  <summary>👕 Tenue</summary>
+  <div class="choiceRow" id="outfitChoices"></div>
+ </details>
 
-        <h3 style="margin:12px 0 8px">Tenue</h3>
-        <div id="outfitColorChoices" class="choiceRow"></div>
-      </div>
-    </div>
+ <details class="accordion">
+  <summary>🌈 Couleur de la tenue</summary>
+  <div class="choiceRow" id="outfitColorChoices"></div>
+ </details>
 
-  </div>
+ <details class="accordion">
+  <summary>🧴 Couleur de peau</summary>
+  <div class="choiceRow" id="skinChoices"></div>
+ </details>
 
-  <div class="stickyContinue">
-    <button class="primary" onclick="finishCreator()">Continuer →</button>
-  </div>
+ <button class="btn primary" style="width:100%;margin-top:12px" onclick="finishCreation()">
+   Continuer → 
+ </button>
 </section>
 
-<!-- VILLE -->
-<section id="cityCreate" class="screen">
-  <div class="top"><h1>Créer ta ville</h1></div>
-  <div class="container">
-    <div class="card">
-      <h2>🌆 Ta ville</h2>
-      <p>Donne un nom à la ville dans laquelle ton personnage va commencer sa nouvelle vie.</p>
-      <input id="cityNameInput" type="text" maxlength="24" placeholder="Ex. Lili City">
-      <button class="primary" onclick="finishCity()">Créer la ville</button>
-    </div>
-  </div>
+<!-- HOUSE CREATION -->
+<section id="screen-house-create" class="screen">
+ <h2>🏠 Choisis ta maison</h2>
+ <p class="muted">Ton capital de départ est de 500 €.</p>
+ <div id="houseChoices"></div>
 </section>
 
-<!-- MAISON CHOIX -->
-<section id="houseChoose" class="screen">
-  <div class="top"><h1>Choisir une maison</h1></div>
-  <div class="container">
-    <div class="notice">Tu commences avec 500 €. La petite maison coûte déjà 50 €.</div>
-    <div id="houseChoices" class="houseGrid"></div>
+<!-- GAME -->
+<section id="screen-game" class="screen">
+ <h2 id="gameTitle">Ma maison</h2>
+
+ <div class="card">
+  <div class="row" style="justify-content:space-between">
+   <strong>⏰ Jour <span id="dayNum">1</span> — <span id="timeText">08:00</span></strong>
+   <button class="btn small" onclick="advanceTime(30)">+ 30 min</button>
   </div>
+  <div id="needsGame"></div>
+ </div>
+
+ <div class="houseScene" id="houseScene">
+  <div class="houseFloor"></div>
+  <div class="wallTop"></div><div class="wallBottom"></div>
+  <div class="wallLeft"></div><div class="wallRight"></div>
+  <div class="door"></div>
+  <div id="furnitureLayer"></div>
+  <div class="playerHome" id="playerHome"></div>
+  <div class="furnitureMenu" id="furnitureMenu"></div>
+ </div>
+
+ <div class="card">
+  <h3>🛋️ Mes meubles</h3>
+  <div id="inventory"></div>
+ </div>
+
+ <div class="card">
+  <button class="btn primary" onclick="go('shop')">🛍️ Acheter des meubles</button>
+  <button class="btn" onclick="go('city')">🏙️ Aller en ville</button>
+ </div>
 </section>
 
-<!-- JEU -->
-<section id="game" class="screen">
-  <div class="gameHeader">
-    <div class="gameTitle">
-      <div>
-        <h2 id="gamePlayerName">Lili</h2>
-        <small id="gameClock">Jour 1 • 08:00</small>
-      </div>
-      <div class="money" id="gameMoney">500 €</div>
-    </div>
+<!-- CHARACTER -->
+<section id="screen-character" class="screen">
+ <h2>👤 Personnage</h2>
+ <div class="card center">
+  <div id="bigCharacter"></div>
+  <h3 id="characterName"></h3>
+  <div id="characterCategory" class="muted"></div>
+ </div>
 
-    <div class="stats" id="gameStats"></div>
-  </div>
+ <div class="card">
+  <h3>📊 Besoins</h3>
+  <div id="needsCharacter"></div>
+ </div>
 
-  <div class="houseInterior" id="houseInterior">
-    <div class="floor"></div>
-    <div class="roomLabel" id="roomLabel">Maison</div>
-    <div class="doorInterior"></div>
-    <div id="furnitureLayer"></div>
-    <div id="playerInterior" style="position:absolute;left:50%;top:62%;width:80px;height:145px;transform:translate(-50%,-50%);z-index:10;touch-action:none"></div>
-    <div id="rotateControl" class="rotateControl">
-      <button onclick="rotateSelected()">↻</button>
-      <button class="danger" onclick="deleteSelected()">×</button>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="card">
-      <h3>Actions</h3>
-      <button class="secondary" onclick="doAction('eat')">🍽️ Manger</button>
-      <button class="secondary" onclick="doAction('sleep')">😴 Dormir</button>
-      <button class="secondary" onclick="doAction('shower')">🚿 Prendre une douche</button>
-      <button class="secondary" onclick="doAction('fun')">🎮 Se divertir</button>
-      <button class="secondary" onclick="doAction('social')">💬 Téléphoner à un ami</button>
-    </div>
-  </div>
+ <div class="card">
+  <h3>🧠 Compétences</h3>
+  <div id="skillsCharacter"></div>
+ </div>
 </section>
 
-<!-- PERSONNAGE -->
-<section id="character" class="screen">
-  <div class="top"><h1>Personnage</h1></div>
-  <div class="container">
-    <div class="card">
-      <div id="characterLarge"></div>
-      <h2 id="characterName"></h2>
-      <p id="characterInfo"></p>
-    </div>
-    <div class="card">
-      <h3>Besoins</h3>
-      <div id="characterStats"></div>
-    </div>
-  </div>
+<!-- WORK -->
+<section id="screen-work" class="screen">
+ <h2>💼 Carrière</h2>
+
+ <div class="card">
+  <h3 id="currentJobTitle">Sans emploi</h3>
+  <p id="currentJobInfo"></p>
+  <div id="jobProgress"></div>
+ </div>
+
+ <div class="card">
+  <h3>🏢 Choisir une carrière</h3>
+  <div id="jobsList"></div>
+ </div>
 </section>
 
-<!-- TRAVAIL -->
-<section id="work" class="screen">
-  <div class="top"><h1>Travail</h1></div>
-  <div class="container">
-    <div class="card">
-      <h3>Ton emploi</h3>
-      <p id="currentJob">Sans emploi</p>
-      <button class="primary" onclick="workNow()">Travailler maintenant</button>
-    </div>
-    <div id="jobList" class="jobGrid"></div>
-  </div>
+<!-- SHOP -->
+<section id="screen-shop" class="screen">
+ <h2>🛍️ Boutique</h2>
+ <div class="card">
+  <p class="muted">Achète un meuble puis choisis quand et où le placer.</p>
+  <div id="shopList"></div>
+ </div>
 </section>
 
-<!-- BOUTIQUE -->
-<section id="shop" class="screen">
-  <div class="top"><h1>Boutique</h1></div>
-  <div class="container">
-    <div class="notice">Achète un meuble puis place-le librement dans ta maison. Fais-le glisser avec ton doigt.</div>
-    <div id="shopList" class="shopGrid"></div>
-  </div>
+<!-- CITY -->
+<section id="screen-city" class="screen">
+ <h2>🏙️ La ville</h2>
+ <div class="card">
+  <p class="muted">Déplace ton personnage et rencontre les habitants.</p>
+ </div>
+
+ <div class="city" id="city">
+   <div class="cityPlace" style="left:4%;top:8%" onclick="placeAction('Bibliothèque')">
+     📚 Bibliothèque<small>Apprendre</small>
+   </div>
+   <div class="cityPlace" style="right:4%;top:8%" onclick="placeAction('Travail')">
+     💼 Travail<small>Travailler</small>
+   </div>
+   <div class="cityPlace" style="left:4%;bottom:8%" onclick="placeAction('Supermarché')">
+     🛒 Supermarché<small>Acheter</small>
+   </div>
+   <div class="cityPlace" style="right:4%;bottom:8%" onclick="placeAction('Parc')">
+     🌳 Parc<small>Se détendre</small>
+   </div>
+   <div class="cityPlace" style="left:50%;top:5%;transform:translateX(-50%)" onclick="placeAction('Café')">
+     ☕ Café<small>Socialiser</small>
+   </div>
+
+   <div id="npcLayer"></div>
+   <div class="cityPlayer" id="cityPlayer"></div>
+   <div class="speech" id="speech"></div>
+ </div>
 </section>
 
-<!-- VILLE -->
-<section id="city" class="screen">
-  <div class="top"><h1 id="cityTitle">Ville</h1></div>
-  <div class="world" id="cityWorld">
-    <div class="street"></div>
-    <div class="cityHouse cityHouse2">
-      <div class="cityWindow"></div><div class="cityDoor"></div>
-    </div>
-    <div class="cityHouse cityHouse3">
-      <div class="cityWindow"></div><div class="cityDoor"></div>
-    </div>
-    <div class="cityHouse cityHouse4">
-      <div class="cityWindow"></div><div class="cityDoor"></div>
-    </div>
+<nav class="nav" id="nav">
+ <button onclick="go('game')"><span class="ico">🏠</span>Maison</button>
+ <button onclick="go('character')"><span class="ico">👤</span>Personnage</button>
+ <button onclick="go('work')"><span class="ico">💼</span>Travail</button>
+ <button onclick="go('shop')"><span class="ico">🛍️</span>Boutique</button>
+ <button onclick="go('city')"><span class="ico">🏙️</span>Ville</button>
+</nav>
 
-    <div class="place work">💼</div>
-    <div class="place shop">🛍️</div>
-    <div class="place park">🌳</div>
-
-    <div id="playerCity" class="playerCity"></div>
-  </div>
-  <div class="container">
-    <div class="card">
-      <h3>Explorer la ville</h3>
-      <p>Fais glisser ton personnage avec ton doigt.</p>
-    </div>
-  </div>
-</section>
-
-<!-- REGLAGES -->
-<section id="settings" class="screen">
-  <div class="top"><h1>Réglages</h1></div>
-  <div class="container">
-    <div class="card">
-      <h3>Partie</h3>
-      <button class="secondary" onclick="saveGame()">💾 Sauvegarder</button>
-      <button class="secondary danger" onclick="resetGame()">Réinitialiser la partie</button>
-    </div>
-  </div>
-</section>
-
-<div id="bottomNav" class="bottomNav" style="display:none">
-  <button class="navBtn active" onclick="showScreen('game',this)">
-    <span class="navIcon">🏠</span>Maison
-  </button>
-  <button class="navBtn" onclick="showScreen('character',this)">
-    <span class="navIcon">👤</span>Personnage
-  </button>
-  <button class="navBtn" onclick="showScreen('work',this)">
-    <span class="navIcon">💼</span>Travail
-  </button>
-  <button class="navBtn" onclick="showScreen('shop',this)">
-    <span class="navIcon">🛍️</span>Boutique
-  </button>
-  <button class="navBtn" onclick="showScreen('city',this)">
-    <span class="navIcon">🌆</span>Ville
-  </button>
 </div>
 
+<div class="modal" id="modal">
+ <div class="modalBox">
+  <div class="modalTitle" id="modalTitle"></div>
+  <div class="modalText" id="modalText"></div>
+  <div id="modalButtons"></div>
+ </div>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 /* =========================================================
-   LILI LIFE 6.1
+   LILI LIFE 6.2
    ========================================================= */
 
-const state = {
-  name:"Lili",
-  gender:"woman",
-  face:0,
-  hair:0,
-  outfit:0,
-  skin:2,
-  hairColor:"#3b241c",
-  outfitColor:"#8b6cff",
+const skinColors=[
+ "#f6d1b1","#e8b18d","#c98b63","#9b6848","#70442f"
+];
 
-  city:"Lili City",
-  money:500,
-  day:1,
-  minutes:480,
+const hairColors=[
+ "#1f1714","#4b2d20","#8b552f","#c48a42","#d9c4a1","#6f7884"
+];
 
-  house:null,
-  job:null,
+const outfitColors=[
+ "#d86b72","#6699cc","#73a86b","#c38bd4","#e4a94b","#555","#f1f1f1"
+];
 
-  needs:{
-    hunger:80,
-    energy:80,
-    hygiene:80,
-    fun:80,
-    social:80
-  },
-
-  furniture:[],
-  selectedFurniture:null,
-
-  player:{
-    x:50,
-    y:62
-  },
-
-  cityPlayer:{
-    x:50,
-    y:55
-  },
-
-  relations:[
-    {name:"Emma",level:55},
-    {name:"Noah",level:42},
-    {name:"Zoé",level:68}
-  ]
+const categories={
+ femme:{
+   label:"Femme",
+   faces:["F1","F2","F3","F4","F5","F6"],
+   hairs:["Femme 1","Femme 2","Femme 3","Femme 4","Femme 5","Femme 6"],
+   outfits:["Femme chic","Décontractée","Robe","Sport","Élégante"]
+ },
+ homme:{
+   label:"Homme",
+   faces:["H1","H2","H3","H4","H5","H6"],
+   hairs:["Homme 1","Homme 2","Homme 3","Homme 4","Homme 5","Homme 6"],
+   outfits:["Casual","Chemise","T-shirt","Sport","Élégant"]
+ },
+ fille:{
+   label:"Enfant fille",
+   faces:["G1","G2","G3","G4","G5","G6"],
+   hairs:["Fille 1","Fille 2","Fille 3","Fille 4","Fille 5","Fille 6"],
+   outfits:["Robe enfant","Casual","Sport","Jupe","Pull"]
+ },
+ garcon:{
+   label:"Enfant garçon",
+   faces:["B1","B2","B3","B4","B5","B6"],
+   hairs:["Garçon 1","Garçon 2","Garçon 3","Garçon 4","Garçon 5","Garçon 6"],
+   outfits:["T-shirt","Sweat","Casual","Sport","Chemise"]
+ }
 };
 
-const genderData = [
-  {id:"woman",label:"Femme"},
-  {id:"man",label:"Homme"},
-  {id:"girl",label:"Fille"},
-  {id:"boy",label:"Garçon"}
+const houses=[
+ {id:"square",name:"Petite maison carrée",price:50,space:1},
+ {id:"rectangle",name:"Maison rectangulaire",price:120,space:2},
+ {id:"apartment",name:"Appartement",price:150,space:2},
+ {id:"L",name:"Maison en L",price:220,space:3},
+ {id:"extension",name:"Maison avec extension",price:290,space:4},
+ {id:"floor",name:"Maison à étage",price:350,space:5}
 ];
 
-const faceData = [
-  {shape:"oval",eyes:0,nose:0,mouth:0},
-  {shape:"round",eyes:1,nose:1,mouth:1},
-  {shape:"square",eyes:2,nose:2,mouth:2},
-  {shape:"heart",eyes:3,nose:0,mouth:2},
-  {shape:"long",eyes:1,nose:2,mouth:0},
-  {shape:"soft",eyes:2,nose:1,mouth:3}
+const furnitureTypes=[
+ {id:"sofa1",name:"Canapé classique",emoji:"🛋️",price:100},
+ {id:"sofa2",name:"Canapé moderne",emoji:"🛋️",price:150},
+ {id:"bed1",name:"Lit simple",emoji:"🛏️",price:90},
+ {id:"bed2",name:"Grand lit",emoji:"🛏️",price:180},
+ {id:"tv1",name:"Télévision",emoji:"📺",price:120},
+ {id:"shower",name:"Douche",emoji:"🚿",price:110},
+ {id:"kitchen",name:"Cuisine",emoji:"🍳",price:200},
+ {id:"table",name:"Table",emoji:"🍽️",price:70},
+ {id:"chair",name:"Chaise",emoji:"🪑",price:35},
+ {id:"plant",name:"Plante",emoji:"🌿",price:25},
+ {id:"storage",name:"Rangement",emoji:"🗄️",price:80},
+ {id:"lamp",name:"Lampe",emoji:"💡",price:30},
+ {id:"decoration",name:"Décoration",emoji:"🖼️",price:40}
 ];
 
-const hairStyles = [
-  "short",
-  "bob",
-  "long",
-  "ponytail",
-  "curly",
-  "bun"
+const skills={
+ programmation:{name:"Programmation",icon:"💻"},
+ logique:{name:"Logique",icon:"🧠"},
+ creativite:{name:"Créativité",icon:"🎨"},
+ reputation:{name:"Réputation",icon:"⭐"},
+ medecine:{name:"Médecine",icon:"🩺"},
+ precision:{name:"Précision",icon:"🎯"},
+ pedagogie:{name:"Pédagogie",icon:"📚"},
+ connaissance:{name:"Connaissances",icon:"📖"},
+ cuisine:{name:"Cuisine",icon:"🍳"},
+ rapidite:{name:"Rapidité",icon:"⚡"},
+ design:{name:"Design",icon:"🖌️"},
+ eloquence:{name:"Éloquence",icon:"🗣️"},
+ architecture:{name:"Architecture",icon:"🏗️"},
+ chant:{name:"Chant",icon:"🎤"},
+ celebrite:{name:"Célébrité",icon:"🌟"},
+ animaux:{name:"Animaux",icon:"🐶"},
+ ecriture:{name:"Écriture",icon:"✍️"},
+ investigation:{name:"Investigation",icon:"🔎"},
+ charisme:{name:"Charisme",icon:"✨"}
+};
+
+const jobs=[
+ {
+  id:"dev",name:"Développeur",icon:"💻",
+  stats:["programmation","logique","creativite","reputation"],
+  levels:[
+   ["Stagiaire",60,{}],
+   ["Développeur junior",100,{programmation:20}],
+   ["Développeur",150,{programmation:40,logique:30}],
+   ["Développeur senior",220,{programmation:60,logique:50,reputation:30}],
+   ["Expert",300,{programmation:80,logique:70,reputation:50}]
+  ]
+ },
+ {
+  id:"doctor",name:"Médecin",icon:"🩺",
+  stats:["medecine","logique","precision","reputation"],
+  levels:[
+   ["Interne",80,{}],
+   ["Médecin junior",130,{medecine:25}],
+   ["Médecin",190,{medecine:45,logique:35}],
+   ["Médecin senior",270,{medecine:65,precision:50}],
+   ["Chef de service",380,{medecine:85,precision:75,reputation:55}]
+  ]
+ },
+ {
+  id:"teacher",name:"Professeur",icon:"👩‍🏫",
+  stats:["pedagogie","connaissance","patience","reputation"],
+  levels:[
+   ["Assistant",60,{}],
+   ["Professeur junior",100,{pedagogie:20}],
+   ["Professeur",145,{pedagogie:45,connaissance:30}],
+   ["Professeur confirmé",210,{pedagogie:65,connaissance:55}],
+   ["Professeur expert",290,{pedagogie:85,reputation:55}]
+  ]
+ },
+ {
+  id:"cook",name:"Cuisinier",icon:"👨‍🍳",
+  stats:["cuisine","creativite","rapidite","reputation"],
+  levels:[
+   ["Commis",55,{}],
+   ["Cuisinier junior",90,{cuisine:20}],
+   ["Cuisinier",135,{cuisine:45,rapidite:30}],
+   ["Chef de partie",190,{cuisine:65,creativite:45}],
+   ["Grand chef",280,{cuisine:85,creativite:70,reputation:50}]
+  ]
+ },
+ {
+  id:"designer",name:"Graphiste",icon:"🎨",
+  stats:["creativite","design","programmation","reputation"],
+  levels:[
+   ["Assistant",60,{}],
+   ["Graphiste junior",100,{design:20}],
+   ["Graphiste",150,{design:45,creativite:30}],
+   ["Directeur artistique",220,{design:65,creativite:60}],
+   ["Directeur créatif",310,{design:85,creativite:80,reputation:55}]
+  ]
+ },
+ {
+  id:"lawyer",name:"Avocat",icon:"⚖️",
+  stats:["eloquence","logique","connaissance","reputation"],
+  levels:[
+   ["Assistant juridique",70,{}],
+   ["Avocat junior",115,{eloquence:25}],
+   ["Avocat",170,{eloquence:45,logique:35}],
+   ["Avocat senior",245,{eloquence:65,connaissance:55}],
+   ["Associé",350,{eloquence:85,reputation:60}]
+  ]
+ },
+ {
+  id:"architect",name:"Architecte",icon:"🏗️",
+  stats:["architecture","creativite","logique","precision"],
+  levels:[
+   ["Assistant",65,{}],
+   ["Architecte junior",110,{architecture:20}],
+   ["Architecte",160,{architecture:45,logique:35}],
+   ["Architecte senior",230,{architecture:65,precision:50}],
+   ["Architecte renommé",330,{architecture:85,creativite:70}]
+  ]
+ },
+ {
+  id:"singer",name:"Chanteur",icon:"🎤",
+  stats:["chant","creativite","charisme","celebrite"],
+  levels:[
+   ["Artiste débutant",50,{}],
+   ["Chanteur local",90,{chant:20}],
+   ["Chanteur",140,{chant:45,charisme:30}],
+   ["Star",220,{chant:65,charisme:55}],
+   ["Superstar",350,{chant:85,celebrite:70}]
+  ]
+ },
+ {
+  id:"vet",name:"Vétérinaire",icon:"🐶",
+  stats:["animaux","medecine","precision","reputation"],
+  levels:[
+   ["Assistant vétérinaire",60,{}],
+   ["Vétérinaire junior",105,{animaux:20}],
+   ["Vétérinaire",155,{animaux:45,medecine:30}],
+   ["Vétérinaire senior",225,{animaux:65,precision:50}],
+   ["Spécialiste",320,{animaux:85,medecine:70,reputation:50}]
+  ]
+ },
+ {
+  id:"journalist",name:"Journaliste",icon:"📰",
+  stats:["ecriture","investigation","eloquence","reputation"],
+  levels:[
+   ["Stagiaire",55,{}],
+   ["Journaliste junior",95,{ecriture:20}],
+   ["Journaliste",145,{ecriture:45,investigation:30}],
+   ["Grand reporter",220,{investigation:65,eloquence:50}],
+   ["Rédacteur en chef",320,{ecriture:85,reputation:65}]
+  ]
+ }
 ];
 
-const hairLabels = [
-  "Court","Carré","Long","Queue","Bouclé","Chignon"
+const npcs=[
+ {id:1,name:"Emma",category:"femme",x:34,y:34,friend:0},
+ {id:2,name:"Lucas",category:"homme",x:65,y:37,friend:0},
+ {id:3,name:"Zoé",category:"fille",x:37,y:67,friend:0},
+ {id:4,name:"Noah",category:"garcon",x:67,y:68,friend:0}
 ];
 
-const outfitStyles = [
-  "dress",
-  "tshirt",
-  "hoodie",
-  "jacket",
-  "top"
-];
-
-const outfitLabels = [
-  "Robe","T-shirt","Sweat","Veste","Haut"
-];
-
-const skinColors = [
-  "#f7d5bd",
-  "#e9b994",
-  "#c98e67",
-  "#9a6245",
-  "#70422f",
-  "#4c2d23"
-];
-
-const hairColors = [
-  "#17120f",
-  "#3b241c",
-  "#6b3f25",
-  "#a86d39",
-  "#d6a74e",
-  "#b94b43",
-  "#6f5a91"
-];
-
-const outfitColors = [
-  "#8b6cff",
-  "#ef7184",
-  "#4c91e8",
-  "#54b887",
-  "#f2a64a",
-  "#4e596d",
-  "#e7d46b"
-];
-
-const houseData = [
-  {id:"square",name:"Petite maison",price:50,w:1,h:1,visual:"▣"},
-  {id:"rectangle",name:"Maison rectangle",price:120,w:1.35,h:1,visual:"▭"},
-  {id:"L",name:"Maison en L",price:220,w:1.3,h:1.25,visual:"⌞"},
-  {id:"apartment",name:"Appartement",price:150,w:1,h:1.2,visual:"▥"},
-  {id:"floor",name:"Maison à étage",price:350,w:1.15,h:1.3,visual:"▤"},
-  {id:"extension",name:"Maison avec extension",price:290,w:1.45,h:1.15,visual:"⌗"}
-];
-
-const jobs = [
-  {id:"cafe",name:"Serveuse",salary:65,energy:12},
-  {id:"shop",name:"Vendeuse",salary:75,energy:15},
-  {id:"office",name:"Employée de bureau",salary:95,energy:18},
-  {id:"designer",name:"Designer",salary:120,energy:20}
-];
-
-const furnitureCatalog = [
-  {id:"sofa1",name:"Canapé classique",price:80,icon:"🛋️"},
-  {id:"sofa2",name:"Canapé moderne",price:130,icon:"🛋️"},
-  {id:"bed1",name:"Lit simple",price:90,icon:"🛏️"},
-  {id:"bed2",name:"Grand lit",price:180,icon:"🛏️"},
-  {id:"tv1",name:"Petite TV",price:100,icon:"📺"},
-  {id:"tv2",name:"Grande TV",price:220,icon:"📺"},
-  {id:"shower1",name:"Douche",price:120,icon:"🚿"},
-  {id:"kitchen1",name:"Cuisine",price:250,icon:"🍳"},
-  {id:"table1",name:"Table",price:75,icon:"🪑"},
-  {id:"plant1",name:"Plante",price:35,icon:"🪴"},
-  {id:"storage1",name:"Rangement",price:65,icon:"🗄️"},
-  {id:"decor1",name:"Décoration",price:45,icon:"🖼️"}
-];
-
-/* =========================
-   SVG AVATAR
-   ========================= */
-
-function avatarSVG(opts={}, mode="full"){
-  const g = opts.gender || state.gender;
-  const face = faceData[opts.face ?? state.face];
-  const skin = skinColors[opts.skin ?? state.skin];
-  const hairColor = opts.hairColor || state.hairColor;
-  const outfitColor = opts.outfitColor || state.outfitColor;
-  const hair = opts.hair ?? state.hair;
-  const outfit = opts.outfit ?? state.outfit;
-
-  const child = g==="girl" || g==="boy";
-
-  const headW = child ? 72 : 76;
-  const headH = child ? 82 : 88;
-  const headX = 100-headW/2;
-  const headY = 42;
-
-  let headPath="M100 42 C72 42 62 61 64 88 C66 115 81 130 100 130 C119 130 134 115 136 88 C138 61 128 42 100 42Z";
-
-  if(face.shape==="round")
-    headPath="M100 42 C70 42 60 61 62 86 C63 112 78 128 100 130 C122 128 137 112 138 86 C140 61 130 42 100 42Z";
-  if(face.shape==="square")
-    headPath="M72 48 Q100 39 128 48 L134 94 Q131 121 100 132 Q69 121 66 94Z";
-  if(face.shape==="heart")
-    headPath="M100 45 C80 39 62 52 65 78 C67 102 80 119 100 132 C120 119 133 102 135 78 C138 52 120 39 100 45Z";
-  if(face.shape==="long")
-    headPath="M100 40 C75 40 66 59 68 91 C70 119 83 136 100 138 C117 136 130 119 132 91 C134 59 125 40 100 40Z";
-
-  const eyeSets = [
-    `<ellipse cx="84" cy="83" rx="7" ry="5" fill="white"/><ellipse cx="116" cy="83" rx="7" ry="5" fill="white"/><circle cx="84" cy="83" r="3" fill="#38251f"/><circle cx="116" cy="83" r="3" fill="#38251f"/>`,
-    `<ellipse cx="84" cy="84" rx="6" ry="7" fill="white"/><ellipse cx="116" cy="84" rx="6" ry="7" fill="white"/><circle cx="84" cy="84" r="3.2" fill="#38251f"/><circle cx="116" cy="84" r="3.2" fill="#38251f"/>`,
-    `<path d="M76 83 Q84 76 92 83" fill="none" stroke="#30211d" stroke-width="3"/><path d="M108 83 Q116 76 124 83" fill="none" stroke="#30211d" stroke-width="3"/><circle cx="84" cy="84" r="3" fill="#30211d"/><circle cx="116" cy="84" r="3" fill="#30211d"/>`,
-    `<ellipse cx="84" cy="84" rx="8" ry="6" fill="white"/><ellipse cx="116" cy="84" rx="8" ry="6" fill="white"/><circle cx="84" cy="84" r="3" fill="#30211d"/><circle cx="116" cy="84" r="3" fill="#30211d"/>`
-  ];
-
-  const eyebrowSets = [
-    `<path d="M77 73 Q84 69 91 73" fill="none" stroke="#54362a" stroke-width="3" stroke-linecap="round"/><path d="M109 73 Q116 69 123 73" fill="none" stroke="#54362a" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M77 72 Q84 68 91 70" fill="none" stroke="#54362a" stroke-width="3" stroke-linecap="round"/><path d="M109 70 Q116 68 123 72" fill="none" stroke="#54362a" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M77 75 Q84 71 91 74" fill="none" stroke="#54362a" stroke-width="2.5" stroke-linecap="round"/><path d="M109 74 Q116 71 123 75" fill="none" stroke="#54362a" stroke-width="2.5" stroke-linecap="round"/>`,
-    `<path d="M77 71 Q84 67 91 72" fill="none" stroke="#54362a" stroke-width="3.5" stroke-linecap="round"/><path d="M109 72 Q116 67 123 71" fill="none" stroke="#54362a" stroke-width="3.5" stroke-linecap="round"/>`
-  ];
-
-  const noses = [
-    `<path d="M100 84 Q96 98 99 101 Q102 103 106 100" fill="none" stroke="#9d644d" stroke-width="2.5" stroke-linecap="round"/>`,
-    `<path d="M100 84 Q100 96 96 101 Q100 104 105 101" fill="none" stroke="#9d644d" stroke-width="2.5" stroke-linecap="round"/>`,
-    `<path d="M100 83 L98 99 Q100 102 104 101" fill="none" stroke="#9d644d" stroke-width="2.5" stroke-linecap="round"/>`
-  ];
-
-  const mouths = [
-    `<path d="M93 112 Q100 115 107 112" fill="none" stroke="#9a4f58" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M93 112 Q100 118 107 112" fill="none" stroke="#9a4f58" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M94 113 Q100 110 106 113" fill="none" stroke="#9a4f58" stroke-width="3" stroke-linecap="round"/>`,
-    `<path d="M94 113 Q100 117 106 113" fill="none" stroke="#9a4f58" stroke-width="2.5" stroke-linecap="round"/>`
-  ];
-
-  const hairFront = getHairSVG(hair,hairColor,g);
-
-  const outfitSVG = getOutfitSVG(outfit,outfitColor,g);
-
-  const bodyScale = child ? "translate(0 12) scale(.88)" : "";
-
-  return `
-  <svg viewBox="0 0 200 360" xmlns="http://www.w3.org/2000/svg"
-       style="width:100%;height:100%;display:block">
-    <g transform="${bodyScale}">
-      <!-- jambes -->
-      <path d="M82 275 L82 330 Q82 339 90 339 L98 339 L98 275Z" fill="#d7b5a4"/>
-      <path d="M102 275 L102 339 L110 339 Q118 339 118 330 L118 275Z" fill="#d7b5a4"/>
-
-      <!-- chaussures -->
-      <path d="M78 329 Q89 325 99 331 L99 342 L76 342 Q72 338 78 329Z" fill="#34313c"/>
-      <path d="M101 331 Q111 325 122 329 Q128 338 122 342 L101 342Z" fill="#34313c"/>
-
-      <!-- corps / tenue -->
-      ${outfitSVG}
-
-      <!-- cou -->
-      <path d="M89 120 L89 151 Q100 158 111 151 L111 120Z" fill="${skin}"/>
-
-      <!-- oreilles -->
-      <ellipse cx="65" cy="86" rx="8" ry="12" fill="${skin}"/>
-      <ellipse cx="135" cy="86" rx="8" ry="12" fill="${skin}"/>
-
-      <!-- tête -->
-      <path d="${headPath}" fill="${skin}"/>
-
-      <!-- oreilles internes -->
-      <path d="M64 83 Q67 77 69 84" fill="none" stroke="#b97b60" stroke-width="2"/>
-      <path d="M136 83 Q133 77 131 84" fill="none" stroke="#b97b60" stroke-width="2"/>
-
-      <!-- sourcils -->
-      ${eyebrowSets[face.eyes]}
-
-      <!-- yeux -->
-      ${eyeSets[face.eyes]}
-
-      <!-- nez -->
-      ${noses[face.nose]}
-
-      <!-- bouche -->
-      ${mouths[face.mouth]}
-
-      <!-- cheveux -->
-      ${hairFront}
-    </g>
-  </svg>`;
-}
-
-function getHairSVG(index,color,g){
-  const adult = !(g==="girl" || g==="boy");
-
-  const styles = [
-    `
-    <path d="M64 76 Q58 42 78 30 Q100 15 122 30 Q143 43 136 77 L126 67 Q123 46 100 43 Q77 46 73 67Z" fill="${color}"/>
-    <path d="M65 67 Q60 84 67 99 Q72 104 75 96 L75 65Z" fill="${color}"/>
-    <path d="M135 67 Q140 84 133 99 Q128 104 125 96 L125 65Z" fill="${color}"/>
-    `,
-    `
-    <path d="M63 77 Q59 43 78 29 Q101 14 123 30 Q141 45 136 79 L129 65 Q124 47 100 44 Q76 47 70 65Z" fill="${color}"/>
-    <path d="M67 61 L67 104 Q72 113 78 102 L78 60Z" fill="${color}"/>
-    <path d="M133 61 L133 104 Q128 113 122 102 L122 60Z" fill="${color}"/>
-    `,
-    `
-    <path d="M62 75 Q57 40 79 27 Q102 13 124 29 Q143 43 137 77 L128 62 Q124 44 100 42 Q76 45 70 64Z" fill="${color}"/>
-    <path d="M67 66 Q57 113 72 151 Q80 160 84 148 L80 70Z" fill="${color}"/>
-    <path d="M133 66 Q143 113 128 151 Q120 160 116 148 L120 70Z" fill="${color}"/>
-    `,
-    `
-    <path d="M64 76 Q58 42 78 29 Q101 14 123 30 Q141 45 136 78 L128 64 Q123 45 100 43 Q76 46 70 65Z" fill="${color}"/>
-    <path d="M126 47 Q145 47 148 62 Q149 74 137 80 L126 74Z" fill="${color}"/>
-    <path d="M141 59 Q150 73 140 91" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round"/>
-    `,
-    `
-    <path d="M63 77 Q56 44 78 29 Q101 13 124 30 Q143 44 136 78
-             Q130 63 122 61 Q119 48 109 55 Q101 44 94 56
-             Q84 46 79 60 Q70 60 63 77Z" fill="${color}"/>
-    <circle cx="72" cy="56" r="11" fill="${color}"/>
-    <circle cx="128" cy="56" r="11" fill="${color}"/>
-    `,
-    `
-    <path d="M64 77 Q58 42 78 30 Q101 14 123 30 Q142 44 136 78
-             Q128 55 100 46 Q72 55 64 77Z" fill="${color}"/>
-    <circle cx="100" cy="29" r="18" fill="${color}"/>
-    <circle cx="89" cy="31" r="12" fill="${color}"/>
-    <circle cx="111" cy="31" r="12" fill="${color}"/>
-    `
-  ];
-
-  return styles[index % styles.length];
-}
-
-function getOutfitSVG(index,color,g){
-  const child = g==="girl" || g==="boy";
-
-  if(index===0){
-    return `
-      <path d="M75 145 Q100 157 125 145 L139 185 L126 207 L121 276 L79 276 L74 207 L61 185Z" fill="${color}"/>
-      <path d="M72 150 Q62 170 57 199 L70 204 L81 174Z" fill="${color}"/>
-      <path d="M128 150 Q138 170 143 199 L130 204 L119 174Z" fill="${color}"/>
-      <path d="M78 275 L122 275 L125 300 L75 300Z" fill="${color}"/>
-    `;
-  }
-
-  if(index===1){
-    return `
-      <path d="M78 145 L122 145 L130 210 L122 276 L78 276 L70 210Z" fill="${color}"/>
-      <path d="M78 151 L63 165 L55 205 L70 208 L82 178Z" fill="${color}"/>
-      <path d="M122 151 L137 165 L145 205 L130 208 L118 178Z" fill="${color}"/>
-      <path d="M78 275 L99 275 L99 300 L78 300Z" fill="#4d596c"/>
-      <path d="M101 275 L122 275 L122 300 L101 300Z" fill="#4d596c"/>
-    `;
-  }
-
-  if(index===2){
-    return `
-      <path d="M75 145 L125 145 L139 276 L61 276Z" fill="${color}"/>
-      <path d="M75 150 L58 170 L52 210 L67 214 L82 178Z" fill="${color}"/>
-      <path d="M125 150 L142 170 L148 210 L133 214 L118 178Z" fill="${color}"/>
-      <path d="M61 276 L139 276 L132 302 L68 302Z" fill="${color}"/>
-    `;
-  }
-
-  if(index===3){
-    return `
-      <path d="M76 145 L124 145 L130 276 L70 276Z" fill="${color}"/>
-      <path d="M77 151 L61 167 L55 207 L70 211 L83 179Z" fill="${color}"/>
-      <path d="M123 151 L139 167 L145 207 L130 211 L117 179Z" fill="${color}"/>
-      <path d="M82 151 L100 167 L118 151 L123 178 L77 178Z" fill="#ffffff" opacity=".35"/>
-      <path d="M76 276 L97 276 L97 302 L76 302Z" fill="#33343d"/>
-      <path d="M103 276 L124 276 L124 302 L103 302Z" fill="#33343d"/>
-    `;
-  }
-
-  return `
-    <path d="M78 145 L122 145 L130 276 L70 276 L72 180Z" fill="${color}"/>
-    <path d="M78 151 L61 170 L55 207 L70 211 L82 180Z" fill="${color}"/>
-    <path d="M122 151 L139 170 L145 207 L130 211 L118 180Z" fill="${color}"/>
-    <path d="M78 276 L99 276 L99 302 L78 302Z" fill="#4d596c"/>
-    <path d="M101 276 L122 276 L122 302 L101 302Z" fill="#4d596c"/>
-  `;
-}
-
-/* =========================
-   CREATEUR
-   ========================= */
-
-function startNewGame(){
-  Object.assign(state,{
-    name:"Lili",
-    gender:"woman",
-    face:0,
-    hair:0,
-    outfit:0,
-    skin:2,
-    hairColor:"#3b241c",
-    outfitColor:"#8b6cff",
-    city:"Lili City",
-    money:500,
-    day:1,
-    minutes:480,
-    house:null,
-    job:null,
-    furniture:[],
-    selectedFurniture:null,
-    player:{x:50,y:62},
-    cityPlayer:{x:50,y:55},
-    needs:{hunger:80,energy:80,hygiene:80,fun:80,social:80}
-  });
-
-  document.getElementById("nameInput").value="Lili";
-  showScreen("creator");
-  renderCreator();
-}
-
-function toggleSection(btn){
-  btn.parentElement.classList.toggle("open");
-}
-
-function renderCreator(){
-  document.getElementById("creatorPreview").innerHTML=avatarSVG({}, "full");
-  document.getElementById("previewName").textContent=state.name || "Lili";
-  document.getElementById("previewCategory").textContent=
-    genderData.find(x=>x.id===state.gender)?.label || "";
-
-  renderGenderChoices();
-  renderFaceChoices();
-  renderHairChoices();
-  renderOutfitChoices();
-  renderColorChoices();
-}
-
-function renderGenderChoices(){
-  const box=document.getElementById("genderChoices");
-  box.innerHTML="";
-  genderData.forEach((g,i)=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.gender===g.id?"selected":"");
-    d.innerHTML=`
-      <div class="faceMini">${avatarSVG({gender:g.id,face:0,hair:0,outfit:0},"mini")}</div>
-      <div class="choiceLabel">${g.label}</div>`;
-    d.onclick=()=>{
-      state.gender=g.id;
-      state.face=0;
-      state.hair=0;
-      state.outfit=0;
-      renderCreator();
-    };
-    box.appendChild(d);
-  });
-}
-
-function renderFaceChoices(){
-  const box=document.getElementById("faceChoices");
-  box.innerHTML="";
-  faceData.forEach((f,i)=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.face===i?"selected":"");
-    d.innerHTML=`
-      <div class="faceMini">${avatarSVG({face:i,hair:0,outfit:0},"mini")}</div>
-      <div class="choiceLabel">Visage ${i+1}</div>`;
-    d.onclick=()=>{
-      state.face=i;
-      updatePreviewOnly();
-      renderFaceChoices();
-    };
-    box.appendChild(d);
-  });
-}
-
-function renderHairChoices(){
-  const box=document.getElementById("hairChoices");
-  box.innerHTML="";
-  hairStyles.forEach((h,i)=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.hair===i?"selected":"");
-    d.innerHTML=`
-      <div class="faceMini">${avatarSVG({hair:i},"mini")}</div>
-      <div class="choiceLabel">${hairLabels[i]}</div>`;
-    d.onclick=()=>{
-      state.hair=i;
-      updatePreviewOnly();
-      renderHairChoices();
-    };
-    box.appendChild(d);
-  });
-}
-
-function renderOutfitChoices(){
-  const box=document.getElementById("outfitChoices");
-  box.innerHTML="";
-  outfitStyles.forEach((o,i)=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.outfit===i?"selected":"");
-    d.innerHTML=`
-      <div class="faceMini">${avatarSVG({outfit:i},"mini")}</div>
-      <div class="choiceLabel">${outfitLabels[i]}</div>`;
-    d.onclick=()=>{
-      state.outfit=i;
-      updatePreviewOnly();
-      renderOutfitChoices();
-    };
-    box.appendChild(d);
-  });
-}
-
-function renderColorChoices(){
-  const skin=document.getElementById("skinChoices");
-  const hc=document.getElementById("hairColorChoices");
-  const oc=document.getElementById("outfitColorChoices");
-
-  skin.innerHTML="";
-  hairColors.forEach(c=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.hairColor===c?"selected":"");
-    d.innerHTML=`<div class="colorDot" style="background:${c}"></div>`;
-    d.onclick=()=>{
-      state.hairColor=c;
-      updatePreviewOnly();
-      renderColorChoices();
-    };
-    hc.appendChild(d);
-  });
-
-  hairColors.forEach(c=>{
-    // handled below
-  });
-
-  skinColors.forEach(c=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.skin===skinColors.indexOf(c)?"selected":"");
-    d.innerHTML=`<div class="colorDot" style="background:${c}"></div>`;
-    d.onclick=()=>{
-      state.skin=skinColors.indexOf(c);
-      updatePreviewOnly();
-      renderColorChoices();
-    };
-    skin.appendChild(d);
-  });
-
-  oc.innerHTML="";
-  outfitColors.forEach(c=>{
-    const d=document.createElement("button");
-    d.className="choice "+(state.outfitColor===c?"selected":"");
-    d.innerHTML=`<div class="colorDot" style="background:${c}"></div>`;
-    d.onclick=()=>{
-      state.outfitColor=c;
-      updatePreviewOnly();
-      renderColorChoices();
-    };
-    oc.appendChild(d);
-  });
-}
-
-function updatePreviewOnly(){
-  const input=document.getElementById("nameInput");
-  if(input) state.name=input.value.trim() || "Lili";
-  document.getElementById("creatorPreview").innerHTML=avatarSVG({});
-  document.getElementById("previewName").textContent=state.name;
-  document.getElementById("previewCategory").textContent=
-    genderData.find(x=>x.id===state.gender)?.label || "";
-}
-
-document.addEventListener("input",e=>{
-  if(e.target.id==="nameInput") updatePreviewOnly();
-});
-
-function finishCreator(){
-  state.name=document.getElementById("nameInput").value.trim() || "Lili";
-  showScreen("cityCreate");
-}
-
-/* =========================
-   VILLE / MAISON
-   ========================= */
-
-function finishCity(){
-  state.city=document.getElementById("cityNameInput").value.trim() || "Lili City";
-  renderHouseChoices();
-  showScreen("houseChoose");
-}
-
-function renderHouseChoices(){
-  const box=document.getElementById("houseChoices");
-  box.innerHTML="";
-
-  houseData.forEach(h=>{
-    const d=document.createElement("div");
-    d.className="item";
-    d.innerHTML=`
-      <div class="itemVisual">${h.visual}</div>
-      <h3>${h.name}</h3>
-      <p>${h.price} €</p>
-      <small>${h.id==="L"?"Espace en L":h.id==="apartment"?"Appartement":"Surface adaptée à la forme"}</small>
-      <button class="primary" onclick="buyHouse('${h.id}')">
-        Choisir
-      </button>`;
-    box.appendChild(d);
-  });
-}
-
-function buyHouse(id){
-  const h=houseData.find(x=>x.id===id);
-  if(!h)return;
-  if(state.money<h.price){
-    alert("Tu n'as pas assez d'argent.");
-    return;
-  }
-
-  state.money-=h.price;
-  state.house=id;
-  saveGame();
-  initGame();
-  showScreen("game");
-}
-
-/* =========================
-   ECRANS
-   ========================= */
-
-function showScreen(id,navButton=null){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  const target=document.getElementById(id);
-  if(target)target.classList.add("active");
-
-  const nav=document.getElementById("bottomNav");
-  const gameScreens=["game","character","work","shop","city","settings"];
-  nav.style.display=gameScreens.includes(id) ? "grid" : "none";
-
-  document.querySelectorAll(".navBtn").forEach(b=>b.classList.remove("active"));
-
-  if(navButton)navButton.classList.add("active");
-  else{
-    const map={game:0,character:1,work:2,shop:3,city:4};
-    if(map[id]!==undefined)
-      document.querySelectorAll(".navBtn")[map[id]].classList.add("active");
-  }
-
-  if(id==="game")updateGame();
-  if(id==="character")renderCharacter();
-  if(id==="work")renderJobs();
-  if(id==="shop")renderShop();
-  if(id==="city")renderCity();
-}
-
-/* =========================
-   JEU
-   ========================= */
-
-function initGame(){
-  document.getElementById("roomLabel").textContent=
-    houseData.find(h=>h.id===state.house)?.name || "Maison";
-
-  document.getElementById("cityTitle").textContent=state.city;
-  renderPlayer();
-  renderFurniture();
-  renderCity();
-  updateGame();
-  saveGame();
-}
-
-function updateGame(){
-  document.getElementById("gamePlayerName").textContent=state.name;
-  document.getElementById("gameMoney").textContent=Math.floor(state.money)+" €";
-  document.getElementById("gameClock").textContent=
-    `Jour ${state.day} • ${formatTime(state.minutes)}`;
-
-  renderStats(document.getElementById("gameStats"));
-  renderPlayer();
-}
-
-function renderStats(box){
-  const labels=[
-    ["hunger","Faim"],
-    ["energy","Énergie"],
-    ["hygiene","Hygiène"],
-    ["fun","Fun"],
-    ["social","Social"]
-  ];
-
-  box.innerHTML=labels.map(x=>`
-    <div class="stat">
-      <div>${x[1]}</div>
-      <div class="bar"><i style="width:${state.needs[x[0]]}%"></i></div>
-      <small>${Math.round(state.needs[x[0]])}</small>
-    </div>
-  `).join("");
-}
-
-function formatTime(m){
-  const h=Math.floor(m/60)%24;
-  const min=m%60;
-  return String(h).padStart(2,"0")+":"+String(min).padStart(2,"0");
-}
-
-function advance(minutes){
-  state.minutes+=minutes;
-
-  while(state.minutes>=1440){
-    state.minutes-=1440;
-    state.day++;
-  }
-
-  const loss={
-    hunger:minutes*.018,
-    energy:minutes*.012,
-    hygiene:minutes*.008,
-    fun:minutes*.007,
-    social:minutes*.006
-  };
-
-  Object.keys(loss).forEach(k=>{
-    state.needs[k]=Math.max(0,state.needs[k]-loss[k]);
-  });
-
-  updateGame();
-  saveGame();
-}
-
-function doAction(type){
-  const effects={
-    eat:{hunger:28,time:25},
-    sleep:{energy:55,time:120},
-    shower:{hygiene:38,time:25},
-    fun:{fun:30,time:35},
-    social:{social:28,time:30}
-  };
-
-  const e=effects[type];
-  if(!e)return;
-
-  Object.keys(e).forEach(k=>{
-    if(k!=="time")
-      state.needs[k]=Math.min(100,state.needs[k]+e[k]);
-  });
-
-  advance(e.time);
-}
-
-setInterval(()=>{
-  if(document.getElementById("game").classList.contains("active")){
-    advance(5);
-  }
-},10000);
-
-/* =========================
-   PERSONNAGE
-   ========================= */
-
-function renderCharacter(){
-  document.getElementById("characterName").textContent=state.name;
-  document.getElementById("characterInfo").textContent=
-    `${genderData.find(x=>x.id===state.gender)?.label || ""} • ${state.city}`;
-
-  document.getElementById("characterLarge").style.height="330px";
-  document.getElementById("characterLarge").innerHTML=avatarSVG({});
-
-  renderStats(document.getElementById("characterStats"));
-}
-
-/* =========================
-   TRAVAIL
-   ========================= */
-
-function renderJobs(){
-  document.getElementById("currentJob").textContent=
-    state.job ? jobs.find(j=>j.id===state.job)?.name : "Sans emploi";
-
-  const box=document.getElementById("jobList");
-  box.innerHTML="";
-
-  jobs.forEach(j=>{
-    const d=document.createElement("div");
-    d.className="item "+(state.job===j.id?"selected":"");
-    d.innerHTML=`
-      <div class="itemVisual">💼</div>
-      <h3>${j.name}</h3>
-      <p>${j.salary} € / journée</p>
-      <small>Énergie -${j.energy}</small>
-      <button class="primary" onclick="chooseJob('${j.id}')">
-        ${state.job===j.id?"Sélectionné":"Choisir"}
-      </button>`;
-    box.appendChild(d);
-  });
-}
-
-function chooseJob(id){
-  state.job=id;
-  renderJobs();
-  saveGame();
-}
-
-function workNow(){
-  if(!state.job){
-    alert("Choisis d'abord un métier.");
-    return;
-  }
-
-  const j=jobs.find(x=>x.id===state.job);
-
-  state.money+=j.salary;
-  state.needs.energy=Math.max(0,state.needs.energy-j.energy);
-  state.needs.fun=Math.max(0,state.needs.fun-8);
-  advance(240);
-
-  alert(`Tu as gagné ${j.salary} € !`);
-}
-
-/* =========================
-   BOUTIQUE
-   ========================= */
-
-function renderShop(){
-  const box=document.getElementById("shopList");
-  box.innerHTML="";
-
-  furnitureCatalog.forEach(f=>{
-    const d=document.createElement("div");
-    d.className="item";
-    d.innerHTML=`
-      <div class="itemVisual">${f.icon}</div>
-      <h3>${f.name}</h3>
-      <p>${f.price} €</p>
-      <button class="primary" onclick="buyFurniture('${f.id}')">Acheter</button>`;
-    box.appendChild(d);
-  });
-}
-
-function buyFurniture(id){
-  const f=furnitureCatalog.find(x=>x.id===id);
-  if(!f)return;
-
-  if(state.money<f.price){
-    alert("Tu n'as pas assez d'argent.");
-    return;
-  }
-
-  state.money-=f.price;
-
-  const item={
-    uid:"f"+Date.now()+Math.random().toString(16).slice(2),
-    catalogId:f.id,
-    x:50,
-    y:50,
-    rotation:0
-  };
-
-  state.furniture.push(item);
-  state.selectedFurniture=item.uid;
-
-  renderFurniture();
-  updateGame();
-  saveGame();
-}
-
-/* =========================
-   MEUBLES
-   ========================= */
-
-function renderFurniture(){
-  const layer=document.getElementById("furnitureLayer");
-  if(!layer)return;
-
-  layer.innerHTML="";
-
-  state.furniture.forEach(item=>{
-    const f=furnitureCatalog.find(x=>x.id===item.catalogId);
-    if(!f)return;
-
-    const el=document.createElement("div");
-    el.className="furniture "+(state.selectedFurniture===item.uid?"selected":"");
-    el.textContent=f.icon;
-    el.dataset.id=item.uid;
-    el.style.left=item.x+"%";
-    el.style.top=item.y+"%";
-    el.style.transform=`translate(-50%,-50%) rotate(${item.rotation}deg)`;
-
-    el.addEventListener("pointerdown",startFurnitureDrag);
-
-    layer.appendChild(el);
-  });
-}
-
-let furnitureDrag=null;
-
-function startFurnitureDrag(e){
-  e.preventDefault();
-  const id=e.currentTarget.dataset.id;
-  const item=state.furniture.find(x=>String(x.uid)===String(id));
-  if(!item)return;
-
-  state.selectedFurniture=id;
-  furnitureDrag={
-    item,
-    startX:e.clientX,
-    startY:e.clientY,
-    originalX:item.x,
-    originalY:item.y
-  };
-
-  e.currentTarget.setPointerCapture(e.pointerId);
-  renderFurniture();
-
-  e.currentTarget.addEventListener("pointermove",moveFurniture);
-  e.currentTarget.addEventListener("pointerup",endFurniture,{once:true});
-}
-
-function moveFurniture(e){
-  if(!furnitureDrag)return;
-
-  const world=document.getElementById("houseInterior");
-  const rect=world.getBoundingClientRect();
-
-  const dx=(e.clientX-furnitureDrag.startX)/rect.width*100;
-  const dy=(e.clientY-furnitureDrag.startY)/rect.height*100;
-
-  furnitureDrag.item.x=Math.max(5,Math.min(95,furnitureDrag.originalX+dx));
-  furnitureDrag.item.y=Math.max(5,Math.min(95,furnitureDrag.originalY+dy));
-
-  renderFurniture();
-}
-
-function endFurniture(){
-  furnitureDrag=null;
-  saveGame();
-}
-
-function rotateSelected(){
-  if(!state.selectedFurniture)return;
-
-  const item=state.furniture.find(x=>x.uid===state.selectedFurniture);
-  if(!item)return;
-
-  item.rotation=(item.rotation+90)%360;
-  renderFurniture();
-  saveGame();
-}
-
-function deleteSelected(){
-  if(!state.selectedFurniture)return;
-
-  state.furniture=state.furniture.filter(x=>x.uid!==state.selectedFurniture);
-  state.selectedFurniture=null;
-
-  renderFurniture();
-  saveGame();
-}
-
-/* =========================
-   PERSONNAGE DANS MAISON
-   ========================= */
-
-function renderPlayer(){
-  const el=document.getElementById("playerInterior");
-  if(!el)return;
-
-  el.innerHTML=avatarSVG({});
-
-  el.style.left=state.player.x+"%";
-  el.style.top=state.player.y+"%";
-}
-
-/* déplacement personnage dans maison */
-let playerDrag=null;
-
-document.addEventListener("DOMContentLoaded",()=>{
-  const p=document.getElementById("playerInterior");
-
-  p.addEventListener("pointerdown",e=>{
-    e.preventDefault();
-    playerDrag={
-      startX:e.clientX,
-      startY:e.clientY,
-      x:state.player.x,
-      y:state.player.y
-    };
-    p.setPointerCapture(e.pointerId);
-  });
-
-  p.addEventListener("pointermove",e=>{
-    if(!playerDrag)return;
-
-    const world=document.getElementById("houseInterior");
-    const r=world.getBoundingClientRect();
-
-    state.player.x=Math.max(8,Math.min(92,
-      playerDrag.x+(e.clientX-playerDrag.startX)/r.width*100));
-
-    state.player.y=Math.max(15,Math.min(90,
-      playerDrag.y+(e.clientY-playerDrag.startY)/r.height*100));
-
-    renderPlayer();
-  });
-
-  p.addEventListener("pointerup",()=>{
-    playerDrag=null;
-    saveGame();
-  });
-});
-
-/* =========================
-   VILLE
-   ========================= */
-
-function renderCity(){
-  const p=document.getElementById("playerCity");
-  if(!p)return;
-
-  p.innerHTML=avatarSVG({});
-  p.style.left=state.cityPlayer.x+"%";
-  p.style.top=state.cityPlayer.y+"%";
-}
-
-/* déplacement ville */
-let cityDrag=null;
-
-document.addEventListener("DOMContentLoaded",()=>{
-  const p=document.getElementById("playerCity");
-
-  p.addEventListener("pointerdown",e=>{
-    e.preventDefault();
-
-    cityDrag={
-      startX:e.clientX,
-      startY:e.clientY,
-      x:state.cityPlayer.x,
-      y:state.cityPlayer.y
-    };
-
-    p.setPointerCapture(e.pointerId);
-  });
-
-  p.addEventListener("pointermove",e=>{
-    if(!cityDrag)return;
-
-    const world=document.getElementById("cityWorld");
-    const r=world.getBoundingClientRect();
-
-    state.cityPlayer.x=Math.max(5,Math.min(95,
-      cityDrag.x+(e.clientX-cityDrag.startX)/r.width*100));
-
-    state.cityPlayer.y=Math.max(10,Math.min(90,
-      cityDrag.y+(e.clientY-cityDrag.startY)/r.height*100));
-
-    renderCity();
-  });
-
-  p.addEventListener("pointerup",()=>{
-    cityDrag=null;
-    saveGame();
-  });
-});
-
-/* =========================
-   SAUVEGARDE
-   ========================= */
+let state={
+ name:"Lili",
+ category:"femme",
+ face:0,
+ hair:0,
+ hairColor:0,
+ outfit:0,
+ outfitColor:0,
+ skin:0,
+ money:500,
+ house:null,
+ day:1,
+ minutes:480,
+ needs:{hunger:80,energy:90,hygiene:80,fun:70,social:65},
+ skills:{},
+ job:null,
+ jobLevel:0,
+ furniture:[],
+ inventory:[],
+ player:{x:50,y:62},
+ relations:{},
+ npcPositions:{}
+};
+
+Object.keys(skills).forEach(k=>state.skills[k]=0);
+npcs.forEach(n=>state.relations[n.id]=0);
+
+let selectedFurnitureId=null;
+let draggingFurniture=null;
+let draggingPlayer=null;
+let draggingCityPlayer=null;
+let dragOffset={x:0,y:0};
 
 function saveGame(){
-  localStorage.setItem("liliLifeSave",JSON.stringify(state));
+ localStorage.setItem("liliLife62",JSON.stringify(state));
+ showToast("💾 Partie sauvegardée");
 }
 
 function loadGame(){
-  const data=localStorage.getItem("liliLifeSave");
-
-  if(!data){
-    alert("Aucune partie sauvegardée.");
-    return;
-  }
-
-  try{
-    const saved=JSON.parse(data);
-
-    Object.assign(state,saved);
-
-    state.needs=Object.assign({
-      hunger:80,
-      energy:80,
-      hygiene:80,
-      fun:80,
-      social:80
-    },saved.needs||{});
-
-    if(!state.furniture)state.furniture=[];
-
-    if(!state.house){
-      showScreen("creator");
-      renderCreator();
-    }else{
-      initGame();
-      showScreen("game");
-    }
-  }catch(e){
-    alert("Impossible de charger la partie.");
-  }
+ const raw=localStorage.getItem("liliLife62");
+ if(!raw){showToast("Aucune sauvegarde trouvée");return}
+ try{
+  state=JSON.parse(raw);
+  if(!state.skills)state.skills={};
+  Object.keys(skills).forEach(k=>{if(typeof state.skills[k]!=="number")state.skills[k]=0});
+  renderAll();
+  go("game");
+  showToast("💾 Partie chargée");
+ }catch(e){showToast("Sauvegarde invalide")}
 }
 
-function resetGame(){
-  if(!confirm("Supprimer définitivement la partie ?"))return;
-
-  localStorage.removeItem("liliLifeSave");
-  location.reload();
+function startNewGame(){
+ state={
+  name:"Lili",category:"femme",face:0,hair:0,hairColor:0,outfit:0,outfitColor:0,skin:0,
+  money:500,house:null,day:1,minutes:480,
+  needs:{hunger:80,energy:90,hygiene:80,fun:70,social:65},
+  skills:{},job:null,jobLevel:0,furniture:[],inventory:[],
+  player:{x:50,y:62},relations:{},npcPositions:{}
+ };
+ Object.keys(skills).forEach(k=>state.skills[k]=0);
+ npcs.forEach(n=>state.relations[n.id]=0);
+ go("create");
+ renderCreator();
 }
 
-/* =========================
-   INITIALISATION
-   ========================= */
+function go(screen){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ const el=document.getElementById("screen-"+screen);
+ if(el)el.classList.add("active");
+ window.scrollTo(0,0);
 
+ if(screen==="create")renderCreator();
+ if(screen==="game")renderGame();
+ if(screen==="character")renderCharacter();
+ if(screen==="work")renderWork();
+ if(screen==="shop")renderShop();
+ if(screen==="city")renderCity();
+}
+
+function moneyTop(){
+ document.getElementById("moneyTop").textContent=Math.round(state.money);
+}
+
+function showToast(text){
+ const t=document.getElementById("toast");
+ t.textContent=text;t.classList.add("show");
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>t.classList.remove("show"),1800);
+}
+
+function openModal(title,text,buttons){
+ document.getElementById("modalTitle").textContent=title;
+ document.getElementById("modalText").innerHTML=text;
+ const box=document.getElementById("modalButtons");
+ box.innerHTML="";
+ buttons.forEach(b=>{
+  const btn=document.createElement("button");
+  btn.className="btn "+(b.class||"");
+  btn.textContent=b.text;
+  btn.onclick=()=>{closeModal();b.action()};
+  box.appendChild(btn);
+ });
+ document.getElementById("modal").classList.add("show");
+}
+
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+
+/* =========================================================
+   AVATAR SVG
+   ========================================================= */
+
+function avatarSVG(opts={},mini=false){
+ const c=opts.category||state.category;
+ const face=opts.face??state.face;
+ const hair=opts.hair??state.hair;
+ const hc=hairColors[opts.hairColor??state.hairColor];
+ const oc=outfitColors[opts.outfitColor??state.outfitColor];
+ const skin=skinColors[opts.skin??state.skin];
+ const outfit=opts.outfit??state.outfit;
+
+ const child=(c==="fille"||c==="garcon");
+ const female=(c==="femme"||c==="fille");
+
+ const W=160,H=270;
+ const headY=child?72:65;
+ const headRx=child?38:40;
+ const headRy=child?46:49;
+ const shoulderY=child?132:145;
+ const hipY=child?205:220;
+
+ let hairSvg="";
+ let faceShape="";
+
+ /* Visages distincts */
+ if(face%6===0){
+  faceShape=`<ellipse cx="80" cy="${headY}" rx="${headRx}" ry="${headRy}" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
+ }else if(face%6===1){
+  faceShape=`<path d="M42 ${headY-15} Q44 ${headY-52} 80 ${headY-52} Q116 ${headY-52} 118 ${headY-15} L113 ${headY+25} Q104 ${headY+52} 80 ${headY+53} Q56 ${headY+52} 47 ${headY+25}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
+ }else if(face%6===2){
+  faceShape=`<path d="M43 ${headY-12} Q45 ${headY-49} 80 ${headY-49} Q115 ${headY-49} 117 ${headY-12} Q115 ${headY+31} 80 ${headY+49} Q45 ${headY+31} 43 ${headY-12}" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
+ }else if(face%6===3){
+  faceShape=`<path d="M45 ${headY-18} Q50 ${headY-51} 80 ${headY-51} Q110 ${headY-51} 115 ${headY-18} L109 ${headY+29} Q100 ${headY+48} 80 ${headY+51} Q60 ${headY+48} 51 ${headY+29}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
+ }else if(face%6===4){
+  faceShape=`<path d="M44 ${headY-13} Q46 ${headY-50} 80 ${headY-50} Q114 ${headY-50} 116 ${headY-13} L111 ${headY+22} Q103 ${headY+49} 80 ${headY+51} Q57 ${headY+49} 49 ${headY+22}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
+ }else{
+  faceShape=`<path d="M47 ${headY-20} Q53 ${headY-50} 80 ${headY-50} Q107 ${headY-50} 113 ${headY-20} L110 ${headY+25} Q100 ${headY+50} 80 ${headY+52} Q60 ${headY+50} 50 ${headY+25}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
+ }
+
+ /* Oreilles */
+ const ears=`
+ <ellipse cx="42" cy="${headY+2}" rx="6" ry="10" fill="${skin}"/>
+ <ellipse cx="118" cy="${headY+2}" rx="6" ry="10" fill="${skin}"/>`;
+
+ /* Visage : yeux, sourcils, nez, bouche */
+ const eyeY=headY-2;
+ let eyeScale=female?1:0.95;
+ if(child)eyeScale=1.08;
+
+ const eyes=`
+ <path d="M57 ${eyeY-6} Q66 ${eyeY-11} 73 ${eyeY-5} Q66 ${eyeY+1} 57 ${eyeY-4}" fill="#fff" stroke="#5d4438" stroke-width="1"/>
+ <path d="M87 ${eyeY-5} Q94 ${eyeY-11} 103 ${eyeY-6} Q103 ${eyeY+1} 94 ${eyeY-4}" fill="#fff" stroke="#5d4438" stroke-width="1"/>
+ <circle cx="66" cy="${eyeY-3}" r="${4*eyeScale}" fill="#5a392d"/>
+ <circle cx="94" cy="${eyeY-3}" r="${4*eyeScale}" fill="#5a392d"/>
+ <circle cx="67" cy="${eyeY-4}" r="1.3" fill="#fff"/>
+ <circle cx="95" cy="${eyeY-4}" r="1.3" fill="#fff"/>`;
+
+ const brows=`
+ <path d="M56 ${eyeY-12} Q65 ${eyeY-17} 74 ${eyeY-13}" fill="none" stroke="#4a3027" stroke-width="3" stroke-linecap="round"/>
+ <path d="M86 ${eyeY-13} Q95 ${eyeY-17} 104 ${eyeY-12}" fill="none" stroke="#4a3027" stroke-width="3" stroke-linecap="round"/>`;
+
+ const nose=`
+ <path d="M80 ${headY+1} Q75 ${headY+17} 79 ${headY+20} Q84 ${headY+21} 86 ${headY+18}"
+ fill="none" stroke="#8f604a" stroke-width="1.5" stroke-linecap="round"/>`;
+
+ const mouthY=headY+30;
+ const mouth=female
+ ? `<path d="M70 ${mouthY} Q80 ${mouthY+6} 90 ${mouthY}" fill="none" stroke="#9b5360" stroke-width="2.4" stroke-linecap="round"/>`
+ : `<path d="M71 ${mouthY+1} Q80 ${mouthY+5} 89 ${mouthY+1}" fill="none" stroke="#7b4b45" stroke-width="2" stroke-linecap="round"/>`;
+
+ /* cheveux : chaque catégorie a une famille de coiffures différente */
+ if(c==="femme"){
+   const styles=[
+    `<path d="M40 63 Q43 15 80 14 Q117 15 120 63 L111 50 Q102 38 80 38 Q58 38 49 50Z" fill="${hc}"/>
+     <path d="M45 45 Q35 70 43 120 Q49 133 57 128 L55 65Z" fill="${hc}"/>
+     <path d="M115 45 Q125 70 117 120 Q111 133 103 128 L105 65Z" fill="${hc}"/>`,
+    `<path d="M40 67 Q42 15 80 14 Q118 15 120 67 Q108 45 96 42 Q80 35 64 42 Q51 46 40 67Z" fill="${hc}"/>
+     <path d="M44 53 Q58 46 68 43 L63 76 Q54 86 45 80Z" fill="${hc}"/>`,
+    `<path d="M39 67 Q42 12 80 12 Q118 12 121 67 Q108 42 80 39 Q52 42 39 67Z" fill="${hc}"/>
+     <path d="M43 63 Q34 105 47 130" fill="none" stroke="${hc}" stroke-width="14" stroke-linecap="round"/>
+     <path d="M117 63 Q126 105 113 130" fill="none" stroke="${hc}" stroke-width="14" stroke-linecap="round"/>`,
+    `<path d="M40 63 Q45 10 80 12 Q115 10 120 63 Q105 41 80 41 Q55 41 40 63Z" fill="${hc}"/>
+     <path d="M57 42 Q53 58 55 72" fill="none" stroke="${hc}" stroke-width="10"/>
+     <path d="M103 42 Q107 58 105 72" fill="none" stroke="${hc}" stroke-width="10"/>`,
+    `<path d="M40 62 Q42 10 80 12 Q118 10 120 62 Q105 39 80 39 Q55 39 40 62Z" fill="${hc}"/>
+     <circle cx="42" cy="35" r="18" fill="${hc}"/>
+     <circle cx="118" cy="35" r="18" fill="${hc}"/>`,
+    `<path d="M39 62 Q43 10 80 11 Q117 10 121 62 Q106 38 80 38 Q54 38 39 62Z" fill="${hc}"/>
+     <path d="M58 43 Q51 54 51 76" stroke="${hc}" stroke-width="12" fill="none" stroke-linecap="round"/>
+     <path d="M102 43 Q109 54 109 76" stroke="${hc}" stroke-width="12" fill="none" stroke-linecap="round"/>
+     <circle cx="80" cy="15" r="10" fill="${hc}"/>`
+   ];
+   hairSvg=styles[hair%6];
+ }else if(c==="homme"){
+   const styles=[
+    `<path d="M41 58 Q43 17 80 16 Q117 17 119 58 Q106 43 80 43 Q54 43 41 58Z" fill="${hc}"/>`,
+    `<path d="M40 58 Q42 11 80 13 Q118 11 120 58 Q108 41 80 40 Q52 41 40 58Z" fill="${hc}"/>
+     <path d="M49 26 L62 15 L71 34Z" fill="${hc}"/>`,
+    `<path d="M40 61 Q44 16 80 14 Q116 16 120 61 Q110 43 80 42 Q50 43 40 61Z" fill="${hc}"/>
+     <path d="M47 45 Q42 57 45 69" stroke="${hc}" stroke-width="9" fill="none"/>`,
+    `<path d="M41 58 Q43 14 80 14 Q117 14 119 58 Q108 43 80 42 Q52 43 41 58Z" fill="${hc}"/>
+     <path d="M52 23 Q64 5 80 18 Q95 3 108 23" fill="none" stroke="${hc}" stroke-width="10"/>`,
+    `<path d="M41 58 Q44 16 80 14 Q116 16 119 58 Q106 45 80 43 Q54 45 41 58Z" fill="${hc}"/>
+     <path d="M45 37 Q54 21 62 18" fill="none" stroke="${hc}" stroke-width="11"/>`,
+    `<path d="M40 58 Q44 13 80 14 Q116 13 120 58 Q107 41 80 41 Q53 41 40 58Z" fill="${hc}"/>
+     <path d="M52 28 Q67 15 80 30 Q93 15 108 28" fill="none" stroke="${hc}" stroke-width="8"/>`
+   ];
+   hairSvg=styles[hair%6];
+ }else if(c==="fille"){
+   const styles=[
+    `<path d="M42 61 Q45 18 80 17 Q115 18 118 61 Q105 43 80 42 Q55 43 42 61Z" fill="${hc}"/>
+     <path d="M48 50 Q40 85 48 108" stroke="${hc}" stroke-width="13" fill="none"/>
+     <path d="M112 50 Q120 85 112 108" stroke="${hc}" stroke-width="13" fill="none"/>`,
+    `<path d="M42 61 Q45 17 80 17 Q115 17 118 61 Q104 43 80 42 Q56 43 42 61Z" fill="${hc}"/>
+     <circle cx="47" cy="27" r="16" fill="${hc}"/><circle cx="113" cy="27" r="16" fill="${hc}"/>`,
+    `<path d="M42 60 Q45 16 80 17 Q115 16 118 60 Q104 43 80 42 Q56 43 42 60Z" fill="${hc}"/>
+     <path d="M48 50 Q43 75 49 92" stroke="${hc}" stroke-width="10" fill="none"/>
+     <path d="M112 50 Q117 75 111 92" stroke="${hc}" stroke-width="10" fill="none"/>`,
+    `<path d="M42 61 Q45 17 80 17 Q115 17 118 61 Q104 43 80 42 Q56 43 42 61Z" fill="${hc}"/>
+     <path d="M61 43 Q59 60 61 74" stroke="${hc}" stroke-width="12" fill="none"/>`,
+    `<path d="M42 60 Q45 17 80 17 Q115 17 118 60 Q104 43 80 42 Q56 43 42 60Z" fill="${hc}"/>
+     <path d="M45 45 Q35 75 48 103" stroke="${hc}" stroke-width="11" fill="none"/>
+     <path d="M115 45 Q125 75 112 103" stroke="${hc}" stroke-width="11" fill="none"/>`,
+    `<path d="M42 61 Q45 17 80 17 Q115 17 118 61 Q104 43 80 42 Q56 43 42 61Z" fill="${hc}"/>
+     <circle cx="47" cy="22" r="13" fill="${hc}"/><circle cx="113" cy="22" r="13" fill="${hc}"/>
+     <path d="M80 17 Q75 4 68 17" stroke="${hc}" stroke-width="8" fill="none"/>`
+   ];
+   hairSvg=styles[hair%6];
+ }else{
+   const styles=[
+    `<path d="M42 59 Q45 17 80 17 Q115 17 118 59 Q105 42 80 41 Q55 42 42 59Z" fill="${hc}"/>`,
+    `<path d="M42 59 Q45 14 80 16 Q115 14 118 59 Q105 40 80 40 Q55 40 42 59Z" fill="${hc}"/>
+     <path d="M51 22 L65 14 L70 33Z" fill="${hc}"/>`,
+    `<path d="M42 60 Q45 17 80 17 Q115 17 118 60 Q105 42 80 41 Q55 42 42 60Z" fill="${hc}"/>
+     <path d="M47 46 Q42 69 48 84" stroke="${hc}" stroke-width="9" fill="none"/>`,
+    `<path d="M42 59 Q45 16 80 16 Q115 16 118 59 Q105 41 80 41 Q55 41 42 59Z" fill="${hc}"/>
+     <path d="M56 19 Q69 7 80 20 Q92 7 105 19" fill="none" stroke="${hc}" stroke-width="9"/>`,
+    `<path d="M42 59 Q45 17 80 17 Q115 17 118 59 Q105 42 80 41 Q55 42 42 59Z" fill="${hc}"/>
+     <path d="M46 42 Q40 66 46 83" stroke="${hc}" stroke-width="11" fill="none"/>
+     <path d="M114 42 Q120 66 114 83" stroke="${hc}" stroke-width="11" fill="none"/>`,
+    `<path d="M42 59 Q45 16 80 16 Q115 16 118 59 Q105 41 80 41 Q55 41 42 59Z" fill="${hc}"/>
+     <path d="M53 25 Q67 12 80 27 Q93 12 107 25" fill="none" stroke="${hc}" stroke-width="8"/>`
+   ];
+   hairSvg=styles[hair%6];
+ }
+
+ /* corps */
+ let outfitSvg="";
+ const y=shoulderY;
+
+ if(outfit%5===0){
+   outfitSvg=`
+    <path d="M55 ${y} Q80 ${y-10} 105 ${y} L112 ${hipY} L48 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
+    <path d="M60 ${y+5} L52 ${hipY}" stroke="#fff" stroke-width="2" opacity=".35"/>
+   `;
+ }else if(outfit%5===1){
+   outfitSvg=`
+    <path d="M54 ${y} Q80 ${y-9} 106 ${y} L109 ${hipY} L51 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
+    <path d="M62 ${y+5} L98 ${y+5}" stroke="#fff" stroke-width="2" opacity=".4"/>
+   `;
+ }else if(outfit%5===2){
+   outfitSvg=`
+    <path d="M55 ${y} Q80 ${y-9} 105 ${y} L119 ${hipY+18} L41 ${hipY+18}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
+   `;
+ }else if(outfit%5===3){
+   outfitSvg=`
+    <path d="M54 ${y} Q80 ${y-10} 106 ${y} L110 ${hipY} L50 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
+    <path d="M57 ${y+10} L104 ${y+10}" stroke="#fff" stroke-width="3" opacity=".35"/>
+   `;
+ }else{
+   outfitSvg=`
+    <path d="M54 ${y} Q80 ${y-10} 106 ${y} L110 ${hipY} L50 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
+    <path d="M80 ${y} L80 ${hipY}" stroke="#fff" stroke-width="1.5" opacity=".3"/>
+   `;
+ }
+
+ /* Bras : peau visibles et séparés du vêtement */
+ const armY=child?205:225;
+ const armW=child?10:13;
+
+ const arms=`
+   <path d="M55 ${y+8} Q45 ${y+30} 43 ${armY-20} Q42 ${armY} 48 ${armY+4}
+            Q55 ${armY+5} 57 ${armY-13} L67 ${y+13}Z"
+         fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
+   <path d="M105 ${y+8} Q115 ${y+30} 117 ${armY-20} Q118 ${armY} 112 ${armY+4}
+            Q105 ${armY+5} 103 ${armY-13} L93 ${y+13}Z"
+         fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
+   <ellipse cx="48" cy="${armY+2}" rx="${armW*.62}" ry="${armW*.72}" fill="${skin}"/>
+   <ellipse cx="112" cy="${armY+2}" rx="${armW*.62}" ry="${armW*.72}" fill="${skin}"/>
+   <path d="M44 ${armY+3} Q48 ${armY+7} 52 ${armY+2}" fill="none" stroke="#8d624e" stroke-width="1"/>
+   <path d="M108 ${armY+2} Q112 ${armY+7} 116 ${armY+3}" fill="none" stroke="#8d624e" stroke-width="1"/>
+ `;
+
+ const neck=`
+  <rect x="72" y="${shoulderY-8}" width="16" height="24" rx="7" fill="${skin}"/>
+ `;
+
+ const legs=`
+  <path d="M57 ${hipY} L75 ${hipY} L73 ${child?244:255} L54 ${child?244:255}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
+  <path d="M85 ${hipY} L103 ${hipY} L106 ${child?244:255} L87 ${child?244:255}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
+  <path d="M51 ${child?241:252} Q63 ${child?236:252} 75 ${child?243:258} L74 ${child?251:266} L48 ${child?251:266}Z" fill="#333"/>
+  <path d="M86 ${child?243:258} Q98 ${child?236:252} 110 ${child?241:252} L112 ${child?251:266} L86 ${child?251:266}Z" fill="#333"/>
+ `;
+
+ const svg=`
+ <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+   ${legs}
+   ${arms}
+   ${outfitSvg}
+   ${neck}
+   ${ears}
+   ${faceShape}
+   ${brows}
+   ${eyes}
+   ${nose}
+   ${mouth}
+   ${hairSvg}
+ </svg>`;
+
+ return svg;
+}
+
+/* =========================================================
+   CREATOR
+   ========================================================= */
+
+function renderCreator(){
+ document.getElementById("charName").value=state.name||"";
+ renderGenderChoices();
+ renderFaceChoices();
+ renderHairChoices();
+ renderHairColorChoices();
+ renderOutfitChoices();
+ renderOutfitColorChoices();
+ renderSkinChoices();
+ renderPreview();
+}
+
+function renderGenderChoices(){
+ const box=document.getElementById("genderChoices");
+ box.innerHTML="";
+ Object.entries(categories).forEach(([id,c])=>{
+  const d=document.createElement("div");
+  d.className="choice "+(state.category===id?"selected":"");
+  d.innerHTML=`<div style="height:72px">${avatarSVG({
+   category:id,face:0,hair:0,hairColor:2,outfit:1,outfitColor:1,skin:0
+  },true)}</div><div class="choiceName">${c.label}</div>`;
+  d.onclick=()=>{
+   state.category=id;
+   state.face=0;state.hair=0;state.outfit=0;
+   renderCreator();
+  };
+  box.appendChild(d);
+ });
+}
+
+function renderFaceChoices(){
+ const box=document.getElementById("faceChoices");box.innerHTML="";
+ for(let i=0;i<6;i++){
+  const d=document.createElement("div");
+  d.className="choice "+(state.face===i?"selected":"");
+  d.innerHTML=`<div style="height:72px">${avatarSVG({
+   category:state.category,face:i,hair:0,hairColor:0,outfit:0,outfitColor:1,skin:state.skin
+  },true)}</div><div class="choiceName">Visage ${i+1}</div>`;
+  d.onclick=()=>{state.face=i;renderCreator()};
+  box.appendChild(d);
+ }
+}
+
+function renderHairChoices(){
+ const box=document.getElementById("hairChoices");box.innerHTML="";
+ categories[state.category].hairs.forEach((name,i)=>{
+  const d=document.createElement("div");
+  d.className="choice "+(state.hair===i?"selected":"");
+  d.innerHTML=`<div style="height:72px">${avatarSVG({
+   category:state.category,face:state.face,hair:i,hairColor:state.hairColor,
+   outfit:state.outfit,outfitColor:state.outfitColor,skin:state.skin
+  },true)}</div><div class="choiceName">${name}</div>`;
+  d.onclick=()=>{state.hair=i;renderCreator()};
+  box.appendChild(d);
+ });
+}
+
+function renderHairColorChoices(){
+ const box=document.getElementById("hairColorChoices");box.innerHTML="";
+ hairColors.forEach((c,i)=>{
+  const d=document.createElement("div");
+  d.className="choice "+(state.hairColor===i?"selected":"");
+  d.innerHTML=`<div class="colorDot" style="background:${c}"></div><div class="choiceName">Couleur ${i+1}</div>`;
+  d.onclick=()=>{state.hairColor=i;renderCreator()};
+  box.appendChild(d);
+ });
+}
+
+function renderOutfitChoices(){
+ const box=document.getElementById("outfitChoices");box.innerHTML="";
+ categories[state.category].outfits.forEach((name,i)=>{
+  const d=document.createElement("div");
+  d.className="choice "+(state.outfit===i?"selected":"");
+  d.innerHTML=`<div style="height:72px">${avatarSVG({
+   category:state.category,face:state.face,hair:state.hair,hairColor:state.hairColor,
+   outfit:i,outfitColor:state.outfitColor,skin:state.skin
+  },true)}</div><div class="choiceName">${name}</div>`;
+  d.onclick=()=>{state.outfit=i;renderCreator()};
+  box.appendChild(d);
+ });
+}
+
+function renderOutfitColorChoices(){
+ const box=document.getElementById("outfitColorChoices");box.innerHTML="";
+ outfitColors.forEach((c,i)=>{
+  const d=document.createElement("div");
+  d.className="choice "+(state.outfitColor===i?"selected":"");
+  d.innerHTML=`<div class="colorDot" style="background:${c}"></div><div class="choiceName">Couleur ${i+1}</div>`;
+  d.onclick=()=>{state.outfitColor=i;renderCreator()};
+  box.appendChild(d);
+ });
+}
+
+function renderSkinChoices(){
+ const box=document.getElementById("skinChoices");box.innerHTML="";
+ skinColors.forEach((c,i)=>{
+  const d=document.createElement("div");
+  d.className="choice "+(state.skin===i?"selected":"");
+  d.innerHTML=`<div class="colorDot" style="background:${c}"></div><div class="choiceName">Teint ${i+1}</div>`;
+  d.onclick=()=>{state.skin=i;renderCreator()};
+  box.appendChild(d);
+ });
+}
+
+function renderPreview(){
+ document.getElementById("previewName").textContent=state.name||"Ton personnage";
+ document.getElementById("previewAvatar").innerHTML=avatarSVG();
+}
+
+function finishCreation(){
+ state.name=document.getElementById("charName").value.trim()||"Lili";
+ state.money=500;
+ renderHouseChoices();
+ go("house-create");
+ saveGame();
+}
+
+function renderHouseChoices(){
+ const box=document.getElementById("houseChoices");box.innerHTML="";
+ houses.forEach(h=>{
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`
+   <h3>${houseIcon(h.id)} ${h.name}</h3>
+   <p>💰 ${h.price} € — espace : ${h.space}/5</p>
+   <p class="muted">${houseDescription(h.id)}</p>
+   <button class="btn primary" ${state.money<h.price?"disabled":""}
+    onclick="buyHouse('${h.id}')">
+    Acheter pour ${h.price} €
+   </button>`;
+  box.appendChild(card);
+ });
+}
+
+function houseIcon(id){
+ return {square:"⬜",rectangle:"▭",apartment:"🏢",L:"🔲",extension:"🏠",floor:"🏡"}[id]||"🏠";
+}
+
+function houseDescription(id){
+ return {
+  square:"Une petite maison simple pour commencer.",
+  rectangle:"Plus longue, avec davantage d'espace.",
+  apartment:"Un appartement pratique en ville.",
+  L:"Une maison en L permettant plusieurs zones.",
+  extension:"Une maison avec une pièce supplémentaire.",
+  floor:"Une maison à étage avec beaucoup d'espace."
+ }[id];
+}
+
+function buyHouse(id){
+ const h=houses.find(x=>x.id===id);
+ if(!h||state.money<h.price)return;
+ state.money-=h.price;
+ state.house=h;
+ state.inventory=[];
+ state.furniture=[];
+ state.player={x:50,y:62};
+ saveGame();
+ renderAll();
+ go("game");
+ showToast("🏠 Maison achetée !");
+}
+
+/* =========================================================
+   NEEDS / TIME
+   ========================================================= */
+
+function clamp(v,a=0,b=100){return Math.max(a,Math.min(b,v))}
+
+function advanceTime(mins){
+ state.minutes+=mins;
+ while(state.minutes>=1440){
+  state.minutes-=1440;
+  state.day++;
+ }
+ state.needs.hunger=clamp(state.needs.hunger-mins/90);
+ state.needs.energy=clamp(state.needs.energy-mins/120);
+ state.needs.hygiene=clamp(state.needs.hygiene-mins/180);
+ state.needs.fun=clamp(state.needs.fun-mins/150);
+ state.needs.social=clamp(state.needs.social-mins/170);
+
+ if(state.job && mins>=60 && Math.floor(mins/60)>0){
+   /* pas de salaire automatique ici : le salaire est gagné via travailler */
+ }
+
+ saveGame();
+ renderAll();
+}
+
+function timeText(){
+ const h=Math.floor(state.minutes/60);
+ const m=state.minutes%60;
+ return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+}
+
+function needHtml(key,label,icon){
+ const v=Math.round(state.needs[key]);
+ return `<div class="need">
+  <div class="needHead"><span>${icon} ${label}</span><span>${v}</span></div>
+  <div class="bar"><div class="fill" style="width:${v}%;background:var(--fill,#6d8)"></div></div>
+ </div>`;
+}
+
+function renderNeeds(id){
+ document.getElementById(id).innerHTML=
+  needHtml("hunger","Faim","🍎")+
+  needHtml("energy","Énergie","⚡")+
+  needHtml("hygiene","Hygiène","🚿")+
+  needHtml("fun","Plaisir","🎮")+
+  needHtml("social","Social","❤️");
+}
+
+/* =========================================================
+   GAME HOUSE
+   ========================================================= */
+
+function renderGame(){
+ moneyTop();
+ document.getElementById("gameTitle").textContent=
+   state.house ? state.house.name : "Ma maison";
+ document.getElementById("dayNum").textContent=state.day;
+ document.getElementById("timeText").textContent=timeText();
+ renderNeeds("needsGame");
+ renderHousePlayer();
+ renderFurniture();
+ renderInventory();
+}
+
+function renderHousePlayer(){
+ const p=document.getElementById("playerHome");
+ p.style.left=state.player.x+"%";
+ p.style.top=state.player.y+"%";
+ p.innerHTML=avatarSVG();
+}
+
+function renderFurniture(){
+ const layer=document.getElementById("furnitureLayer");
+ layer.innerHTML="";
+ state.furniture.forEach(f=>{
+  const el=document.createElement("div");
+  el.className="furniture "+(selectedFurnitureId===f.id?"selected":"");
+  el.dataset.id=f.id;
+  el.style.left=f.x+"%";
+  el.style.top=f.y+"%";
+  el.style.transform=`translate(-50%,-50%) rotate(${f.rotation||0}deg)`;
+  el.innerHTML=`<div class="furnitureEmoji">${f.emoji}</div>
+                <div class="furnitureLabel">${f.name}</div>`;
+  el.addEventListener("pointerdown",startFurnitureDrag);
+  el.addEventListener("click",e=>{
+   e.stopPropagation();
+   selectFurniture(f.id);
+  });
+  layer.appendChild(el);
+ });
+}
+
+function selectFurniture(id){
+ selectedFurnitureId=id;
+ renderFurniture();
+ positionFurnitureMenu();
+}
+
+function positionFurnitureMenu(){
+ const menu=document.getElementById("furnitureMenu");
+ const f=state.furniture.find(x=>x.id===selectedFurnitureId);
+ if(!f){menu.classList.remove("show");return}
+ menu.innerHTML=`
+  <button onclick="rotateFurniture()">↻ Tourner</button>
+  <button onclick="storeFurniture()">📦 Ranger</button>
+  <button onclick="resellFurniture()">💰 Revendre</button>
+  <button onclick="deleteFurniture()">🗑️ Supprimer</button>
+  <button onclick="deselectFurniture()">✓ Terminer</button>`;
+ menu.classList.add("show");
+ menu.style.left=Math.min(72,Math.max(5,f.x))+"%";
+ menu.style.top=Math.min(78,Math.max(10,f.y))+"%";
+}
+
+function deselectFurniture(){
+ selectedFurnitureId=null;
+ document.getElementById("furnitureMenu").classList.remove("show");
+ renderFurniture();
+}
+
+function rotateFurniture(){
+ const f=state.furniture.find(x=>x.id===selectedFurnitureId);
+ if(!f)return;
+ f.rotation=(f.rotation+90)%360;
+ saveGame();renderFurniture();positionFurnitureMenu();
+}
+
+function storeFurniture(){
+ const f=state.furniture.find(x=>x.id===selectedFurnitureId);
+ if(!f)return;
+ state.inventory.push({...f});
+ state.furniture=state.furniture.filter(x=>x.id!==f.id);
+ selectedFurnitureId=null;
+ saveGame();renderGame();
+ showToast("📦 Meuble rangé");
+}
+
+function resellFurniture(){
+ const f=state.furniture.find(x=>x.id===selectedFurnitureId);
+ if(!f)return;
+ const value=Math.round(f.price*.6);
+ openModal("Revendre le meuble",
+  `Tu récupéreras <strong>${value} €</strong>.`,
+  [
+   {text:"Annuler"},
+   {text:"Revendre",class:"good",action:()=>{
+     state.money+=value;
+     state.furniture=state.furniture.filter(x=>x.id!==f.id);
+     selectedFurnitureId=null;
+     saveGame();renderGame();showToast("💰 Meuble revendu");
+   }}
+  ]);
+}
+
+function deleteFurniture(){
+ const f=state.furniture.find(x=>x.id===selectedFurnitureId);
+ if(!f)return;
+ openModal("Supprimer définitivement",
+  `Le meuble <strong>${f.name}</strong> sera supprimé sans remboursement.`,
+  [
+   {text:"Annuler"},
+   {text:"Supprimer",class:"danger",action:()=>{
+     state.furniture=state.furniture.filter(x=>x.id!==f.id);
+     selectedFurnitureId=null;
+     saveGame();renderGame();showToast("🗑️ Meuble supprimé");
+   }}
+  ]);
+}
+
+function startFurnitureDrag(e){
+ e.preventDefault();
+ e.stopPropagation();
+ const id=e.currentTarget.dataset.id;
+ selectedFurnitureId=id;
+ draggingFurniture=id;
+ e.currentTarget.setPointerCapture(e.pointerId);
+}
+
+document.addEventListener("pointermove",e=>{
+ if(!draggingFurniture)return;
+ const scene=document.getElementById("houseScene");
+ const r=scene.getBoundingClientRect();
+ let x=(e.clientX-r.left)/r.width*100;
+ let y=(e.clientY-r.top)/r.height*100;
+ x=clamp(x,8,92);y=clamp(y,10,90);
+ const f=state.furniture.find(x=>x.id===draggingFurniture);
+ if(f){f.x=x;f.y=y;renderFurniture();positionFurnitureMenu()}
+});
+
+document.addEventListener("pointerup",()=>{
+ if(draggingFurniture){
+  draggingFurniture=null;
+  saveGame();
+ }
+});
+
+document.getElementById("houseScene").addEventListener("click",e=>{
+ if(e.target.id==="houseScene"||e.target.classList.contains("houseFloor")){
+  deselectFurniture();
+ }
+});
+
+function renderInventory(){
+ const box=document.getElementById("inventory");
+ if(!state.inventory.length){
+  box.innerHTML=`<p class="muted">Aucun meuble rangé.</p>`;
+  return;
+ }
+ box.innerHTML="";
+ state.inventory.forEach((f,i)=>{
+  const d=document.createElement("div");
+  d.className="invItem";
+  d.innerHTML=`<span>${f.emoji} ${f.name}</span>
+  <button class="btn small primary" onclick="placeInventory(${i})">Placer</button>`;
+  box.appendChild(d);
+ });
+}
+
+function placeInventory(index){
+ const f=state.inventory[index];
+ if(!f)return;
+ state.inventory.splice(index,1);
+ state.furniture.push({
+  ...f,id:"f"+Date.now()+Math.random(),
+  x:50,y:55,rotation:f.rotation||0
+ });
+ saveGame();renderGame();showToast("✋ Meuble prêt à déplacer");
+}
+
+/* =========================================================
+   SHOP
+   ========================================================= */
+
+function renderShop(){
+ moneyTop();
+ const box=document.getElementById("shopList");box.innerHTML="";
+ furnitureTypes.forEach(f=>{
+  const d=document.createElement("div");
+  d.className="invItem";
+  d.innerHTML=`
+   <span>${f.emoji} <strong>${f.name}</strong><br><small>${f.price} €</small></span>
+   <button class="btn small primary" ${state.money<f.price?"disabled":""}
+    onclick="buyFurniture('${f.id}')">Acheter</button>`;
+  box.appendChild(d);
+ });
+}
+
+function buyFurniture(id){
+ const f=furnitureTypes.find(x=>x.id===id);
+ if(!f||state.money<f.price)return;
+ state.money-=f.price;
+ state.inventory.push({
+  ...f,id:"i"+Date.now()+Math.random(),x:50,y:55,rotation:0
+ });
+ saveGame();renderShop();moneyTop();
+ showToast("🛋️ Meuble acheté et rangé");
+}
+
+/* =========================================================
+   CHARACTER
+   ========================================================= */
+
+function renderCharacter(){
+ moneyTop();
+ document.getElementById("characterName").textContent=state.name;
+ document.getElementById("characterCategory").textContent=categories[state.category].label;
+ document.getElementById("bigCharacter").innerHTML=
+   `<div style="height:260px">${avatarSVG()}</div>`;
+ renderNeeds("needsCharacter");
+ renderSkills("skillsCharacter");
+}
+
+function skillLevel(v){
+ if(v>=80)return 5;
+ if(v>=60)return 4;
+ if(v>=40)return 3;
+ if(v>=20)return 2;
+ return 1;
+}
+
+function renderSkills(id){
+ const box=document.getElementById(id);
+ box.innerHTML="";
+ Object.entries(skills).forEach(([key,s])=>{
+  const v=Math.round(state.skills[key]||0);
+  const lvl=skillLevel(v);
+  const d=document.createElement("div");
+  d.className="skill";
+  d.innerHTML=`
+   <div class="skillTitle">
+    <span>${s.icon} ${s.name}</span>
+    <span>Niv. ${lvl} — ${v}/100</span>
+   </div>
+   <div class="bar"><div class="fill" style="width:${v}%"></div></div>`;
+  box.appendChild(d);
+ });
+}
+
+/* =========================================================
+   LIBRARY / CITY ACTIONS
+   ========================================================= */
+
+function placeAction(place){
+ if(place==="Bibliothèque"){
+  openLibrary();
+  return;
+ }
+ if(place==="Travail"){
+  workNow();
+  return;
+ }
+ if(place==="Supermarché"){
+  openSupermarket();
+  return;
+ }
+ if(place==="Parc"){
+  state.needs.fun=clamp(state.needs.fun+20);
+  state.needs.social=clamp(state.needs.social+10);
+  advanceTime(30);
+  showToast("🌳 Une promenade au parc");
+  return;
+ }
+ if(place==="Café"){
+  state.needs.social=clamp(state.needs.social+20);
+  state.needs.fun=clamp(state.needs.fun+15);
+  if(state.money>=5)state.money-=5;
+  advanceTime(30);
+  showToast("☕ Pause au café");
+ }
+}
+
+function openLibrary(){
+ let html="<p>Choisis une compétence à travailler.</p><div>";
+ const options=[
+  ["programmation","💻 Programmation"],
+  ["logique","🧠 Logique"],
+  ["creativite","🎨 Créativité"],
+  ["connaissance","📖 Connaissances"],
+  ["eloquence","🗣️ Éloquence"],
+  ["cuisine","🍳 Cuisine"],
+  ["design","🖌️ Design"],
+  ["architecture","🏗️ Architecture"],
+  ["chant","🎤 Chant"],
+  ["animaux","🐶 Animaux"],
+  ["ecriture","✍️ Écriture"],
+  ["investigation","🔎 Investigation"],
+  ["charisme","✨ Charisme"],
+  ["medecine","🩺 Médecine"],
+  ["precision","🎯 Précision"],
+  ["pedagogie","📚 Pédagogie"]
+ ];
+ options.forEach(([key,label])=>{
+  const v=state.skills[key]||0;
+  html+=`<button class="btn" style="width:100%;text-align:left"
+    onclick="learnSkill('${key}')">${label} — niveau ${skillLevel(v)} (${v}/100)</button>`;
+ });
+ html+="</div>";
+ openModal("📚 Bibliothèque",html,[
+  {text:"Fermer"}
+ ]);
+}
+
+function learnSkill(key){
+ closeModal();
+ if(state.needs.energy<8){
+  showToast("😴 Tu es trop fatigué");
+  return;
+ }
+ const gain=7+Math.floor(Math.random()*5);
+ state.skills[key]=clamp((state.skills[key]||0)+gain);
+ state.needs.energy=clamp(state.needs.energy-8);
+ state.needs.fun=clamp(state.needs.fun-2);
+ advanceTime(60);
+ checkPromotion();
+ saveGame();renderAll();
+ showToast(`📚 +${gain} ${skills[key].name}`);
+}
+
+/* =========================================================
+   JOBS
+   ========================================================= */
+
+function renderWork(){
+ moneyTop();
+ renderCurrentJob();
+ const box=document.getElementById("jobsList");
+ box.innerHTML="";
+ jobs.forEach(job=>{
+  const d=document.createElement("div");
+  d.className="card jobCard";
+  let levels="";
+  job.levels.forEach((lv,i)=>{
+   const req=Object.entries(lv[2]).map(([k,v])=>
+    `${skills[k]?.name||k} ${v}`
+   ).join(" · ")||"Aucune condition";
+   levels+=`<div style="margin:8px 0;padding:8px;background:#f7f7f7;border-radius:10px">
+    <strong>Niveau ${i+1} — ${lv[0]}</strong><br>
+    💰 ${lv[1]} €/jour<br>
+    <span class="req">${req}</span>
+   </div>`;
+  });
+  d.innerHTML=`
+   <h3>${job.icon} ${job.name}</h3>
+   <p>Compétences principales : ${job.stats.map(k=>skills[k]?.name||k).join(", ")}</p>
+   ${levels}
+   <button class="btn primary" onclick="chooseJob('${job.id}')">
+    ${state.job===job.id?"Carrière actuelle":"Choisir cette carrière"}
+   </button>`;
+  box.appendChild(d);
+ });
+}
+
+function renderCurrentJob(){
+ const title=document.getElementById("currentJobTitle");
+ const info=document.getElementById("currentJobInfo");
+ const prog=document.getElementById("jobProgress");
+
+ if(!state.job){
+  title.textContent="Sans emploi";
+  info.textContent="Choisis une carrière ci-dessous.";
+  prog.innerHTML="";
+  return;
+ }
+ const job=jobs.find(j=>j.id===state.job);
+ const lv=job.levels[state.jobLevel]||job.levels[0];
+ title.textContent=`${job.icon} ${job.name} — ${lv[0]}`;
+ info.innerHTML=`💰 ${lv[1]} €/jour · Niveau ${state.jobLevel+1}/5`;
+
+ if(state.jobLevel<job.levels.length-1){
+  const next=job.levels[state.jobLevel+1];
+  const req=Object.entries(next[2]).map(([k,v])=>{
+   const current=Math.round(state.skills[k]||0);
+   return `${skills[k]?.name||k}: ${current}/${v}`;
+  }).join("<br>");
+  prog.innerHTML=`<div class="card"><strong>Prochaine promotion : ${next[0]}</strong><br>${req}</div>`;
+ }else{
+  prog.innerHTML=`<div class="card good">🌟 Niveau maximum atteint !</div>`;
+ }
+}
+
+function chooseJob(id){
+ if(state.job===id){
+  showToast("Cette carrière est déjà active");
+  return;
+ }
+ state.job=id;
+ state.jobLevel=0;
+ saveGame();renderWork();
+ showToast("💼 Nouvelle carrière !");
+}
+
+function canPromote(job,newLevel){
+ const req=job.levels[newLevel][2];
+ return Object.entries(req).every(([k,v])=>(state.skills[k]||0)>=v);
+}
+
+function checkPromotion(){
+ if(!state.job)return;
+ const job=jobs.find(j=>j.id===state.job);
+ while(state.jobLevel<job.levels.length-1 && canPromote(job,state.jobLevel+1)){
+  state.jobLevel++;
+  showToast(`🎉 Promotion : ${job.levels[state.jobLevel][0]}`);
+ }
+}
+
+function workNow(){
+ if(!state.job){
+  showToast("💼 Choisis d'abord une carrière");
+  go("work");
+  return;
+ }
+ if(state.needs.energy<15){
+  showToast("😴 Tu es trop fatigué pour travailler");
+  return;
+ }
+ const job=jobs.find(j=>j.id===state.job);
+ const lv=job.levels[state.jobLevel];
+ const salary=lv[1];
+ state.money+=salary;
+ state.needs.energy=clamp(state.needs.energy-15);
+ state.needs.hunger=clamp(state.needs.hunger-10);
+ state.needs.fun=clamp(state.needs.fun-5);
+ state.needs.reputation=state.needs.reputation||0;
+ state.needs.social=clamp(state.needs.social-6);
+
+ job.stats.forEach((key,i)=>{
+  state.skills[key]=clamp((state.skills[key]||0)+(i===0?4:2));
+ });
+
+ advanceTime(480);
+ checkPromotion();
+ saveGame();renderAll();
+ showToast(`💰 +${salary} €`);
+}
+
+/* =========================================================
+   CITY + NPC
+   ========================================================= */
+
+function renderCity(){
+ moneyTop();
+ renderCityPlayer();
+ renderNPCs();
+}
+
+function renderCityPlayer(){
+ const p=document.getElementById("cityPlayer");
+ p.style.left=state.player.x+"%";
+ p.style.top=state.player.y+"%";
+ p.innerHTML=avatarSVG();
+}
+
+function renderNPCs(){
+ const layer=document.getElementById("npcLayer");
+ layer.innerHTML="";
+ npcs.forEach(n=>{
+  if(!state.npcPositions[n.id]){
+   state.npcPositions[n.id]={x:n.x,y:n.y};
+  }
+  const pos=state.npcPositions[n.id];
+  const el=document.createElement("div");
+  el.className="npc";
+  el.style.left=pos.x+"%";
+  el.style.top=pos.y+"%";
+  el.dataset.id=n.id;
+  el.innerHTML=avatarSVG({
+   category:n.category,
+   face:n.id%6,
+   hair:(n.id+1)%6,
+   hairColor:(n.id+2)%hairColors.length,
+   outfit:n.id%5,
+   outfitColor:(n.id+1)%outfitColors.length,
+   skin:n.id%skinColors.length
+  });
+  el.onclick=e=>{
+   e.stopPropagation();
+   talkToNPC(n.id);
+  };
+  layer.appendChild(el);
+ });
+}
+
+function talkToNPC(id){
+ const n=npcs.find(x=>x.id===id);
+ if(!n)return;
+ const rel=state.relations[id]||0;
+ let level=rel>=70?"Meilleur ami":rel>=40?"Ami":rel>=15?"Connaissance":"Inconnu";
+
+ openModal(`👋 ${n.name}`,
+  `<strong>Relation : ${level}</strong><br>
+   ❤️ ${rel}/100<br><br>
+   ${rel<20?"Vous venez de vous rencontrer.":rel<50?"Vous commencez à bien vous connaître.":"Vous êtes très proches !"}`,
+  [
+   {text:"Bonjour !",action:()=>npcInteraction(id,5,"👋 Conversation agréable")},
+   {text:"Faire connaissance",action:()=>npcInteraction(id,8,"💬 Vous avez discuté")},
+   {text:"Raconter une blague",action:()=>npcInteraction(id,6,"😂 La blague a fait rire")},
+   {text:"Au revoir"}
+  ]);
+}
+
+function npcInteraction(id,gain,msg){
+ state.relations[id]=clamp((state.relations[id]||0)+gain);
+ state.needs.social=clamp(state.needs.social+12);
+ state.needs.fun=clamp(state.needs.fun+7);
+ advanceTime(20);
+ saveGame();renderCity();
+ showToast(msg);
+}
+
+function moveCityNPCs(){
+ npcs.forEach(n=>{
+  const p=state.npcPositions[n.id]||{x:n.x,y:n.y};
+  p.x=clamp(p.x+(Math.random()*8-4),15,85);
+  p.y=clamp(p.y+(Math.random()*8-4),18,82);
+  state.npcPositions[n.id]=p;
+ });
+ renderNPCs();
+}
+
+/* déplacement du personnage dans la ville */
+document.getElementById("city").addEventListener("pointerdown",e=>{
+ if(e.target.closest(".cityPlace")||e.target.closest(".npc"))return;
+ draggingCityPlayer=true;
+ updateCityPlayer(e);
+});
+
+document.addEventListener("pointermove",e=>{
+ if(draggingCityPlayer)updateCityPlayer(e);
+});
+
+document.addEventListener("pointerup",()=>{
+ if(draggingCityPlayer){
+  draggingCityPlayer=false;
+  moveCityNPCs();
+  saveGame();
+ }
+});
+
+function updateCityPlayer(e){
+ const city=document.getElementById("city");
+ const r=city.getBoundingClientRect();
+ state.player.x=clamp((e.clientX-r.left)/r.width*100,8,92);
+ state.player.y=clamp((e.clientY-r.top)/r.height*100,15,88);
+ renderCityPlayer();
+}
+
+/* =========================================================
+   GAME UPDATE / SAVE
+   ========================================================= */
+
+function renderAll(){
+ moneyTop();
+ renderGame();
+ renderCharacter();
+ renderWork();
+ renderShop();
+ renderCity();
+}
+
+setInterval(()=>{
+ if(document.getElementById("screen-game").classList.contains("active")||
+    document.getElementById("screen-city").classList.contains("active")){
+   advanceTime(10);
+ }
+},60000);
+
+/* initial */
 renderCreator();
-
-/* corrige le champ prénom dès son apparition */
-const nameInput=document.getElementById("nameInput");
-if(nameInput){
-  nameInput.value=state.name;
-}
-
-/* sauvegarde automatique */
-setInterval(saveGame,15000);
+moneyTop();
 </script>
 </body>
 </html>
