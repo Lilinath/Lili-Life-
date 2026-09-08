@@ -2,266 +2,50 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lili Life 2.0 🌸</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Lili Life 3.0 🌸</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7edf8;
-  color: #34243a;
-  overflow-x: hidden;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: white;
-  padding: 12px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px #0002;
-}
-
-.logo {
-  font-size: 21px;
-  font-weight: bold;
-}
-
-.money {
-  background: #fff0a8;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 12px;
-}
-
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 14px;
-  margin-bottom: 12px;
-  box-shadow: 0 3px 12px #0001;
-}
-
-.status {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-}
-
-.need {
-  text-align: center;
-  font-size: 12px;
-}
-
-.bar {
-  height: 9px;
-  background: #eee;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 4px;
-}
-
-.fill {
-  height: 100%;
-  width: 50%;
-  background: #d96bdd;
-  transition: width .3s;
-}
-
-.house {
-  position: relative;
-  width: 100%;
-  height: 470px;
-  background: #d9b18c;
-  border: 8px solid #7b513c;
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.room {
-  position: absolute;
-  background: #f7dfc8;
-  border: 3px solid #7b513c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #765346;
-}
-
-.living {
-  left: 0;
-  top: 0;
-  width: 60%;
-  height: 55%;
-}
-
-.kitchen {
-  right: 0;
-  top: 0;
-  width: 40%;
-  height: 55%;
-}
-
-.bath {
-  left: 0;
-  bottom: 0;
-  width: 40%;
-  height: 45%;
-}
-
-.bedroom {
-  right: 0;
-  bottom: 0;
-  width: 60%;
-  height: 45%;
-}
-
-.furniture {
-  position: absolute;
-  font-size: 35px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.character {
-  position: absolute;
-  font-size: 42px;
-  z-index: 10;
-  left: 35%;
-  top: 35%;
-  transition: left .25s, top .25s;
-  filter: drop-shadow(0 3px 2px #0004);
-}
-
-.controls {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-}
-
-button {
-  border: none;
-  border-radius: 15px;
-  padding: 12px 7px;
-  background: #eeb7e9;
-  color: #34243a;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(.96);
-}
-
-button.dark {
-  background: #7b513c;
-  color: white;
-}
-
-button.green {
-  background: #a9dca8;
-}
-
-button.blue {
-  background: #a9c9ed;
-}
-
-button.yellow {
-  background: #ffe28a;
-}
-
-h2, h3 {
-  margin-top: 5px;
-}
-
-.people {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.person {
-  background: #faf3fb;
-  padding: 12px;
-  border-radius: 15px;
-}
-
-.shop {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.item {
-  border: 2px solid #ead9ec;
-  border-radius: 15px;
-  padding: 12px;
-  text-align: center;
-}
-
-.bigEmoji {
-  font-size: 40px;
-}
-
-.log {
-  max-height: 150px;
-  overflow-y: auto;
-  font-size: 13px;
-}
-
-.log div {
-  padding: 5px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.time {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.mood {
-  text-align: center;
-  padding: 8px;
-  border-radius: 15px;
-  background: #f8e5fa;
-  margin-bottom: 8px;
-}
-
-@media (max-width: 600px) {
-  .house {
-    height: 430px;
-  }
-
-  .status {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .need {
-    font-size: 10px;
-  }
-
-  button {
-    font-size: 12px;
-  }
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:Arial,sans-serif;background:#f5edf7;color:#33253a}
+header{position:sticky;top:0;z-index:20;background:white;padding:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px #0002}
+.logo{font-weight:bold;font-size:20px}
+.money{background:#ffe58a;padding:8px 12px;border-radius:20px;font-weight:bold}
+main{max-width:900px;margin:auto;padding:10px}
+.card{background:white;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px #0001}
+.time{text-align:center;font-size:18px;font-weight:bold}
+.mood{text-align:center;background:#f7e5fa;border-radius:14px;padding:8px;margin-top:8px}
+.status{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.need{text-align:center;font-size:11px}
+.bar{height:8px;background:#eee;border-radius:10px;overflow:hidden}
+.fill{height:100%;background:#d86bd9}
+.house{position:relative;width:100%;height:450px;background:#d5ad88;border:7px solid #76503c;border-radius:16px;overflow:hidden}
+.room{position:absolute;background:#f8dfc8;border:3px solid #76503c;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#76503c}
+.room1{left:0;top:0;width:50%;height:55%}
+.room2{right:0;top:0;width:50%;height:55%}
+.room3{left:0;bottom:0;width:50%;height:45%}
+.room4{right:0;bottom:0;width:50%;height:45%}
+.character{position:absolute;font-size:42px;z-index:10;left:40%;top:40%;transition:.2s}
+.object{position:absolute;font-size:34px;z-index:3}
+button{border:0;border-radius:13px;padding:11px 8px;font-weight:bold;background:#e9b6e7;color:#302238}
+button:active{transform:scale(.96)}
+button.green{background:#a9dba8}
+button.blue{background:#a9c9ed}
+button.yellow{background:#ffe18a}
+button.dark{background:#76503c;color:white}
+button.red{background:#f3a8a8}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.job{border:2px solid #ead9ec;border-radius:14px;padding:12px;margin-bottom:8px}
+.job.selected{border-color:#b35db7;background:#fbf0fc}
+.builditem{border:2px solid #ead9ec;border-radius:14px;padding:10px;text-align:center}
+.buildgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.log{max-height:140px;overflow:auto;font-size:13px}
+.log div{padding:5px;border-bottom:1px solid #eee}
+.hidden{display:none!important}
+@media(max-width:600px){
+.house{height:410px}
+button{font-size:12px}
 }
 </style>
 </head>
@@ -269,402 +53,546 @@ h2, h3 {
 <body>
 
 <header>
-  <div class="logo">🌸 Lili Life 2.0</div>
-  <div class="money">💰 <span id="money">500</span> €</div>
+<div class="logo">🌸 Lili Life 3.0</div>
+<div class="money">💰 <span id="money">500</span> €</div>
 </header>
 
 <main>
 
 <div class="card">
-  <div class="time">📅 Jour <span id="day">1</span> — <span id="clock">08:00</span></div>
-  <div class="mood" id="mood">😊 Bonne humeur</div>
+<div class="time">📅 Jour <span id="day">1</span> — <span id="clock">08:00</span></div>
+<div id="mood" class="mood">😊 Bonne humeur</div>
 </div>
 
 <div class="card">
-  <div class="status">
-    <div class="need">🍔<br>Faim<div class="bar"><div id="hunger" class="fill"></div></div></div>
-    <div class="need">⚡<br>Énergie<div class="bar"><div id="energy" class="fill"></div></div></div>
-    <div class="need">🚿<br>Hygiène<div class="bar"><div id="hygiene" class="fill"></div></div></div>
-    <div class="need">🎮<br>Fun<div class="bar"><div id="fun" class="fill"></div></div></div>
-    <div class="need">❤️<br>Social<div class="bar"><div id="social" class="fill"></div></div></div>
-  </div>
+<div class="status">
+<div class="need">🍔<br>Faim<div class="bar"><div id="hunger" class="fill"></div></div></div>
+<div class="need">⚡<br>Énergie<div class="bar"><div id="energy" class="fill"></div></div></div>
+<div class="need">🚿<br>Hygiène<div class="bar"><div id="hygiene" class="fill"></div></div></div>
+<div class="need">🎮<br>Fun<div class="bar"><div id="fun" class="fill"></div></div></div>
+<div class="need">❤️<br>Social<div class="bar"><div id="social" class="fill"></div></div></div>
+</div>
+</div>
+
+<!-- MAISON -->
+
+<div class="card">
+<h3>🏠 Ma maison</h3>
+
+<div class="house" id="house">
+
+<div id="room1" class="room room1">SALON</div>
+<div id="room2" class="room room2">CUISINE</div>
+<div id="room3" class="room room3">SALLE DE BAIN</div>
+<div id="room4" class="room room4">CHAMBRE</div>
+
+<div class="object" style="left:10%;top:15%">🛋️</div>
+<div class="object" style="left:35%;top:20%">📺</div>
+<div class="object" style="left:65%;top:18%">🍳</div>
+<div class="object" style="left:78%;top:35%">🧊</div>
+<div class="object" style="left:12%;top:70%">🛁</div>
+<div class="object" style="left:65%;top:70%">🛏️</div>
+
+<div id="character" class="character">🧑</div>
+
+</div>
+
+<div class="controls" style="margin-top:8px">
+<button onclick="move(-5,0)">⬅️</button>
+<button onclick="move(0,-5)">⬆️</button>
+<button onclick="move(5,0)">➡️</button>
+<button onclick="move(0,5)">⬇️</button>
+<button class="green" onclick="eat()">🍔 Manger</button>
+<button class="blue" onclick="sleep()">😴 Dormir</button>
+</div>
+</div>
+
+<!-- TRAVAIL -->
+
+<div class="card">
+<h3>💼 Travail</h3>
+
+<div class="job" id="serveur">
+<b>🍽️ Serveur</b>
+<p>Salaire : 55 € / journée</p>
+<button onclick="chooseJob('serveur')">Choisir</button>
+</div>
+
+<div class="job" id="medecin">
+<b>🩺 Médecin</b>
+<p>Salaire : 130 € / journée</p>
+<button onclick="chooseJob('medecin')">Choisir</button>
+</div>
+
+<div class="job" id="developpeur">
+<b>💻 Développeur</b>
+<p>Salaire : 110 € / journée</p>
+<button onclick="chooseJob('developpeur')">Choisir</button>
+</div>
+
+<div class="job" id="artiste">
+<b>🎨 Artiste</b>
+<p>Salaire : 80 € / journée</p>
+<button onclick="chooseJob('artiste')">Choisir</button>
+</div>
+
+<p>👔 Métier actuel : <b id="currentJob">Aucun</b></p>
+
+<button class="yellow" onclick="goToWork()">🚗 Aller travailler</button>
+</div>
+
+<!-- CONSTRUCTION -->
+
+<div class="card">
+<h3>🏗️ Construire ma maison</h3>
+
+<button class="dark" onclick="toggleBuild()">🔨 Ouvrir le mode construction</button>
+
+<div id="buildMenu" class="hidden">
+
+<p>Construire coûte de l'argent.</p>
+
+<div class="buildgrid">
+
+<div class="builditem">
+<div style="font-size:35px">🛋️</div>
+<b>Canapé</b>
+<p>120 €</p>
+<button onclick="buyFurniture('🛋️',120)">Acheter</button>
+</div>
+
+<div class="builditem">
+<div style="font-size:35px">📺</div>
+<b>Télévision</b>
+<p>200 €</p>
+<button onclick="buyFurniture('📺',200)">Acheter</button>
+</div>
+
+<div class="builditem">
+<div style="font-size:35px">🛏️</div>
+<b>Lit</b>
+<p>250 €</p>
+<button onclick="buyFurniture('🛏️',250)">Acheter</button>
+</div>
+
+<div class="builditem">
+<div style="font-size:35px">🪴</div>
+<b>Plante</b>
+<p>30 €</p>
+<button onclick="buyFurniture('🪴',30)">Acheter</button>
+</div>
+
+<div class="builditem">
+<div style="font-size:35px">🚿</div>
+<b>Douche</b>
+<p>180 €</p>
+<button onclick="buyFurniture('🚿',180)">Acheter</button>
+</div>
+
+<div class="builditem">
+<div style="font-size:35px">🍳</div>
+<b>Cuisine</b>
+<p>300 €</p>
+<button onclick="buyFurniture('🍳',300)">Acheter</button>
+</div>
+
+</div>
+
+<hr>
+
+<h4>🧱 Ajouter une pièce</h4>
+
+<div class="grid">
+<button onclick="addRoom('chambre')">🛏️ Chambre - 500€</button>
+<button onclick="addRoom('salon')">🛋️ Salon - 600€</button>
+<button onclick="addRoom('cuisine')">🍳 Cuisine - 450€</button>
+<button onclick="addRoom('bureau')">💻 Bureau - 400€</button>
+</div>
+
+</div>
+</div>
+
+<!-- ACTIONS -->
+
+<div class="card">
+<h3>✨ Vie quotidienne</h3>
+
+<div class="controls">
+<button onclick="shower()">🚿 Douche</button>
+<button onclick="play()">🎮 Jouer</button>
+<button onclick="callFriend()">📱 Appeler</button>
+<button onclick="shopping()">🛒 Courses</button>
+<button class="green" onclick="eat()">🍔 Manger</button>
+<button class="dark" onclick="saveGame()">💾 Sauvegarder</button>
+</div>
+</div>
+
+<!-- RELATIONS -->
+
+<div class="card">
+<h3>❤️ Relations</h3>
+
+<div class="grid">
+
+<div class="job">
+<div style="font-size:35px">👩</div>
+<b>Emma</b>
+<p>❤️ <span id="emma">30</span>/100</p>
+<button onclick="talk('emma')">💬 Parler</button>
+</div>
+
+<div class="job">
+<div style="font-size:35px">👨</div>
+<b>Lucas</b>
+<p>❤️ <span id="lucas">20</span>/100</p>
+<button onclick="talk('lucas')">💬 Parler</button>
+</div>
+
+</div>
 </div>
 
 <div class="card">
-  <div class="house" id="house">
-
-    <div class="room living">SALON</div>
-    <div class="room kitchen">CUISINE</div>
-    <div class="room bath">SALLE DE BAIN</div>
-    <div class="room bedroom">CHAMBRE</div>
-
-    <div class="furniture" style="left:13%;top:18%;">🛋️</div>
-    <div class="furniture" style="left:38%;top:20%;">📺</div>
-    <div class="furniture" style="left:67%;top:18%;">🍳</div>
-    <div class="furniture" style="left:78%;top:38%;">🧊</div>
-    <div class="furniture" style="left:12%;top:72%;">🛁</div>
-    <div class="furniture" style="left:55%;top:70%;">🛏️</div>
-    <div class="furniture" style="left:78%;top:72%;">🪴</div>
-
-    <div id="character" class="character">🧑‍🦰</div>
-  </div>
-
-  <div class="controls">
-    <button onclick="moveCharacter(-5,0)">⬅️</button>
-    <button onclick="moveCharacter(0,-5)">⬆️</button>
-    <button onclick="moveCharacter(5,0)">➡️</button>
-    <button onclick="moveCharacter(0,5)">⬇️</button>
-    <button class="green" onclick="eat()">🍔 Manger</button>
-    <button class="blue" onclick="sleep()">😴 Dormir</button>
-  </div>
-</div>
-
-<div class="card">
-  <h3>🎯 Actions</h3>
-
-  <div class="controls">
-    <button onclick="shower()">🚿 Douche</button>
-    <button onclick="play()">🎮 Jouer</button>
-    <button class="yellow" onclick="work()">💼 Travailler</button>
-    <button onclick="callFriend()">📱 Appeler</button>
-    <button onclick="shopping()">🛒 Courses</button>
-    <button class="dark" onclick="saveGame()">💾 Sauver</button>
-  </div>
-</div>
-
-<div class="card">
-  <h3>❤️ Relations</h3>
-
-  <div class="people">
-    <div class="person">
-      <div class="bigEmoji">👩🏻</div>
-      <b>Emma</b>
-      <div>❤️ <span id="emma">30</span>/100</div>
-      <button onclick="talk('emma')">💬 Parler</button>
-    </div>
-
-    <div class="person">
-      <div class="bigEmoji">👨🏽</div>
-      <b>Lucas</b>
-      <div>❤️ <span id="lucas">20</span>/100</div>
-      <button onclick="talk('lucas')">💬 Parler</button>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>🛍️ Boutique</h3>
-
-  <div class="shop">
-
-    <div class="item">
-      <div class="bigEmoji">🛋️</div>
-      <b>Canapé</b>
-      <p>150 €</p>
-      <button onclick="buy('canape',150)">Acheter</button>
-    </div>
-
-    <div class="item">
-      <div class="bigEmoji">🪴</div>
-      <b>Plante</b>
-      <p>35 €</p>
-      <button onclick="buy('plante',35)">Acheter</button>
-    </div>
-
-    <div class="item">
-      <div class="bigEmoji">📺</div>
-      <b>Télévision</b>
-      <p>250 €</p>
-      <button onclick="buy('tv',250)">Acheter</button>
-    </div>
-
-    <div class="item">
-      <div class="bigEmoji">🛏️</div>
-      <b>Nouveau lit</b>
-      <p>300 €</p>
-      <button onclick="buy('lit',300)">Acheter</button>
-    </div>
-
-  </div>
-</div>
-
-<div class="card">
-  <h3>📖 Journal</h3>
-  <div id="log" class="log"></div>
+<h3>📖 Journal</h3>
+<div id="log" class="log"></div>
 </div>
 
 </main>
 
 <script>
 
-let game = {
-  money: 500,
-  day: 1,
-  minutes: 480,
+let game={
+money:500,
+day:1,
+minutes:480,
 
-  hunger: 80,
-  energy: 80,
-  hygiene: 80,
-  fun: 70,
-  social: 60,
+hunger:80,
+energy:80,
+hygiene:80,
+fun:70,
+social:60,
 
-  emma: 30,
-  lucas: 20,
+job:"",
+emma:30,
+lucas:20,
 
-  x: 35,
-  y: 35,
+x:40,
+y:40,
 
-  inventory: []
+rooms:4,
+inventory:[]
 };
 
-function log(message) {
-  const box = document.getElementById("log");
-  const line = document.createElement("div");
-  line.textContent = message;
-  box.prepend(line);
+const jobs={
+serveur:{name:"Serveur",salary:55},
+medecin:{name:"Médecin",salary:130},
+developpeur:{name:"Développeur",salary:110},
+artiste:{name:"Artiste",salary:80}
+};
 
-  while (box.children.length > 20) {
-    box.removeChild(box.lastChild);
-  }
+function clamp(v){
+return Math.max(0,Math.min(100,v));
 }
 
-function clamp(value) {
-  return Math.max(0, Math.min(100, value));
+function log(text){
+let box=document.getElementById("log");
+let div=document.createElement("div");
+div.textContent=text;
+box.prepend(div);
+
+while(box.children.length>20)
+box.removeChild(box.lastChild);
 }
 
-function update() {
+function update(){
 
-  document.getElementById("money").textContent = game.money;
+document.getElementById("money").textContent=game.money;
+document.getElementById("day").textContent=game.day;
 
-  document.getElementById("day").textContent = game.day;
+let h=Math.floor(game.minutes/60);
+let m=game.minutes%60;
 
-  let h = Math.floor(game.minutes / 60);
-  let m = game.minutes % 60;
+document.getElementById("clock").textContent=
+String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
 
-  document.getElementById("clock").textContent =
-    String(h).padStart(2,"0") + ":" +
-    String(m).padStart(2,"0");
+document.getElementById("hunger").style.width=game.hunger+"%";
+document.getElementById("energy").style.width=game.energy+"%";
+document.getElementById("hygiene").style.width=game.hygiene+"%";
+document.getElementById("fun").style.width=game.fun+"%";
+document.getElementById("social").style.width=game.social+"%";
 
-  document.getElementById("hunger").style.width = game.hunger + "%";
-  document.getElementById("energy").style.width = game.energy + "%";
-  document.getElementById("hygiene").style.width = game.hygiene + "%";
-  document.getElementById("fun").style.width = game.fun + "%";
-  document.getElementById("social").style.width = game.social + "%";
+document.getElementById("emma").textContent=game.emma;
+document.getElementById("lucas").textContent=game.lucas;
 
-  document.getElementById("emma").textContent = game.emma;
-  document.getElementById("lucas").textContent = game.lucas;
+document.getElementById("character").style.left=game.x+"%";
+document.getElementById("character").style.top=game.y+"%";
 
-  const character = document.getElementById("character");
+document.getElementById("currentJob").textContent=
+game.job ? jobs[game.job].name : "Aucun";
 
-  character.style.left = game.x + "%";
-  character.style.top = game.y + "%";
+document.querySelectorAll(".job").forEach(x=>x.classList.remove("selected"));
 
-  let average =
-    (game.hunger +
-    game.energy +
-    game.hygiene +
-    game.fun +
-    game.social) / 5;
+if(game.job && document.getElementById(game.job))
+document.getElementById(game.job).classList.add("selected");
 
-  let mood = "😢 Très mauvaise humeur";
+let avg=(game.hunger+game.energy+game.hygiene+game.fun+game.social)/5;
 
-  if (average >= 85) mood = "🤩 Excellente humeur";
-  else if (average >= 70) mood = "😊 Bonne humeur";
-  else if (average >= 50) mood = "🙂 Humeur normale";
-  else if (average >= 30) mood = "😕 Mauvaise humeur";
+let mood="😢 Très mauvaise humeur";
 
-  document.getElementById("mood").textContent = mood;
+if(avg>=85)mood="🤩 Excellente humeur";
+else if(avg>=70)mood="😊 Bonne humeur";
+else if(avg>=50)mood="🙂 Humeur normale";
+else if(avg>=30)mood="😕 Mauvaise humeur";
+
+document.getElementById("mood").textContent=mood;
 }
 
-function advance(minutes = 30) {
+function advance(min){
 
-  game.minutes += minutes;
+game.minutes+=min;
 
-  if (game.minutes >= 1440) {
-    game.minutes -= 1440;
-    game.day++;
+if(game.minutes>=1440){
+game.minutes-=1440;
+game.day++;
 
-    log("🌅 Une nouvelle journée commence !");
-  }
-
-  game.hunger = clamp(game.hunger - minutes / 30 * 2);
-  game.energy = clamp(game.energy - minutes / 30 * 1);
-  game.hygiene = clamp(game.hygiene - minutes / 30 * 1);
-  game.fun = clamp(game.fun - minutes / 30 * .5);
-  game.social = clamp(game.social - minutes / 30 * .5);
-
-  update();
+log("🌅 Une nouvelle journée commence !");
 }
 
-function eat() {
+game.hunger=clamp(game.hunger-min/30*2);
+game.energy=clamp(game.energy-min/30);
+game.hygiene=clamp(game.hygiene-min/30);
+game.fun=clamp(game.fun-min/60);
+game.social=clamp(game.social-min/60);
 
-  if (game.money < 8) {
-    log("❌ Pas assez d'argent pour manger.");
-    return;
-  }
-
-  game.money -= 8;
-  game.hunger = clamp(game.hunger + 35);
-  game.fun = clamp(game.fun + 5);
-
-  log("🍔 Lili mange un bon repas. -8€");
-
-  advance(20);
+update();
 }
 
-function sleep() {
+function move(dx,dy){
 
-  log("😴 Lili va dormir...");
+game.x+=dx;
+game.y+=dy;
 
-  game.energy = clamp(game.energy + 65);
+game.x=Math.max(4,Math.min(92,game.x));
+game.y=Math.max(4,Math.min(88,game.y));
 
-  advance(240);
+update();
 }
 
-function shower() {
+function eat(){
 
-  game.hygiene = clamp(game.hygiene + 45);
-
-  log("🚿 Douche prise ! Lili est toute propre.");
-
-  advance(20);
+if(game.money<8){
+log("❌ Tu n'as pas assez d'argent.");
+return;
 }
 
-function play() {
+game.money-=8;
+game.hunger=clamp(game.hunger+35);
 
-  game.fun = clamp(game.fun + 30);
-  game.energy = clamp(game.energy - 8);
+log("🍔 Lili mange. -8€");
 
-  log("🎮 Lili s'amuse devant la console.");
-
-  advance(30);
+advance(20);
 }
 
-function work() {
+function sleep(){
 
-  if (game.energy < 20) {
-    log("😴 Lili est trop fatiguée pour travailler.");
-    return;
-  }
+game.energy=clamp(game.energy+65);
 
-  game.money += 85;
-  game.energy = clamp(game.energy - 25);
-  game.fun = clamp(game.fun - 10);
+log("😴 Bonne nuit !");
 
-  log("💼 Journée de travail terminée : +85€");
-
-  advance(120);
+advance(240);
 }
 
-function callFriend() {
+function shower(){
 
-  game.social = clamp(game.social + 30);
-  game.fun = clamp(game.fun + 10);
+game.hygiene=clamp(game.hygiene+45);
 
-  game.emma = clamp(game.emma + 5);
+log("🚿 Lili prend une douche.");
 
-  log("📱 Lili appelle Emma. ❤️ Relation améliorée.");
-
-  advance(20);
+advance(20);
 }
 
-function shopping() {
+function play(){
 
-  if (game.money < 35) {
-    log("❌ Pas assez d'argent pour faire les courses.");
-    return;
-  }
+game.fun=clamp(game.fun+30);
+game.energy=clamp(game.energy-8);
 
-  game.money -= 35;
-  game.hunger = clamp(game.hunger + 10);
+log("🎮 Lili joue.");
 
-  log("🛒 Courses terminées. -35€");
-
-  advance(30);
+advance(30);
 }
 
-function talk(person) {
+function shopping(){
 
-  game.social = clamp(game.social + 15);
-
-  game[person] = clamp(game[person] + 8);
-
-  if (person === "emma") {
-    log("❤️ Emma apprécie beaucoup la conversation.");
-  } else {
-    log("❤️ Lucas a passé un bon moment avec Lili.");
-  }
-
-  advance(20);
+if(game.money<35){
+log("❌ Pas assez d'argent.");
+return;
 }
 
-function buy(item, price) {
+game.money-=35;
+game.hunger=clamp(game.hunger+10);
 
-  if (game.money < price) {
-    log("❌ Pas assez d'argent.");
-    return;
-  }
+log("🛒 Courses : -35€");
 
-  game.money -= price;
-
-  game.inventory.push(item);
-
-  log("🛍️ Achat effectué : " + item + " (-" + price + "€)");
-
-  update();
+advance(30);
 }
 
-function moveCharacter(dx, dy) {
+function callFriend(){
 
-  game.x += dx;
-  game.y += dy;
+game.social=clamp(game.social+30);
+game.emma=clamp(game.emma+5);
 
-  game.x = Math.max(3, Math.min(92, game.x));
-  game.y = Math.max(3, Math.min(88, game.y));
+log("📱 Conversation avec Emma.");
 
-  update();
+advance(20);
 }
 
-function saveGame() {
+function chooseJob(job){
 
-  localStorage.setItem(
-    "liliLife2Save",
-    JSON.stringify(game)
-  );
+game.job=job;
 
-  log("💾 Partie sauvegardée !");
+log("💼 Nouveau métier : "+jobs[job].name);
+
+update();
 }
 
-function loadGame() {
+function goToWork(){
 
-  const saved = localStorage.getItem("liliLife2Save");
-
-  if (saved) {
-
-    try {
-      game = JSON.parse(saved);
-
-      log("📂 Partie chargée !");
-    }
-
-    catch(e) {
-      log("⚠️ Impossible de charger la sauvegarde.");
-    }
-  }
-
-  update();
+if(!game.job){
+log("❌ Choisis d'abord un métier.");
+return;
 }
 
-setInterval(() => {
+if(game.energy<20){
+log("😴 Lili est trop fatiguée pour travailler.");
+return;
+}
 
-  advance(5);
+let salary=jobs[game.job].salary;
 
-}, 3000);
+game.money+=salary;
+game.energy=clamp(game.energy-25);
+game.fun=clamp(game.fun-10);
+
+log("💼 Travail terminé : +"+salary+"€");
+
+advance(180);
+}
+
+function talk(person){
+
+game.social=clamp(game.social+15);
+game[person]=clamp(game[person]+8);
+
+log("❤️ Relation améliorée.");
+
+advance(20);
+}
+
+function toggleBuild(){
+
+document.getElementById("buildMenu").classList.toggle("hidden");
+}
+
+function buyFurniture(item,price){
+
+if(game.money<price){
+log("❌ Pas assez d'argent.");
+return;
+}
+
+game.money-=price;
+game.inventory.push(item);
+
+let house=document.getElementById("house");
+let obj=document.createElement("div");
+
+obj.className="object";
+obj.textContent=item;
+
+obj.style.left=(10+Math.random()*75)+"%";
+obj.style.top=(10+Math.random()*75)+"%";
+
+house.appendChild(obj);
+
+log("🏠 Nouveau meuble installé : "+item);
+
+update();
+}
+
+function addRoom(type){
+
+let prices={
+chambre:500,
+salon:600,
+cuisine:450,
+bureau:400
+};
+
+let price=prices[type];
+
+if(game.money<price){
+log("❌ Pas assez d'argent.");
+return;
+}
+
+game.money-=price;
+game.rooms++;
+
+log("🧱 Nouvelle pièce construite : "+type+" (-"+price+"€)");
+
+let house=document.getElementById("house");
+
+let room=document.createElement("div");
+room.className="room";
+
+room.textContent=type.toUpperCase();
+
+room.style.width="25%";
+room.style.height="20%";
+
+room.style.left=(5+Math.random()*65)+"%";
+room.style.top=(5+Math.random()*65)+"%";
+
+house.appendChild(room);
+
+update();
+}
+
+function saveGame(){
+
+localStorage.setItem(
+"liliLife3Save",
+JSON.stringify(game)
+);
+
+log("💾 Partie sauvegardée !");
+}
+
+function loadGame(){
+
+let saved=localStorage.getItem("liliLife3Save");
+
+if(saved){
+
+try{
+game=JSON.parse(saved);
+log("📂 Sauvegarde chargée !");
+}catch(e){
+log("⚠️ Erreur de sauvegarde.");
+}
+
+}
+
+update();
+}
+
+setInterval(()=>{
+advance(5);
+},3000);
 
 loadGame();
 
-log("🌸 Bienvenue dans Lili Life 2.0 !");
-log("🏠 Fais vivre Lili, travaille, rencontre des amis et aménage ta maison.");
+log("🌸 Bienvenue dans Lili Life 3.0 !");
+log("🏠 Construis ta maison, choisis ton métier et crée ta vie !");
 
 </script>
 
