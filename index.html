@@ -2,598 +2,984 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Lili Life 3.0 🌸</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lili Life 4.0</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:Arial,sans-serif;background:#f5edf7;color:#33253a}
-header{position:sticky;top:0;z-index:20;background:white;padding:12px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px #0002}
-.logo{font-weight:bold;font-size:20px}
-.money{background:#ffe58a;padding:8px 12px;border-radius:20px;font-weight:bold}
-main{max-width:900px;margin:auto;padding:10px}
-.card{background:white;border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px #0001}
-.time{text-align:center;font-size:18px;font-weight:bold}
-.mood{text-align:center;background:#f7e5fa;border-radius:14px;padding:8px;margin-top:8px}
-.status{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
-.need{text-align:center;font-size:11px}
-.bar{height:8px;background:#eee;border-radius:10px;overflow:hidden}
-.fill{height:100%;background:#d86bd9}
-.house{position:relative;width:100%;height:450px;background:#d5ad88;border:7px solid #76503c;border-radius:16px;overflow:hidden}
-.room{position:absolute;background:#f8dfc8;border:3px solid #76503c;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#76503c}
-.room1{left:0;top:0;width:50%;height:55%}
-.room2{right:0;top:0;width:50%;height:55%}
-.room3{left:0;bottom:0;width:50%;height:45%}
-.room4{right:0;bottom:0;width:50%;height:45%}
-.character{position:absolute;font-size:42px;z-index:10;left:40%;top:40%;transition:.2s}
-.object{position:absolute;font-size:34px;z-index:3}
-button{border:0;border-radius:13px;padding:11px 8px;font-weight:bold;background:#e9b6e7;color:#302238}
-button:active{transform:scale(.96)}
-button.green{background:#a9dba8}
-button.blue{background:#a9c9ed}
-button.yellow{background:#ffe18a}
-button.dark{background:#76503c;color:white}
-button.red{background:#f3a8a8}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.job{border:2px solid #ead9ec;border-radius:14px;padding:12px;margin-bottom:8px}
-.job.selected{border-color:#b35db7;background:#fbf0fc}
-.builditem{border:2px solid #ead9ec;border-radius:14px;padding:10px;text-align:center}
-.buildgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.log{max-height:140px;overflow:auto;font-size:13px}
-.log div{padding:5px;border-bottom:1px solid #eee}
-.hidden{display:none!important}
-@media(max-width:600px){
-.house{height:410px}
-button{font-size:12px}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #ffd6e7, #e9d7ff);
+  color: #33263d;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  border: 0;
+  border-radius: 18px;
+  padding: 14px 18px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  background: white;
+  color: #33263d;
+  box-shadow: 0 5px 15px rgba(0,0,0,.12);
+  touch-action: manipulation;
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 25px 18px 35px;
+  animation: appear .25s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  text-align: center;
+  font-size: 42px;
+  margin: 35px 0 10px;
+}
+
+h2 {
+  text-align: center;
+  margin: 10px 0 25px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+.logo {
+  font-size: 80px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.menu {
+  max-width: 420px;
+  margin: auto;
+  display: grid;
+  gap: 16px;
+}
+
+.main-button {
+  font-size: 21px;
+  padding: 19px;
+  background: #ff6fae;
+  color: white;
+}
+
+.secondary {
+  background: rgba(255,255,255,.8);
+}
+
+.back {
+  margin-bottom: 20px;
+}
+
+.choice-grid {
+  max-width: 500px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.choice {
+  min-height: 130px;
+  font-size: 22px;
+}
+
+.choice.selected {
+  outline: 5px solid #ff6fae;
+  transform: scale(1.03);
+}
+
+.face {
+  font-size: 60px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.hair {
+  font-size: 50px;
+}
+
+.name-box {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 17px;
+  border-radius: 16px;
+  border: 2px solid white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.continue {
+  display: block;
+  margin: 30px auto 0;
+  background: #8d65ff;
+  color: white;
+  font-size: 20px;
+}
+
+.preview {
+  text-align: center;
+  background: rgba(255,255,255,.55);
+  border-radius: 25px;
+  padding: 25px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.character-big {
+  font-size: 100px;
+  margin: 10px;
+}
+
+.house-preview {
+  font-size: 90px;
+  text-align: center;
+}
+
+/* JEU */
+
+#game {
+  padding: 10px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.stat {
+  background: rgba(255,255,255,.9);
+  border-radius: 14px;
+  padding: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.house {
+  position: relative;
+  height: 58vh;
+  min-height: 390px;
+  max-height: 650px;
+  background: #f8dcbf;
+  border: 6px solid #9a624b;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.room {
+  position: absolute;
+  border: 3px solid rgba(80,50,40,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(50,35,30,.5);
+}
+
+.living {
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 55%;
+  background: #ffe8bd;
+}
+
+.bedroom {
+  right: 0;
+  top: 0;
+  width: 40%;
+  height: 55%;
+  background: #dfd0ff;
+}
+
+.kitchen {
+  left: 0;
+  bottom: 0;
+  width: 60%;
+  height: 45%;
+  background: #d4f1e2;
+}
+
+.bathroom {
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  height: 45%;
+  background: #ccecff;
+}
+
+.furniture {
+  position: absolute;
+  font-size: 38px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sofa { left: 15%; top: 30%; }
+.tv { left: 43%; top: 10%; }
+.bed { right: 8%; top: 27%; }
+.fridge { left: 8%; bottom: 10%; }
+.shower { right: 10%; bottom: 12%; }
+
+.player {
+  position: absolute;
+  z-index: 10;
+  font-size: 55px;
+  left: 45%;
+  top: 45%;
+  transition: left .25s ease, top .25s ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+.touch-zone {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+}
+
+.game-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.game-actions button {
+  padding: 12px 5px;
+  font-size: 14px;
+}
+
+.action-food { background: #ffe08a; }
+.action-sleep { background: #cfc0ff; }
+.action-shower { background: #9de2ff; }
+.action-fun { background: #ffb0d0; }
+.action-work { background: #b9e8a8; }
+.action-social { background: #ffd09c; }
+
+.message {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 30px);
+  max-width: 450px;
+  background: rgba(40,30,50,.93);
+  color: white;
+  padding: 13px;
+  border-radius: 15px;
+  text-align: center;
+  z-index: 100;
+  display: none;
+}
+
+.panel {
+  background: rgba(255,255,255,.65);
+  padding: 20px;
+  border-radius: 22px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.bar {
+  height: 15px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 7px 0 14px;
+}
+
+.bar-inner {
+  height: 100%;
+  width: 50%;
+  background: #ff70a8;
+  transition: width .3s;
+}
+
+.small {
+  font-size: 14px;
+  opacity: .8;
+}
+
+@media (max-width: 380px) {
+  h1 { font-size: 35px; }
+  .game-actions button { font-size: 12px; }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">🌸 Lili Life 3.0</div>
-<div class="money">💰 <span id="money">500</span> €</div>
-</header>
+<!-- ACCUEIL -->
+<section id="home" class="screen active">
+  <div class="logo">🏡</div>
+  <h1>Lili Life</h1>
+  <div class="subtitle">Ta petite vie, ton histoire ✨</div>
 
-<main>
+  <div class="menu">
+    <button class="main-button" onclick="newGame()">▶️ Nouvelle partie</button>
+    <button class="secondary" onclick="loadGame()">📂 Continuer</button>
+  </div>
+</section>
 
-<div class="card">
-<div class="time">📅 Jour <span id="day">1</span> — <span id="clock">08:00</span></div>
-<div id="mood" class="mood">😊 Bonne humeur</div>
-</div>
+<!-- GENRE -->
+<section id="gender" class="screen">
+  <button class="back" onclick="showScreen('home')">← Retour</button>
 
-<div class="card">
-<div class="status">
-<div class="need">🍔<br>Faim<div class="bar"><div id="hunger" class="fill"></div></div></div>
-<div class="need">⚡<br>Énergie<div class="bar"><div id="energy" class="fill"></div></div></div>
-<div class="need">🚿<br>Hygiène<div class="bar"><div id="hygiene" class="fill"></div></div></div>
-<div class="need">🎮<br>Fun<div class="bar"><div id="fun" class="fill"></div></div></div>
-<div class="need">❤️<br>Social<div class="bar"><div id="social" class="fill"></div></div></div>
-</div>
-</div>
+  <h2>👤 Crée ton personnage</h2>
+  <p class="subtitle">Choisis ton personnage</p>
+
+  <div class="choice-grid">
+    <button class="choice" id="femaleBtn" onclick="chooseGender('female')">
+      <span class="face">👩</span>
+      Femme
+    </button>
+
+    <button class="choice" id="maleBtn" onclick="chooseGender('male')">
+      <span class="face">👨</span>
+      Homme
+    </button>
+
+    <button class="choice" id="childBtn" onclick="chooseGender('child')">
+      <span class="face">🧒</span>
+      Enfant
+    </button>
+  </div>
+
+  <input id="playerName" class="name-box" maxlength="18" placeholder="Ton prénom...">
+
+  <button class="continue" onclick="goToFaces()">Continuer →</button>
+</section>
+
+<!-- VISAGE -->
+<section id="faces" class="screen">
+  <button class="back" onclick="showScreen('gender')">← Retour</button>
+
+  <h2>🙂 Choisis ton visage</h2>
+
+  <div class="choice-grid">
+    <button class="choice" onclick="chooseFace('🙂', this)">
+      <span class="face">🙂</span>
+      Visage 1
+    </button>
+
+    <button class="choice" onclick="chooseFace('😊', this)">
+      <span class="face">😊</span>
+      Visage 2
+    </button>
+
+    <button class="choice" onclick="chooseFace('😎', this)">
+      <span class="face">😎</span>
+      Visage 3
+    </button>
+
+    <button class="choice" onclick="chooseFace('😄', this)">
+      <span class="face">😄</span>
+      Visage 4
+    </button>
+
+    <button class="choice" onclick="chooseFace('🥰', this)">
+      <span class="face">🥰</span>
+      Visage 5
+    </button>
+
+    <button class="choice" onclick="chooseFace('🤓', this)">
+      <span class="face">🤓</span>
+      Visage 6
+    </button>
+  </div>
+
+  <button class="continue" onclick="goToHair()">Choisir les cheveux →</button>
+</section>
+
+<!-- CHEVEUX -->
+<section id="hair" class="screen">
+  <button class="back" onclick="showScreen('faces')">← Retour</button>
+
+  <h2>💇 Choisis tes cheveux</h2>
+
+  <div class="choice-grid">
+    <button class="choice" onclick="chooseHair('👩‍🦰', this)">
+      <span class="hair">👩‍🦰</span>
+      Roux
+    </button>
+
+    <button class="choice" onclick="chooseHair('👱', this)">
+      <span class="hair">👱</span>
+      Blond
+    </button>
+
+    <button class="choice" onclick="chooseHair('👩‍🦱', this)">
+      <span class="hair">👩‍🦱</span>
+      Bouclé
+    </button>
+
+    <button class="choice" onclick="chooseHair('👩‍🦳', this)">
+      <span class="hair">👩‍🦳</span>
+      Clair
+    </button>
+  </div>
+
+  <button class="continue" onclick="showPreview()">Voir mon personnage →</button>
+</section>
+
+<!-- APERCU -->
+<section id="preview" class="screen">
+  <h2>✨ Ton personnage</h2>
+
+  <div class="preview">
+    <div id="previewCharacter" class="character-big">🧑</div>
+    <h2 id="previewName">Ton personnage</h2>
+    <p id="previewGender"></p>
+  </div>
+
+  <button class="continue" onclick="createHouse()">🏡 Créer ma maison</button>
+</section>
 
 <!-- MAISON -->
+<section id="houseCreation" class="screen">
+  <h2>🏡 Bienvenue dans ta nouvelle vie</h2>
 
-<div class="card">
-<h3>🏠 Ma maison</h3>
+  <div class="panel">
+    <div class="house-preview">🏠</div>
 
-<div class="house" id="house">
+    <p style="text-align:center">
+      Voici ta première maison.
+    </p>
 
-<div id="room1" class="room room1">SALON</div>
-<div id="room2" class="room room2">CUISINE</div>
-<div id="room3" class="room room3">SALLE DE BAIN</div>
-<div id="room4" class="room room4">CHAMBRE</div>
+    <p style="text-align:center">
+      💰 Tu commences avec <b>500 €</b>.
+    </p>
+  </div>
 
-<div class="object" style="left:10%;top:15%">🛋️</div>
-<div class="object" style="left:35%;top:20%">📺</div>
-<div class="object" style="left:65%;top:18%">🍳</div>
-<div class="object" style="left:78%;top:35%">🧊</div>
-<div class="object" style="left:12%;top:70%">🛁</div>
-<div class="object" style="left:65%;top:70%">🛏️</div>
+  <button class="continue" onclick="startGame()">Commencer ma vie →</button>
+</section>
 
-<div id="character" class="character">🧑</div>
+<!-- JEU -->
+<section id="game" class="screen">
 
-</div>
+  <div class="topbar">
+    <div class="stat">💰 <span id="money">500</span>€</div>
+    <div class="stat">🕐 <span id="time">08:00</span></div>
+    <div class="stat">📅 Jour <span id="day">1</span></div>
+  </div>
 
-<div class="controls" style="margin-top:8px">
-<button onclick="move(-5,0)">⬅️</button>
-<button onclick="move(0,-5)">⬆️</button>
-<button onclick="move(5,0)">➡️</button>
-<button onclick="move(0,5)">⬇️</button>
-<button class="green" onclick="eat()">🍔 Manger</button>
-<button class="blue" onclick="sleep()">😴 Dormir</button>
-</div>
-</div>
+  <div class="house" id="house">
 
-<!-- TRAVAIL -->
+    <div class="room living">🛋️ Salon</div>
+    <div class="room bedroom">🛏️ Chambre</div>
+    <div class="room kitchen">🍳 Cuisine</div>
+    <div class="room bathroom">🚿 Salle de bain</div>
 
-<div class="card">
-<h3>💼 Travail</h3>
+    <div class="furniture sofa">🛋️</div>
+    <div class="furniture tv">📺</div>
+    <div class="furniture bed">🛏️</div>
+    <div class="furniture fridge">🧊</div>
+    <div class="furniture shower">🚿</div>
 
-<div class="job" id="serveur">
-<b>🍽️ Serveur</b>
-<p>Salaire : 55 € / journée</p>
-<button onclick="chooseJob('serveur')">Choisir</button>
-</div>
+    <div class="player" id="player">🧑</div>
 
-<div class="job" id="medecin">
-<b>🩺 Médecin</b>
-<p>Salaire : 130 € / journée</p>
-<button onclick="chooseJob('medecin')">Choisir</button>
-</div>
+    <div class="touch-zone"
+         ontouchstart="touchStart(event)"
+         ontouchend="touchEnd(event)">
+    </div>
+  </div>
 
-<div class="job" id="developpeur">
-<b>💻 Développeur</b>
-<p>Salaire : 110 € / journée</p>
-<button onclick="chooseJob('developpeur')">Choisir</button>
-</div>
+  <div class="panel" style="padding:12px;margin-bottom:10px;">
+    <b id="characterName">Personnage</b>
+    <span> — </span>
+    <span id="jobText">Sans emploi</span>
 
-<div class="job" id="artiste">
-<b>🎨 Artiste</b>
-<p>Salaire : 80 € / journée</p>
-<button onclick="chooseJob('artiste')">Choisir</button>
-</div>
+    <div class="small">😊 Humeur</div>
+    <div class="bar"><div id="moodBar" class="bar-inner"></div></div>
+  </div>
 
-<p>👔 Métier actuel : <b id="currentJob">Aucun</b></p>
+  <div class="game-actions">
+    <button class="action-food" onclick="eat()">🍔 Manger</button>
+    <button class="action-sleep" onclick="sleep()">🛌 Dormir</button>
+    <button class="action-shower" onclick="shower()">🚿 Douche</button>
+    <button class="action-fun" onclick="fun()">📺 Loisirs</button>
+    <button class="action-work" onclick="work()">💼 Travailler</button>
+    <button class="action-social" onclick="social()">❤️ Social</button>
+  </div>
 
-<button class="yellow" onclick="goToWork()">🚗 Aller travailler</button>
-</div>
+  <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+    <button onclick="showNeeds()">📊 Besoins</button>
+    <button onclick="chooseJob()">💼 Métier</button>
+    <button onclick="saveGame()">💾 Sauvegarder</button>
+    <button onclick="goHome()">🏠 Menu</button>
+  </div>
 
-<!-- CONSTRUCTION -->
+</section>
 
-<div class="card">
-<h3>🏗️ Construire ma maison</h3>
+<!-- BESOINS -->
+<section id="needs" class="screen">
+  <button class="back" onclick="showScreen('game')">← Retour au jeu</button>
 
-<button class="dark" onclick="toggleBuild()">🔨 Ouvrir le mode construction</button>
+  <h2>📊 Tes besoins</h2>
 
-<div id="buildMenu" class="hidden">
+  <div class="panel">
+    <p>🍔 Faim</p>
+    <div class="bar"><div id="hungerBar" class="bar-inner"></div></div>
 
-<p>Construire coûte de l'argent.</p>
+    <p>⚡ Énergie</p>
+    <div class="bar"><div id="energyBar" class="bar-inner"></div></div>
 
-<div class="buildgrid">
+    <p>🚿 Hygiène</p>
+    <div class="bar"><div id="hygieneBar" class="bar-inner"></div></div>
 
-<div class="builditem">
-<div style="font-size:35px">🛋️</div>
-<b>Canapé</b>
-<p>120 €</p>
-<button onclick="buyFurniture('🛋️',120)">Acheter</button>
-</div>
+    <p>🎮 Amusement</p>
+    <div class="bar"><div id="funBar" class="bar-inner"></div></div>
 
-<div class="builditem">
-<div style="font-size:35px">📺</div>
-<b>Télévision</b>
-<p>200 €</p>
-<button onclick="buyFurniture('📺',200)">Acheter</button>
-</div>
+    <p>❤️ Social</p>
+    <div class="bar"><div id="socialBar" class="bar-inner"></div></div>
+  </div>
+</section>
 
-<div class="builditem">
-<div style="font-size:35px">🛏️</div>
-<b>Lit</b>
-<p>250 €</p>
-<button onclick="buyFurniture('🛏️',250)">Acheter</button>
-</div>
+<!-- METIER -->
+<section id="jobs" class="screen">
+  <button class="back" onclick="showScreen('game')">← Retour au jeu</button>
 
-<div class="builditem">
-<div style="font-size:35px">🪴</div>
-<b>Plante</b>
-<p>30 €</p>
-<button onclick="buyFurniture('🪴',30)">Acheter</button>
-</div>
+  <h2>💼 Choisis ton métier</h2>
 
-<div class="builditem">
-<div style="font-size:35px">🚿</div>
-<b>Douche</b>
-<p>180 €</p>
-<button onclick="buyFurniture('🚿',180)">Acheter</button>
-</div>
+  <div class="menu">
+    <button onclick="selectJob('Serveur',55)">🍽️ Serveur<br><small>55 €/jour</small></button>
+    <button onclick="selectJob('Médecin',130)">🩺 Médecin<br><small>130 €/jour</small></button>
+    <button onclick="selectJob('Développeur',110)">💻 Développeur<br><small>110 €/jour</small></button>
+    <button onclick="selectJob('Artiste',80)">🎨 Artiste<br><small>80 €/jour</small></button>
+  </div>
+</section>
 
-<div class="builditem">
-<div style="font-size:35px">🍳</div>
-<b>Cuisine</b>
-<p>300 €</p>
-<button onclick="buyFurniture('🍳',300)">Acheter</button>
-</div>
-
-</div>
-
-<hr>
-
-<h4>🧱 Ajouter une pièce</h4>
-
-<div class="grid">
-<button onclick="addRoom('chambre')">🛏️ Chambre - 500€</button>
-<button onclick="addRoom('salon')">🛋️ Salon - 600€</button>
-<button onclick="addRoom('cuisine')">🍳 Cuisine - 450€</button>
-<button onclick="addRoom('bureau')">💻 Bureau - 400€</button>
-</div>
-
-</div>
-</div>
-
-<!-- ACTIONS -->
-
-<div class="card">
-<h3>✨ Vie quotidienne</h3>
-
-<div class="controls">
-<button onclick="shower()">🚿 Douche</button>
-<button onclick="play()">🎮 Jouer</button>
-<button onclick="callFriend()">📱 Appeler</button>
-<button onclick="shopping()">🛒 Courses</button>
-<button class="green" onclick="eat()">🍔 Manger</button>
-<button class="dark" onclick="saveGame()">💾 Sauvegarder</button>
-</div>
-</div>
-
-<!-- RELATIONS -->
-
-<div class="card">
-<h3>❤️ Relations</h3>
-
-<div class="grid">
-
-<div class="job">
-<div style="font-size:35px">👩</div>
-<b>Emma</b>
-<p>❤️ <span id="emma">30</span>/100</p>
-<button onclick="talk('emma')">💬 Parler</button>
-</div>
-
-<div class="job">
-<div style="font-size:35px">👨</div>
-<b>Lucas</b>
-<p>❤️ <span id="lucas">20</span>/100</p>
-<button onclick="talk('lucas')">💬 Parler</button>
-</div>
-
-</div>
-</div>
-
-<div class="card">
-<h3>📖 Journal</h3>
-<div id="log" class="log"></div>
-</div>
-
-</main>
+<div id="message" class="message"></div>
 
 <script>
-
-let game={
-money:500,
-day:1,
-minutes:480,
-
-hunger:80,
-energy:80,
-hygiene:80,
-fun:70,
-social:60,
-
-job:"",
-emma:30,
-lucas:20,
-
-x:40,
-y:40,
-
-rooms:4,
-inventory:[]
+let game = {
+  name: "Lili",
+  gender: "female",
+  face: "🙂",
+  hair: "👩‍🦰",
+  money: 500,
+  day: 1,
+  minutes: 8 * 60,
+  job: "Sans emploi",
+  salary: 0,
+  hunger: 80,
+  energy: 80,
+  hygiene: 80,
+  fun: 80,
+  social: 80,
+  x: 45,
+  y: 45
 };
 
-const jobs={
-serveur:{name:"Serveur",salary:55},
-medecin:{name:"Médecin",salary:130},
-developpeur:{name:"Développeur",salary:110},
-artiste:{name:"Artiste",salary:80}
-};
+let touchX = 0;
+let touchY = 0;
 
-function clamp(v){
-return Math.max(0,Math.min(100,v));
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
 }
 
-function log(text){
-let box=document.getElementById("log");
-let div=document.createElement("div");
-div.textContent=text;
-box.prepend(div);
+function newGame() {
+  game = {
+    name: "Lili",
+    gender: "female",
+    face: "🙂",
+    hair: "👩‍🦰",
+    money: 500,
+    day: 1,
+    minutes: 8 * 60,
+    job: "Sans emploi",
+    salary: 0,
+    hunger: 80,
+    energy: 80,
+    hygiene: 80,
+    fun: 80,
+    social: 80,
+    x: 45,
+    y: 45
+  };
 
-while(box.children.length>20)
-box.removeChild(box.lastChild);
+  document.getElementById("playerName").value = "";
+  showScreen("gender");
 }
 
-function update(){
+function chooseGender(gender) {
+  game.gender = gender;
 
-document.getElementById("money").textContent=game.money;
-document.getElementById("day").textContent=game.day;
+  document.querySelectorAll("#gender .choice").forEach(b => {
+    b.classList.remove("selected");
+  });
 
-let h=Math.floor(game.minutes/60);
-let m=game.minutes%60;
+  if (gender === "female")
+    document.getElementById("femaleBtn").classList.add("selected");
 
-document.getElementById("clock").textContent=
-String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+  if (gender === "male")
+    document.getElementById("maleBtn").classList.add("selected");
 
-document.getElementById("hunger").style.width=game.hunger+"%";
-document.getElementById("energy").style.width=game.energy+"%";
-document.getElementById("hygiene").style.width=game.hygiene+"%";
-document.getElementById("fun").style.width=game.fun+"%";
-document.getElementById("social").style.width=game.social+"%";
+  if (gender === "child")
+    document.getElementById("childBtn").classList.add("selected");
 
-document.getElementById("emma").textContent=game.emma;
-document.getElementById("lucas").textContent=game.lucas;
-
-document.getElementById("character").style.left=game.x+"%";
-document.getElementById("character").style.top=game.y+"%";
-
-document.getElementById("currentJob").textContent=
-game.job ? jobs[game.job].name : "Aucun";
-
-document.querySelectorAll(".job").forEach(x=>x.classList.remove("selected"));
-
-if(game.job && document.getElementById(game.job))
-document.getElementById(game.job).classList.add("selected");
-
-let avg=(game.hunger+game.energy+game.hygiene+game.fun+game.social)/5;
-
-let mood="😢 Très mauvaise humeur";
-
-if(avg>=85)mood="🤩 Excellente humeur";
-else if(avg>=70)mood="😊 Bonne humeur";
-else if(avg>=50)mood="🙂 Humeur normale";
-else if(avg>=30)mood="😕 Mauvaise humeur";
-
-document.getElementById("mood").textContent=mood;
+  updateCharacter();
 }
 
-function advance(min){
+function goToFaces() {
+  const name = document.getElementById("playerName").value.trim();
 
-game.minutes+=min;
+  if (name) {
+    game.name = name;
+  }
 
-if(game.minutes>=1440){
-game.minutes-=1440;
-game.day++;
+  if (!game.gender) {
+    showMessage("Choisis d'abord ton personnage.");
+    return;
+  }
 
-log("🌅 Une nouvelle journée commence !");
+  showScreen("faces");
 }
 
-game.hunger=clamp(game.hunger-min/30*2);
-game.energy=clamp(game.energy-min/30);
-game.hygiene=clamp(game.hygiene-min/30);
-game.fun=clamp(game.fun-min/60);
-game.social=clamp(game.social-min/60);
+function chooseFace(face, button) {
+  game.face = face;
 
-update();
+  document.querySelectorAll("#faces .choice").forEach(b => {
+    b.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+  updateCharacter();
 }
 
-function move(dx,dy){
-
-game.x+=dx;
-game.y+=dy;
-
-game.x=Math.max(4,Math.min(92,game.x));
-game.y=Math.max(4,Math.min(88,game.y));
-
-update();
+function goToHair() {
+  showScreen("hair");
 }
 
-function eat(){
+function chooseHair(hair, button) {
+  game.hair = hair;
 
-if(game.money<8){
-log("❌ Tu n'as pas assez d'argent.");
-return;
+  document.querySelectorAll("#hair .choice").forEach(b => {
+    b.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+  updateCharacter();
 }
 
-game.money-=8;
-game.hunger=clamp(game.hunger+35);
+function updateCharacter() {
+  let symbol = game.gender === "male" ? "👨" :
+               game.gender === "child" ? "🧒" : "👩";
 
-log("🍔 Lili mange. -8€");
+  if (game.face) {
+    symbol = game.face;
+  }
 
-advance(20);
+  document.getElementById("previewCharacter").textContent = symbol;
+
+  const player = document.getElementById("player");
+
+  if (player) {
+    player.textContent = game.gender === "male" ? "👨" :
+                         game.gender === "child" ? "🧒" : "👩";
+  }
 }
 
-function sleep(){
+function showPreview() {
+  updateCharacter();
 
-game.energy=clamp(game.energy+65);
+  document.getElementById("previewName").textContent = game.name;
 
-log("😴 Bonne nuit !");
+  let genderText =
+    game.gender === "male" ? "👨 Homme" :
+    game.gender === "child" ? "🧒 Enfant" :
+    "👩 Femme";
 
-advance(240);
+  document.getElementById("previewGender").textContent = genderText;
+
+  showScreen("preview");
 }
 
-function shower(){
-
-game.hygiene=clamp(game.hygiene+45);
-
-log("🚿 Lili prend une douche.");
-
-advance(20);
+function createHouse() {
+  showScreen("houseCreation");
 }
 
-function play(){
-
-game.fun=clamp(game.fun+30);
-game.energy=clamp(game.energy-8);
-
-log("🎮 Lili joue.");
-
-advance(30);
+function startGame() {
+  showScreen("game");
+  updateGameUI();
+  showMessage("Bienvenue chez toi, " + game.name + " ! 🏡");
 }
 
-function shopping(){
-
-if(game.money<35){
-log("❌ Pas assez d'argent.");
-return;
+function goHome() {
+  showScreen("home");
 }
 
-game.money-=35;
-game.hunger=clamp(game.hunger+10);
-
-log("🛒 Courses : -35€");
-
-advance(30);
+function showNeeds() {
+  showScreen("needs");
+  updateGameUI();
 }
 
-function callFriend(){
-
-game.social=clamp(game.social+30);
-game.emma=clamp(game.emma+5);
-
-log("📱 Conversation avec Emma.");
-
-advance(20);
+function chooseJob() {
+  showScreen("jobs");
 }
 
-function chooseJob(job){
+function selectJob(job, salary) {
+  game.job = job;
+  game.salary = salary;
 
-game.job=job;
+  showScreen("game");
 
-log("💼 Nouveau métier : "+jobs[job].name);
+  document.getElementById("jobText").textContent = game.job;
 
-update();
+  showMessage("Nouveau métier : " + job + " 💼");
+  saveGame();
 }
 
-function goToWork(){
+function addMinutes(amount) {
+  game.minutes += amount;
 
-if(!game.job){
-log("❌ Choisis d'abord un métier.");
-return;
+  while (game.minutes >= 24 * 60) {
+    game.minutes -= 24 * 60;
+    game.day++;
+
+    if (game.salary > 0) {
+      game.money += game.salary;
+      showMessage("Nouveau jour ! Tu reçois " + game.salary + " € 💰");
+    }
+  }
+
+  game.hunger = Math.max(0, game.hunger - amount / 90);
+  game.energy = Math.max(0, game.energy - amount / 120);
+  game.hygiene = Math.max(0, game.hygiene - amount / 150);
+  game.fun = Math.max(0, game.fun - amount / 130);
+  game.social = Math.max(0, game.social - amount / 160);
+
+  updateGameUI();
 }
 
-if(game.energy<20){
-log("😴 Lili est trop fatiguée pour travailler.");
-return;
+function eat() {
+  game.hunger = Math.min(100, game.hunger + 35);
+  game.money = Math.max(0, game.money - 8);
+  addMinutes(30);
+  showMessage("🍔 Tu as mangé. +35 faim, -8 €");
 }
 
-let salary=jobs[game.job].salary;
-
-game.money+=salary;
-game.energy=clamp(game.energy-25);
-game.fun=clamp(game.fun-10);
-
-log("💼 Travail terminé : +"+salary+"€");
-
-advance(180);
+function sleep() {
+  game.energy = Math.min(100, game.energy + 60);
+  addMinutes(240);
+  showMessage("🛌 Tu as bien dormi.");
 }
 
-function talk(person){
-
-game.social=clamp(game.social+15);
-game[person]=clamp(game[person]+8);
-
-log("❤️ Relation améliorée.");
-
-advance(20);
+function shower() {
+  game.hygiene = Math.min(100, game.hygiene + 45);
+  addMinutes(20);
+  showMessage("🚿 Tu es propre !");
 }
 
-function toggleBuild(){
-
-document.getElementById("buildMenu").classList.toggle("hidden");
+function fun() {
+  game.fun = Math.min(100, game.fun + 30);
+  game.energy = Math.max(0, game.energy - 5);
+  addMinutes(40);
+  showMessage("📺 Tu regardes la télévision.");
 }
 
-function buyFurniture(item,price){
-
-if(game.money<price){
-log("❌ Pas assez d'argent.");
-return;
+function social() {
+  game.social = Math.min(100, game.social + 35);
+  addMinutes(30);
+  showMessage("❤️ Tu passes du temps avec quelqu'un.");
 }
 
-game.money-=price;
-game.inventory.push(item);
+function work() {
+  if (game.job === "Sans emploi") {
+    showMessage("Tu dois d'abord choisir un métier 💼");
+    chooseJob();
+    return;
+  }
 
-let house=document.getElementById("house");
-let obj=document.createElement("div");
+  if (game.energy < 20) {
+    showMessage("😴 Tu es trop fatigué pour travailler.");
+    return;
+  }
 
-obj.className="object";
-obj.textContent=item;
+  game.money += game.salary;
+  game.energy = Math.max(0, game.energy - 25);
+  game.hunger = Math.max(0, game.hunger - 10);
 
-obj.style.left=(10+Math.random()*75)+"%";
-obj.style.top=(10+Math.random()*75)+"%";
+  addMinutes(480);
 
-house.appendChild(obj);
-
-log("🏠 Nouveau meuble installé : "+item);
-
-update();
+  showMessage("💼 Travail terminé ! +" + game.salary + " €");
 }
 
-function addRoom(type){
+function updateGameUI() {
+  document.getElementById("money").textContent = Math.floor(game.money);
+  document.getElementById("day").textContent = game.day;
 
-let prices={
-chambre:500,
-salon:600,
-cuisine:450,
-bureau:400
-};
+  const hours = Math.floor(game.minutes / 60);
+  const mins = game.minutes % 60;
 
-let price=prices[type];
+  document.getElementById("time").textContent =
+    String(hours).padStart(2, "0") + ":" +
+    String(mins).padStart(2, "0");
 
-if(game.money<price){
-log("❌ Pas assez d'argent.");
-return;
+  document.getElementById("characterName").textContent = game.name;
+  document.getElementById("jobText").textContent = game.job;
+
+  setBar("hungerBar", game.hunger);
+  setBar("energyBar", game.energy);
+  setBar("hygieneBar", game.hygiene);
+  setBar("funBar", game.fun);
+  setBar("socialBar", game.social);
+
+  const mood =
+    (game.hunger +
+     game.energy +
+     game.hygiene +
+     game.fun +
+     game.social) / 5;
+
+  setBar("moodBar", mood);
+
+  movePlayer();
 }
 
-game.money-=price;
-game.rooms++;
+function setBar(id, value) {
+  const bar = document.getElementById(id);
 
-log("🧱 Nouvelle pièce construite : "+type+" (-"+price+"€)");
-
-let house=document.getElementById("house");
-
-let room=document.createElement("div");
-room.className="room";
-
-room.textContent=type.toUpperCase();
-
-room.style.width="25%";
-room.style.height="20%";
-
-room.style.left=(5+Math.random()*65)+"%";
-room.style.top=(5+Math.random()*65)+"%";
-
-house.appendChild(room);
-
-update();
+  if (bar) {
+    bar.style.width = Math.max(0, Math.min(100, value)) + "%";
+  }
 }
 
-function saveGame(){
+function movePlayer() {
+  const player = document.getElementById("player");
 
-localStorage.setItem(
-"liliLife3Save",
-JSON.stringify(game)
-);
+  if (!player) return;
 
-log("💾 Partie sauvegardée !");
+  player.style.left = game.x + "%";
+  player.style.top = game.y + "%";
 }
 
-function loadGame(){
+/* CONTROLES TACTILES */
 
-let saved=localStorage.getItem("liliLife3Save");
-
-if(saved){
-
-try{
-game=JSON.parse(saved);
-log("📂 Sauvegarde chargée !");
-}catch(e){
-log("⚠️ Erreur de sauvegarde.");
+function touchStart(event) {
+  const touch = event.changedTouches[0];
+  touchX = touch.clientX;
+  touchY = touch.clientY;
 }
 
+function touchEnd(event) {
+  const touch = event.changedTouches[0];
+
+  const dx = touch.clientX - touchX;
+  const dy = touch.clientY - touchY;
+
+  if (Math.abs(dx) < 20 && Math.abs(dy) < 20) {
+    showMessage("👆 Fais glisser ton doigt pour déplacer " + game.name);
+    return;
+  }
+
+  const distance = 8;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    game.x += dx > 0 ? distance : -distance;
+  } else {
+    game.y += dy > 0 ? distance : -distance;
+  }
+
+  game.x = Math.max(5, Math.min(90, game.x));
+  game.y = Math.max(5, Math.min(88, game.y));
+
+  movePlayer();
 }
 
-update();
+/* SAUVEGARDE */
+
+function saveGame() {
+  localStorage.setItem("liliLife4Save", JSON.stringify(game));
+  showMessage("💾 Partie sauvegardée !");
 }
 
-setInterval(()=>{
-advance(5);
-},3000);
+function loadGame() {
+  const saved = localStorage.getItem("liliLife4Save");
 
-loadGame();
+  if (!saved) {
+    showMessage("Aucune sauvegarde trouvée.");
+    return;
+  }
 
-log("🌸 Bienvenue dans Lili Life 3.0 !");
-log("🏠 Construis ta maison, choisis ton métier et crée ta vie !");
+  try {
+    game = JSON.parse(saved);
+    showScreen("game");
+    updateGameUI();
+    showMessage("📂 Partie chargée !");
+  } catch (error) {
+    showMessage("Impossible de charger la partie.");
+  }
+}
 
+function showMessage(text) {
+  const box = document.getElementById("message");
+
+  box.textContent = text;
+  box.style.display = "block";
+
+  clearTimeout(window.messageTimer);
+
+  window.messageTimer = setTimeout(() => {
+    box.style.display = "none";
+  }, 2500);
+}
+
+/* LE TEMPS PASSE */
+
+setInterval(() => {
+  const gameScreen = document.getElementById("game");
+
+  if (gameScreen.classList.contains("active")) {
+    addMinutes(5);
+  }
+}, 5000);
+
+/* SAUVEGARDE AUTOMATIQUE */
+
+setInterval(() => {
+  localStorage.setItem("liliLife4Save", JSON.stringify(game));
+}, 15000);
+
+updateCharacter();
 </script>
 
 </body>
