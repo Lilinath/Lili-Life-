@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, user-scalable=no">
+<title>Lili Life 🌸</title>
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #dff2ff;
+  color: #26354d;
+  overflow: hidden;
+}
+button {
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+#app {
+  height: 100vh;
+  height: 100dvh;
+  max-width: 900px;
+  margin: auto;
+  background: #f7fbff;
+  display: flex;
+  flex-direction: column;
+}
+/* EN-TÊTE */
+header {
+  height: 58px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  box-shadow: 0 2px 10px #0002;
+  z-index: 5;
+}
+.title {
+  font-size: 19px;
+  font-weight: bold;
+}
+.money {
+  color: #17804d;
+  font-weight: bold;
+}
+/* MONDE */
+#game {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #a9d98e;
+}
+/* MAISON */
+.house {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 5%;
+  bottom: 5%;
+  background: #e8c69e;
+  border: 7px solid #815b40;
+  border-radius: 15px;
+}
+.room {
+  position: absolute;
+  border: 4px solid #956b4d;
+  background: #fff3dc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: #80624e;
+}
+.living {
+  left: 0;
+  top: 0;
+  width: 58%;
+  height: 56%;
+}
+.kitchen {
+  right: 0;
+  top: 0;
+  width: 42%;
+  height: 56%;
+}
+.bathroom {
+  left: 0;
+  bottom: 0;
+  width: 38%;
+  height: 44%;
+}
+.bedroom {
+  right: 0;
+  bottom: 0;
+  width: 62%;
+  height: 44%;
+}
+/* OBJETS */
+.object {
+  position: absolute;
+  font-size: 29px;
+}
+.sofa {
+  left: 15%;
+  top: 28%;
+}
+.tv {
+  left: 43%;
+  top: 10%;
+}
+.fridge {
+  right: 10%;
+  top: 18%;
+}
+.shower {
+  left: 14%;
+  bottom: 12%;
+}
+.bed {
+  right: 20%;
+  bottom: 16%;
+}
+.table {
+  right: 13%;
+  top: 36%;
+}
+/* PERSONNAGE */
+#sim {
+  position: absolute;
+  left: 42%;
+  top: 43%;
+  font-size: 43px;
+  transition: left .4s, top .4s;
+  z-index: 3;
+}
+/* BULLE */
+#thought {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 7px 10px;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px #0003;
+  font-size: 13px;
+  z-index: 4;
+}
+/* PANNEAU */
+#panel {
+  background: white;
+  padding: 10px 12px 13px;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -3px 15px #0002;
+  z-index: 5;
+}
+/* BESOINS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.stat {
+  font-size: 10px;
+}
+.bar {
+  height: 8px;
+  margin-top: 4px;
+  background: #e5ebf2;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  width: 50%;
+  background: #4caf7d;
+  border-radius: 10px;
+  transition: width .3s;
+}
+/* INFORMATIONS */
+.info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin: 9px 2px;
+  color: #66738a;
+}
+/* BOUTONS */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+.actions button {
+  background: #edf5ff;
+  color: #304a6d;
+  border-radius: 12px;
+  padding: 10px 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.actions button:active {
+  transform: scale(.96);
+  background: #dcecff;
+}
+#log {
+  height: 16px;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 10px;
+  color: #718096;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <div class="title">🌸 Lili Life</div>
+  <div id="money" class="money">💰 500 €</div>
+</header>
+<div id="game">
+  <div class="house">
+    <div class="room living">
+      SALON
+    </div>
+    <div class="room kitchen">
+      CUISINE
+    </div>
+    <div class="room bathroom">
+      SALLE DE BAIN
+    </div>
+    <div class="room bedroom">
+      CHAMBRE
+    </div>
+    <div class="object sofa">🛋️</div>
+    <div class="object tv">📺</div>
+    <div class="object fridge">🧊</div>
+    <div class="object shower">🚿</div>
+    <div class="object bed">🛏️</div>
+    <div class="object table">🍽️</div>
+  </div>
+  <div id="thought">💭</div>
+  <div id="sim">🧑‍🦰</div>
+</div>
+<div id="panel">
+  <div class="stats">
+    <div class="stat">
+      🍔 Faim
+      <div class="bar">
+        <div id="hunger" class="fill"></div>
+      </div>
+    </div>
+    <div class="stat">
+      ⚡ Énergie
+      <div class="bar">
+        <div id="energy" class="fill"></div>
+      </div>
+    </div>
+    <div class="stat">
+      🚿 Hygiène
+      <div class="bar">
+        <div id="hygiene" class="fill"></div>
+      </div>
+    </div>
+    <div class="stat">
+      🎮 Fun
+      <div class="bar">
+        <div id="fun" class="fill"></div>
+      </div>
+    </div>
+    <div class="stat">
+      ❤️ Social
+      <div class="bar">
+        <div id="social" class="fill"></div>
+      </div>
+    </div>
+  </div>
+  <div class="info">
+    <span id="clock">Jour 1 — 08:00</span>
+    <span id="mood">😊 Heureuse</span>
+  </div>
+  <div class="actions">
+    <button onclick="action('eat')">
+      🍳 Manger
+    </button>
+    <button onclick="action('sleep')">
+      🛏️ Dormir
+    </button>
+    <button onclick="action('shower')">
+      🚿 Douche
+    </button>
+    <button onclick="action('fun')">
+      🎮 Jouer
+    </button>
+    <button onclick="action('work')">
+      💼 Travailler
+    </button>
+    <button onclick="action('social')">
+      💬 Appeler
+    </button>
+    <button onclick="action('shop')">
+      🛒 Courses
+    </button>
+    <button onclick="saveGame()">
+      💾 Sauver
+    </button>
+  </div>
+  <div id="log">
+    Bienvenue dans Lili Life 🌸
+  </div>
+</div>
+</div>
+<script>
+/* =========================
+   PERSONNAGE
+========================= */
+const player = {
+  hunger: 72,
+  energy: 80,
+  hygiene: 75,
+  fun: 65,
+  social: 70,
+  money: 500,
+  minutes: 480,
+  day: 1
+};
+/* =========================
+   LIMITES
+========================= */
+function clamp(value) {
+  return Math.max(
+    0,
+    Math.min(100, value)
+  );
+}
+/* =========================
+   INTERFACE
+========================= */
+function updateUI() {
+  document.getElementById("hunger")
+    .style.width = player.hunger + "%";
+  document.getElementById("energy")
+    .style.width = player.energy + "%";
+  document.getElementById("hygiene")
+    .style.width = player.hygiene + "%";
+  document.getElementById("fun")
+    .style.width = player.fun + "%";
+  document.getElementById("social")
+    .style.width = player.social + "%";
+  document.getElementById("money")
+    .textContent =
+      "💰 " +
+      Math.round(player.money) +
+      " €";
+  const hour =
+    Math.floor(player.minutes / 60) % 24;
+  const minute =
+    player.minutes % 60;
+  document.getElementById("clock")
+    .textContent =
+      "Jour " +
+      player.day +
+      " — " +
+      String(hour).padStart(2, "0") +
+      ":" +
+      String(minute).padStart(2, "0");
+  const average =
+    (
+      player.hunger +
+      player.energy +
+      player.hygiene +
+      player.fun +
+      player.social
+    ) / 5;
+  let mood;
+  if (average > 75) {
+    mood = "😄 Très heureuse";
+  }
+  else if (average > 55) {
+    mood = "😊 Heureuse";
+  }
+  else if (average > 35) {
+    mood = "😐 Moyenne";
+  }
+  else {
+    mood = "😫 Misérable";
+  }
+  document.getElementById("mood")
+    .textContent = mood;
+}
+/* =========================
+   TEMPS
+========================= */
+function advanceTime(minutes) {
+  player.minutes += minutes;
+  if (player.minutes >= 1440) {
+    player.minutes -= 1440;
+    player.day++;
+  }
+  player.hunger =
+    clamp(
+      player.hunger -
+      minutes * 0.035
+    );
+  player.energy =
+    clamp(
+      player.energy -
+      minutes * 0.025
+    );
+  player.hygiene =
+    clamp(
+      player.hygiene -
+      minutes * 0.018
+    );
+  player.fun =
+    clamp(
+      player.fun -
+      minutes * 0.012
+    );
+  player.social =
+    clamp(
+      player.social -
+      minutes * 0.010
+    );
+  updateUI();
+}
+/* =========================
+   DÉPLACEMENT
+========================= */
+function moveCharacter(left, top) {
+  document.getElementById("sim")
+    .style.left = left;
+  document.getElementById("sim")
+    .style.top = top;
+}
+/* =========================
+   MESSAGE
+========================= */
+function message(text, emoji) {
+  document.getElementById("log")
+    .textContent = text;
+  const thought =
+    document.getElementById("thought");
+  thought.textContent = emoji;
+  thought.style.display = "block";
+  setTimeout(() => {
+    thought.style.display = "none";
+  }, 1200);
+}
+/* =========================
+   ACTIONS
+========================= */
+function action(type) {
+  if (type === "eat") {
+    if (player.money < 8) {
+      message(
+        "Lili n'a pas assez d'argent.",
+        "😟"
+      );
+      return;
+    }
+    player.hunger =
+      clamp(player.hunger + 38);
+    player.money -= 8;
+    moveCharacter("76%", "28%");
+    advanceTime(20);
+    message(
+      "Lili mange un bon repas !",
+      "🍝"
+    );
+  }
+  else if (type === "sleep") {
+    player.energy =
+      clamp(player.energy + 65);
+    player.hunger =
+      clamp(player.hunger - 8);
+    moveCharacter("70%", "78%");
+    advanceTime(60);
+    message(
+      "Lili passe une bonne nuit...",
+      "😴"
+    );
+  }
+  else if (type === "shower") {
+    player.hygiene =
+      clamp(player.hygiene + 50);
+    moveCharacter("17%", "78%");
+    advanceTime(20);
+    message(
+      "Lili est toute propre !",
+      "🚿"
+    );
+  }
+  else if (type === "fun") {
+    player.fun =
+      clamp(player.fun + 40);
+    moveCharacter("25%", "35%");
+    advanceTime(20);
+    message(
+      "Lili se détend devant la télé.",
+      "🎮"
+    );
+  }
+  else if (type === "work") {
+    if (player.energy < 25) {
+      message(
+        "Lili n'a pas assez d'énergie.",
+        "😵"
+      );
+      return;
+    }
+    player.money += 85;
+    player.energy =
+      clamp(player.energy - 25);
+    player.fun =
+      clamp(player.fun - 8);
+    moveCharacter("52%", "50%");
+    advanceTime(120);
+    message(
+      "Travail terminé : +85 €",
+      "💼"
+    );
+  }
+  else if (type === "social") {
+    player.social =
+      clamp(player.social + 35);
+    player.fun =
+      clamp(player.fun + 10);
+    advanceTime(20);
+    message(
+      "Lili a passé un bon moment.",
+      "❤️"
+    );
+  }
+  else if (type === "shop") {
+    if (player.money < 35) {
+      message(
+        "Lili n'a pas assez d'argent.",
+        "😟"
+      );
+      return;
+    }
+    player.money -= 35;
+    player.hunger =
+      clamp(player.hunger + 15);
+    player.hygiene =
+      clamp(player.hygiene + 5);
+    advanceTime(30);
+    message(
+      "Lili revient des courses : -35 €",
+      "🛒"
+    );
+  }
+}
+/* =========================
+   SAUVEGARDE
+========================= */
+function saveGame() {
+  localStorage.setItem(
+    "liliLifeSave",
+    JSON.stringify(player)
+  );
+  message(
+    "Partie sauvegardée !",
+    "💾"
+  );
+}
+/* =========================
+   CHARGEMENT
+========================= */
+const saved =
+  localStorage.getItem("liliLifeSave");
+if (saved) {
+  Object.assign(
+    player,
+    JSON.parse(saved)
+  );
+}
+/* =========================
+   DÉMARRAGE
+========================= */
+updateUI();
+/* =========================
+   HORLOGE AUTOMATIQUE
+========================= */
+setInterval(() => {
+  advanceTime(5);
+}, 3000);
+</script>
+</body>
+</html>
