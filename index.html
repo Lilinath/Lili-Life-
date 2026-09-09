@@ -1,1660 +1,2922 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Lili Life 7.0</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lili Life 9.0</title>
 
 <style>
 :root{
-  --pink:#f7c9d9;
-  --pink2:#fce4ed;
-  --blue:#cfe8f5;
-  --green:#d8efd9;
-  --yellow:#faedb8;
-  --lav:#ded3f4;
-  --peach:#f8d4bf;
-  --cream:#fffaf5;
-  --ink:#514653;
-  --white:#fff;
-  --shadow:0 6px 18px rgba(80,60,80,.12);
+  --bg:#fff8f3;
+  --card:#fff;
+  --ink:#443b45;
+  --muted:#807582;
+  --pink:#f5b8c9;
+  --pink2:#fde1e9;
+  --blue:#b9dff1;
+  --green:#bfe3c0;
+  --lilac:#d9c8ee;
+  --peach:#f8cba9;
+  --yellow:#f7df91;
+  --line:#eadde0;
+  --shadow:0 10px 30px #5b41501a
 }
 
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
 
-html,body{
+body{
   margin:0;
-  min-height:100%;
-  background:#f9edf2;
+  background:linear-gradient(#fffaf7,#f8f1f6);
   color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  overflow-x:hidden;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
 
-button{
-  border:0;
-  font:inherit;
-  color:var(--ink);
-  cursor:pointer;
-}
+button,input{font:inherit}
+button{border:0;cursor:pointer}
 
 .app{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 10% 0%,#ffe9f1 0 18%,transparent 40%),
-    radial-gradient(circle at 100% 20%,#e7f4fa 0 15%,transparent 38%),
-    #f9edf2;
+  max-width:1100px;
+  margin:auto;
+  padding:14px 14px 90px
 }
 
-.topbar{
+.top{
   position:sticky;
   top:0;
   z-index:20;
-  padding:10px;
-  background:rgba(255,250,250,.92);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid #eadce2;
+  background:#fffaf7ee;
+  backdrop-filter:blur(12px);
+  padding:8px 0
 }
 
 .brand{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:8px;
+  justify-content:space-between;
+  gap:8px
 }
 
 .brand h1{
-  margin:0;
-  font-size:22px;
+  font-size:24px;
+  margin:0
 }
 
-.money{
-  background:var(--yellow);
-  padding:7px 11px;
-  border-radius:15px;
-  font-weight:800;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:5px;
-}
-
-.stat{
-  background:white;
-  border-radius:13px;
-  padding:5px 3px;
-  text-align:center;
-  box-shadow:var(--shadow);
-  font-size:11px;
-}
-
-.stat b{
-  display:block;
-  font-size:13px;
-}
-
-main{
-  width:min(100%,900px);
-  margin:auto;
-  padding:10px;
-  padding-bottom:90px;
+.pill{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:700
 }
 
 .screen{display:none}
 .screen.active{display:block}
 
 .card{
-  background:rgba(255,255,255,.88);
+  background:var(--card);
+  border:1px solid var(--line);
   border-radius:22px;
-  padding:12px;
-  margin-bottom:10px;
   box-shadow:var(--shadow);
+  padding:16px;
+  margin:12px 0
 }
 
-h2,h3{margin:5px 0 10px}
+.grid{
+  display:grid;
+  gap:12px
+}
+
+.two{
+  grid-template-columns:repeat(2,minmax(0,1fr))
+}
+
+.three{
+  grid-template-columns:repeat(3,minmax(0,1fr))
+}
+
+.title{
+  font-size:22px;
+  margin:5px 0 4px
+}
+
+.sub{
+  color:var(--muted);
+  margin:0 0 14px
+}
 
 .btn{
   background:var(--pink);
-  padding:11px 14px;
-  border-radius:15px;
-  font-weight:700;
-  box-shadow:0 3px 8px rgba(100,70,80,.12);
+  padding:11px 15px;
+  border-radius:14px;
+  font-weight:800;
+  color:#4a3940
 }
 
-.btn:active{transform:scale(.97)}
-
-.btn.blue{background:var(--blue)}
+.btn.alt{background:#f4edf2}
 .btn.green{background:var(--green)}
-.btn.yellow{background:var(--yellow)}
-.btn.lav{background:var(--lav)}
-.btn.peach{background:var(--peach)}
+.btn.blue{background:var(--blue)}
+.btn.warn{background:var(--yellow)}
+.btn:disabled{opacity:.45}
 
-.row{
+.choices{
   display:flex;
-  gap:7px;
-  flex-wrap:wrap;
+  gap:8px;
+  overflow:auto;
+  padding:3px 2px 8px
 }
 
-.nav{
-  position:fixed;
-  bottom:0;
+.choice{
+  min-width:105px;
+  background:#fff;
+  border:2px solid var(--line);
+  border-radius:16px;
+  padding:10px;
+  text-align:center
+}
+
+.choice.selected{
+  border-color:#d7839d;
+  background:var(--pink2)
+}
+
+.choice strong{
+  display:block;
+  font-size:13px
+}
+
+.swatch{
+  height:38px;
+  border-radius:12px;
+  margin-bottom:7px
+}
+
+.preview{
+  position:sticky;
+  top:65px;
+  z-index:10;
+  background:#fff;
+  border-radius:24px;
+  border:1px solid var(--line);
+  min-height:330px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(#eaf5ff 0 60%,#d8efcf 60%)
+}
+
+.creator-layout{
+  display:grid;
+  grid-template-columns:380px 1fr;
+  gap:14px
+}
+
+/* PERSONNAGE */
+
+.human{
+  position:relative;
+  width:150px;
+  height:280px;
+  transform:scale(1);
+  transform-origin:center bottom
+}
+
+.head{
+  position:absolute;
+  width:92px;
+  height:108px;
+  left:29px;
+  top:16px;
+  background:#f1c39d;
+  border-radius:48% 48% 45% 45%;
+  box-shadow:inset -7px -5px #dca47f
+}
+
+.ear{
+  position:absolute;
+  width:17px;
+  height:30px;
+  background:#e9b58d;
+  border-radius:50%;
+  top:57px
+}
+
+.ear.l{left:20px}
+.ear.r{right:20px}
+
+.hair{
+  position:absolute;
+  left:20px;
+  top:5px;
+  width:110px;
+  height:78px;
+  background:#5a382a;
+  border-radius:55px 55px 32px 32px;
+  z-index:3
+}
+
+.hair.short{height:64px}
+.hair.bob{
+  height:100px;
+  border-radius:55px 55px 45px 45px
+}
+
+.hair.curls{
+  height:84px;
+  border-radius:50px;
+  box-shadow:
+    0 8px 0 #5a382a,
+    -12px 14px 0 #5a382a,
+    12px 14px 0 #5a382a
+}
+
+.hair.long{
+  height:125px;
+  border-radius:55px 55px 35px 35px
+}
+
+.face-soft .head{
+  border-radius:46% 46% 50% 50%
+}
+
+.face-round .head{
+  border-radius:50%
+}
+
+.face-square .head{
+  border-radius:34% 34% 42% 42%
+}
+
+.face-oval .head{
+  height:118px;
+  top:10px;
+  border-radius:48%
+}
+
+.brow{
+  position:absolute;
+  top:57px;
+  width:25px;
+  height:5px;
+  background:#51382f;
+  border-radius:5px;
+  z-index:4
+}
+
+.brow.l{left:44px}
+.brow.r{right:44px}
+
+.eye{
+  position:absolute;
+  top:65px;
+  width:13px;
+  height:10px;
+  background:#fff;
+  border-radius:50%;
+  z-index:4
+}
+
+.eye:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#42352f;
+  left:4px;
+  top:3px
+}
+
+.eye.l{left:47px}
+.eye.r{right:47px}
+
+.nose{
+  position:absolute;
+  left:71px;
+  top:75px;
+  width:7px;
+  height:17px;
+  border-right:2px solid #bd886d;
+  border-bottom:2px solid #bd886d;
+  border-radius:0 0 8px 0;
+  z-index:4
+}
+
+.mouth{
+  position:absolute;
+  left:61px;
+  top:94px;
+  width:29px;
+  height:10px;
+  border-bottom:3px solid #9b5360;
+  border-radius:50%;
+  z-index:4
+}
+
+.neck{
+  position:absolute;
+  top:116px;
+  left:62px;
+  width:27px;
+  height:25px;
+  background:#e8b48b
+}
+
+.body{
+  position:absolute;
+  top:132px;
+  left:38px;
+  width:74px;
+  height:85px;
+  border-radius:28px 28px 12px 12px;
+  background:#a8cbe8
+}
+
+.arm{
+  position:absolute;
+  top:141px;
+  width:24px;
+  height:83px;
+  background:#efbf99;
+  border-radius:14px;
+  z-index:0
+}
+
+.arm.l{
+  left:17px;
+  transform:rotate(8deg)
+}
+
+.arm.r{
+  right:17px;
+  transform:rotate(-8deg)
+}
+
+.hand{
+  position:absolute;
+  width:23px;
+  height:20px;
+  background:#efbf99;
+  border-radius:50%;
+  top:211px
+}
+
+.hand.l{left:12px}
+.hand.r{right:12px}
+
+.leg{
+  position:absolute;
+  top:210px;
+  width:28px;
+  height:68px;
+  background:#6f78a9;
+  border-radius:8px
+}
+
+.leg.l{left:45px}
+.leg.r{right:45px}
+
+.shoe{
+  position:absolute;
+  top:267px;
+  width:40px;
+  height:13px;
+  background:#514c62;
+  border-radius:15px
+}
+
+.shoe.l{left:37px}
+.shoe.r{right:37px}
+
+.girl .body{background:#f0a9bd}
+.boy .body{background:#9cc9e6}
+.child .human{transform:scale(.82)}
+
+.kidbody .body{
+  height:75px;
+  top:135px
+}
+
+/* VILLE */
+
+.stage{
+  min-height:520px;
+  background:#dff0fb;
+  border-radius:25px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid #cbdfe8
+}
+
+.sky{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(#cdeaff 0 62%,#cfe8bd 62%)
+}
+
+.citymap{
+  position:absolute;
+  inset:0
+}
+
+.road{
+  position:absolute;
+  background:#d7d2d3
+}
+
+.road.h{
+  height:54px;
   left:0;
   right:0;
-  z-index:30;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:7px;
-  gap:5px;
-  background:rgba(255,250,252,.94);
-  backdrop-filter:blur(15px);
-  border-top:1px solid #eadce2;
+  top:47%
 }
 
-.nav button{
-  background:#fff;
+.road.v{
+  width:54px;
+  top:0;
+  bottom:0;
+  left:46%
+}
+
+.building{
+  position:absolute;
+  width:110px;
+  height:95px;
   border-radius:15px;
-  padding:8px 3px;
-  font-size:11px;
-}
-
-.nav button.active{
-  background:var(--pink);
-  font-weight:800;
-}
-
-/* GAME */
-
-.game-card{
-  padding:7px;
-  background:#fff;
-  border-radius:25px;
-  box-shadow:var(--shadow);
-}
-
-.game-head{
+  border:4px solid #fff;
+  box-shadow:0 5px 15px #5552;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  padding:4px 4px 8px;
-}
-
-.house-name{
+  justify-content:center;
+  text-align:center;
   font-weight:800;
+  font-size:12px
 }
 
-.camera{
+.b-home{
+  background:#f7d9c6;
+  left:7%;
+  top:10%
+}
+
+.b-shop{
+  background:#f7e4a7;
+  right:7%;
+  top:10%
+}
+
+.b-cafe{
+  background:#d9c8ee;
+  left:8%;
+  bottom:9%
+}
+
+.b-work{
+  background:#b9dff1;
+  right:8%;
+  bottom:9%
+}
+
+.b-park{
+  background:#bfe3c0;
+  left:41%;
+  top:8%;
+  width:120px
+}
+
+.npc,
+.playerDot{
+  position:absolute;
+  width:35px;
+  height:48px;
+  border-radius:18px 18px 8px 8px;
+  background:#f0b995;
+  border:3px solid #fff;
+  box-shadow:0 3px 8px #3333;
+  z-index:5
+}
+
+.npc:before,
+.playerDot:before{
+  content:"";
+  position:absolute;
+  width:25px;
+  height:25px;
+  background:#f0c29d;
+  border-radius:50%;
+  top:-17px;
+  left:2px;
+  border:2px solid #fff
+}
+
+.npc span,
+.playerDot span{
+  position:absolute;
+  top:50px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  white-space:nowrap;
+  font-weight:800
+}
+
+.playerDot{
+  background:#e7a5b9
+}
+
+/* BESOINS */
+
+.hud{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin:8px 0
+}
+
+.need{
+  min-width:110px;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:9px;
+  border-radius:14px
+}
+
+.bar{
+  height:8px;
+  background:#eee;
+  border-radius:8px;
+  overflow:hidden
+}
+
+.bar i{
+  display:block;
+  height:100%;
+  width:50%;
+  background:#b7dff0
+}
+
+.money{
+  font-size:19px;
+  font-weight:900
+}
+
+/* MAISON */
+
+.roomhouse{
   position:relative;
-  width:100%;
-  height:min(68vh,650px);
-  min-height:430px;
-  overflow:hidden;
-  border-radius:20px;
-  background:#dcecf0;
-  touch-action:none;
-}
-
-#world{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:900px;
-  height:650px;
-  transform:translate(-50%,-50%) scale(1);
-  transform-origin:center;
-  touch-action:none;
-}
-
-.house{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  background:#fdf6ec;
-  border:10px solid #8d7480;
-  box-shadow:0 12px 25px rgba(60,50,60,.18);
-  overflow:hidden;
-}
-
-/* Vraies formes extérieures */
-
-.house.square{
-  width:650px;height:520px;
-}
-
-.house.rectangle{
-  width:790px;height:480px;
-}
-
-.house.l{
-  width:760px;height:570px;
-  clip-path:polygon(
-    0 0, 72% 0, 72% 35%, 100% 35%,
-    100% 100%, 0 100%
-  );
-}
-
-.house.inverse{
-  width:760px;height:570px;
-  clip-path:polygon(
-    28% 0,100% 0,100% 100%,0 100%,
-    0 35%,28% 35%
-  );
-}
-
-.house.extension{
-  width:820px;height:540px;
-  clip-path:polygon(
-    0 0,72% 0,72% 18%,100% 18%,
-    100% 100%,0 100%
-  );
+  margin:auto;
+  width:min(92vw,700px);
+  aspect-ratio:1.45;
+  background:#ead7bf;
+  border:10px solid #c99d75;
+  overflow:hidden
 }
 
 .room{
   position:absolute;
-  background:#fffaf4;
-  border:3px solid #b99ca8;
+  border:4px solid #fff;
+  background:#f8eee3;
   display:flex;
+  align-items:center;
   justify-content:center;
-  align-items:flex-start;
-  padding-top:8px;
-  font-size:12px;
   font-weight:800;
-  color:#8d7480;
+  color:#8d7669
 }
 
-.square .living{left:0;top:0;width:50%;height:55%}
-.square .kitchen{left:50%;top:0;width:50%;height:55%}
-.square .bedroom{left:0;top:55%;width:50%;height:45%}
-.square .bath{left:50%;top:55%;width:25%;height:45%}
-.square .library{left:75%;top:55%;width:25%;height:45%}
-
-.rectangle .living{left:0;top:0;width:45%;height:60%}
-.rectangle .kitchen{left:45%;top:0;width:30%;height:60%}
-.rectangle .bedroom{left:75%;top:0;width:25%;height:60%}
-.rectangle .bath{left:0;top:60%;width:25%;height:40%}
-.rectangle .library{left:25%;top:60%;width:40%;height:40%}
-
-.l .living{left:0;top:0;width:72%;height:35%}
-.l .kitchen{left:0;top:35%;width:38%;height:65%}
-.l .bedroom{left:38%;top:35%;width:34%;height:65%}
-.l .bath{left:72%;top:35%;width:28%;height:30%}
-.l .library{left:72%;top:65%;width:28%;height:35%}
-
-.inverse .living{left:28%;top:0;width:72%;height:35%}
-.inverse .kitchen{left:28%;top:35%;width:38%;height:65%}
-.inverse .bedroom{left:66%;top:35%;width:34%;height:65%}
-.inverse .bath{left:0;top:35%;width:28%;height:30%}
-.inverse .library{left:0;top:65%;width:28%;height:35%}
-
-.extension .living{left:0;top:0;width:48%;height:58%}
-.extension .kitchen{left:48%;top:0;width:24%;height:58%}
-.extension .bedroom{left:72%;top:18%;width:28%;height:82%}
-.extension .bath{left:0;top:58%;width:25%;height:42%}
-.extension .library{left:25%;top:58%;width:47%;height:42%}
-
-.door{
-  position:absolute;
-  width:36px;
-  height:12px;
-  background:#936c58;
-  bottom:-3px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-}
-
-.window{
-  position:absolute;
-  width:70px;
-  height:8px;
-  background:#a9dbea;
-  border:2px solid #739eaa;
-  z-index:8;
-}
-
-.window.w1{top:-3px;left:20%}
-.window.w2{top:-3px;right:18%}
-.window.w3{right:-3px;top:30%}
-.window.w4{left:-3px;top:45%}
-
-/* PERSONNAGE */
-
-.person{
-  position:absolute;
-  width:54px;
-  height:90px;
-  z-index:50;
-  user-select:none;
-  touch-action:none;
-  transition:none;
-}
-
-.person .head{
-  position:absolute;
-  width:31px;
-  height:34px;
-  left:12px;
-  top:2px;
-  background:#f2c7aa;
-  border:2px solid #a66e65;
-  border-radius:48% 48% 45% 45%;
-  z-index:5;
-}
-
-.person .neck{
-  position:absolute;
-  width:11px;
-  height:11px;
-  left:21px;
-  top:32px;
-  background:#e9b998;
-  z-index:3;
-}
-
-.person .hair{
-  position:absolute;
-  width:34px;
-  height:19px;
-  left:10px;
+.room.salon{
+  left:0;
   top:0;
-  background:#6b4b43;
-  border-radius:18px 18px 8px 8px;
-  z-index:7;
+  width:55%;
+  height:55%
 }
 
-.person .eye{
-  position:absolute;
-  width:4px;height:5px;
-  background:#514653;
-  border-radius:50%;
-  top:16px;
-  z-index:9;
+.room.cuisine{
+  right:0;
+  top:0;
+  width:45%;
+  height:55%;
+  background:#fff1d4
 }
 
-.person .e1{left:19px}
-.person .e2{left:31px}
-
-.person .nose{
-  position:absolute;
-  left:26px;top:21px;
-  width:3px;height:5px;
-  border-left:1px solid #b7796d;
-  z-index:9;
+.room.chambre{
+  left:0;
+  bottom:0;
+  width:55%;
+  height:45%;
+  background:#eee3f5
 }
 
-.person .mouth{
-  position:absolute;
-  left:23px;top:27px;
-  width:9px;height:3px;
-  border-bottom:2px solid #a85e68;
-  border-radius:50%;
-  z-index:9;
+.room.bain{
+  right:0;
+  bottom:0;
+  width:45%;
+  height:45%;
+  background:#dff2f7
 }
 
-.person .body{
+.furn{
   position:absolute;
-  left:11px;
-  top:39px;
-  width:33px;
-  height:37px;
-  background:#e8a9bf;
-  border:2px solid #a77b8c;
-  border-radius:12px 12px 8px 8px;
+  width:58px;
+  height:40px;
+  border-radius:10px;
+  border:3px solid #fff;
+  box-shadow:0 4px 8px #3332;
   z-index:4;
+  touch-action:none
 }
 
-.person .arm{
-  position:absolute;
-  width:10px;
-  height:31px;
-  background:#f0c3a4;
-  border:2px solid #a66e65;
-  border-radius:8px;
-  top:41px;
-  z-index:2;
+.sofa{background:#d89bad}
+.bed{background:#b7a5d8}
+.table{background:#d3a276}
+.tv{background:#555}
+.shower{background:#b8dce8}
+.plant{
+  background:#9ac89d;
+  border-radius:50%
 }
 
-.person .arm.left{left:4px;transform:rotate(8deg)}
-.person .arm.right{right:4px;transform:rotate(-8deg)}
-
-.person .hand{
+.houseplayer{
   position:absolute;
-  width:10px;height:10px;
-  background:#f0c3a4;
+  width:32px;
+  height:48px;
+  background:#e7a5b9;
+  border-radius:15px;
+  z-index:8;
+  transition:.25s;
+  box-shadow:0 3px 8px #3334
+}
+
+.houseplayer:before{
+  content:"";
+  position:absolute;
+  width:25px;
+  height:25px;
   border-radius:50%;
-  top:68px;
-  z-index:6;
-}
-
-.person .hand.left{left:4px}
-.person .hand.right{right:4px}
-
-.person .leg{
-  position:absolute;
-  width:11px;height:24px;
-  background:#806b88;
-  top:72px;
-  z-index:2;
-  border-radius:5px;
-}
-
-.person .leg.left{left:15px}
-.person .leg.right{right:15px}
-
-.person .label{
-  position:absolute;
+  background:#f0c29d;
   top:-18px;
-  left:50%;
-  transform:translateX(-50%);
-  white-space:nowrap;
-  font-size:10px;
-  background:white;
-  border-radius:9px;
-  padding:2px 5px;
-  box-shadow:var(--shadow);
+  left:3px;
+  border:2px solid #fff
 }
 
-/* MEUBLES */
-
-.furniture{
+.actionbubble{
   position:absolute;
-  z-index:40;
-  user-select:none;
-  touch-action:none;
-  font-size:27px;
-  text-align:center;
-  filter:drop-shadow(0 3px 3px rgba(0,0,0,.15));
-}
-
-.furniture.selected{
-  outline:3px solid #e89fbb;
-  border-radius:8px;
-}
-
-.furniture span{
-  display:block;
-  font-size:9px;
-  background:rgba(255,255,255,.8);
-  border-radius:6px;
-}
-
-.camera-tools{
-  position:absolute;
-  right:9px;
-  bottom:9px;
-  z-index:100;
-  display:flex;
-  gap:5px;
-}
-
-.camera-tools button{
-  width:42px;height:42px;
-  border-radius:50%;
-  background:white;
-  box-shadow:var(--shadow);
-  font-size:20px;
-}
-
-.action-bar{
-  display:flex;
-  gap:6px;
-  overflow-x:auto;
-  padding:8px 1px 2px;
-}
-
-.action-bar button{
-  flex:0 0 auto;
-  padding:10px 13px;
-  border-radius:14px;
-  background:var(--pink2);
-  font-weight:700;
+  z-index:9;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:6px 9px;
+  font-size:11px;
+  font-weight:800
 }
 
 /* LISTES */
 
-.shop-grid,.job-grid,.skill-grid{
+.list{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  gap:8px
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   gap:8px;
-}
-
-.item{
-  background:#fff;
   padding:10px;
-  border-radius:17px;
-  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff
 }
 
-.item .big{
-  font-size:30px;
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#30252b88;
+  display:none;
+  align-items:end;
+  justify-content:center;
+  z-index:50
 }
 
-.progress{
-  height:9px;
-  background:#eee3e7;
-  border-radius:20px;
-  overflow:hidden;
-  margin:5px 0;
+.modal.open{
+  display:flex
 }
 
-.progress i{
-  display:block;
-  height:100%;
-  background:#e7a9bf;
-  border-radius:20px;
+.sheet{
+  background:#fff;
+  border-radius:25px 25px 0 0;
+  padding:18px;
+  width:min(100%,620px);
+  max-height:80vh;
+  overflow:auto
 }
 
 .toast{
   position:fixed;
   left:50%;
-  bottom:85px;
+  bottom:80px;
   transform:translateX(-50%);
-  z-index:200;
-  background:#514653;
-  color:white;
+  background:#443b45;
+  color:#fff;
   padding:10px 15px;
-  border-radius:15px;
-  display:none;
-  max-width:90%;
-  text-align:center;
+  border-radius:99px;
+  z-index:80;
+  display:none
 }
 
-@media(max-width:600px){
-  main{padding:7px;padding-bottom:88px}
-  .camera{
-    height:64vh;
-    min-height:390px;
-  }
-  #world{
-    transform:translate(-50%,-50%) scale(.72);
-  }
-  .shop-grid,.job-grid,.skill-grid{
-    grid-template-columns:1fr 1fr;
-  }
+.toast.show{
+  display:block
 }
 
-@media(min-width:800px){
-  .camera{height:650px}
+.bottomnav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fffdfcfa;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  padding:8px env(safe-area-inset-left) calc(8px + env(safe-area-inset-bottom));
+  z-index:30
 }
 
-@media(max-height:700px) and (orientation:landscape){
-  .camera{height:76vh;min-height:320px}
+.bottomnav button{
+  background:#f5edf2;
+  padding:9px 12px;
+  border-radius:13px;
+  font-weight:800
+}
+
+@media(max-width:760px){
+
+  .creator-layout{
+    grid-template-columns:1fr
+  }
+
+  .preview{
+    position:sticky;
+    top:65px
+  }
+
+  .two,
+  .three{
+    grid-template-columns:1fr
+  }
+
+  .app{
+    padding-left:10px;
+    padding-right:10px
+  }
+
+  .stage{
+    min-height:470px
+  }
+
+  .building{
+    width:92px;
+    height:80px
+  }
+
+  .roomhouse{
+    border-width:7px
+  }
+
+  .bottomnav button{
+    font-size:12px;
+    padding:8px 9px
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
-<header class="topbar">
+<header class="top">
   <div class="brand">
-    <h1>🌸 Lili Life <small>7.0</small></h1>
-    <div class="money">💶 <span id="money">500</span> €</div>
-  </div>
-
-  <div class="stats">
-    <div class="stat">🍎<b id="needHunger">80</b>Faim</div>
-    <div class="stat">⚡<b id="needEnergy">80</b>Énergie</div>
-    <div class="stat">🧼<b id="needHygiene">80</b>Hygiène</div>
-    <div class="stat">🎮<b id="needFun">80</b>Fun</div>
-    <div class="stat">💬<b id="needSocial">80</b>Social</div>
+    <h1>🌷 Lili Life</h1>
+    <div class="pill" id="moneyTop">500 €</div>
   </div>
 </header>
 
-<main>
+<!-- CRÉATION -->
 
-<!-- JEU -->
-<section id="gameScreen" class="screen active">
+<section id="creator" class="screen active">
 
-  <div class="game-card">
-    <div class="game-head">
-      <div>
-        <div class="house-name" id="houseTitle">Ma maison</div>
-        <small id="clock">Jour 1 · 08:00</small>
-      </div>
-      <button class="btn" onclick="openHouseMenu()">🏠 Maison</button>
+  <div class="creator-layout">
+
+    <div class="preview">
+      <div id="charPreview"></div>
     </div>
 
-    <div class="camera" id="camera">
-      <div id="world">
+    <div>
 
-        <div id="house" class="house square">
+      <div class="card">
 
-          <div class="room living">🛋️ SALON</div>
-          <div class="room kitchen">🍳 CUISINE</div>
-          <div class="room bedroom">🛏️ CHAMBRE</div>
-          <div class="room bath">🚿 SALLE DE BAIN</div>
-          <div class="room library">📚 BIBLIOTHÈQUE</div>
+        <div class="title">Créer ton personnage</div>
 
-          <div class="window w1"></div>
-          <div class="window w2"></div>
-          <div class="window w3"></div>
-          <div class="window w4"></div>
-          <div class="door"></div>
-        </div>
+        <p class="sub">
+          Choisis son apparence. Les changements sont immédiats.
+        </p>
 
-        <div id="furnitureLayer"></div>
+        <h3>Catégorie</h3>
+        <div class="choices" id="genderChoices"></div>
 
-        <div id="player" class="person"
-             style="left:390px;top:320px">
-          <div class="label">Lili</div>
-          <div class="hair"></div>
-          <div class="head">
-            <div class="eye e1"></div>
-            <div class="eye e2"></div>
-            <div class="nose"></div>
-            <div class="mouth"></div>
-          </div>
-          <div class="neck"></div>
-          <div class="arm left"></div>
-          <div class="arm right"></div>
-          <div class="body"></div>
-          <div class="hand left"></div>
-          <div class="hand right"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
-        </div>
+        <h3>Visage</h3>
+        <div class="choices" id="faceChoices"></div>
 
-        <div id="npc1" class="person"
-             style="left:240px;top:170px">
-          <div class="label">Maya</div>
-          <div class="hair" style="background:#d68e91"></div>
-          <div class="head">
-            <div class="eye e1"></div>
-            <div class="eye e2"></div>
-            <div class="nose"></div>
-            <div class="mouth"></div>
-          </div>
-          <div class="neck"></div>
-          <div class="arm left"></div>
-          <div class="arm right"></div>
-          <div class="body" style="background:#b9d9ee"></div>
-          <div class="hand left"></div>
-          <div class="hand right"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
-        </div>
+        <h3>Coiffure</h3>
+        <div class="choices" id="hairChoices"></div>
 
-        <div id="npc2" class="person"
-             style="left:580px;top:170px">
-          <div class="label">Noah</div>
-          <div class="hair" style="background:#4e403d"></div>
-          <div class="head">
-            <div class="eye e1"></div>
-            <div class="eye e2"></div>
-            <div class="nose"></div>
-            <div class="mouth"></div>
-          </div>
-          <div class="neck"></div>
-          <div class="arm left"></div>
-          <div class="arm right"></div>
-          <div class="body" style="background:#b8d9b8"></div>
-          <div class="hand left"></div>
-          <div class="hand right"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
-        </div>
+        <h3>Couleur des cheveux</h3>
+        <div class="choices" id="hairColorChoices"></div>
+
+        <h3>Tenue</h3>
+        <div class="choices" id="outfitChoices"></div>
+
+        <h3>Couleur de tenue</h3>
+        <div class="choices" id="outfitColorChoices"></div>
+
+        <button
+          class="btn"
+          style="width:100%;margin-top:10px"
+          onclick="goHouse()">
+          Continuer → Choisir ma maison
+        </button>
 
       </div>
 
-      <div class="camera-tools">
-        <button onclick="zoom(-.1)">−</button>
-        <button onclick="centerCamera()">⌂</button>
-        <button onclick="zoom(.1)">+</button>
-      </div>
     </div>
 
-    <div class="action-bar">
-      <button onclick="doAction('eat')">🍎 Manger</button>
-      <button onclick="doAction('sleep')">🛏️ Dormir</button>
-      <button onclick="doAction('shower')">🚿 Douche</button>
-      <button onclick="doAction('tv')">📺 TV</button>
-      <button onclick="doAction('read')">📚 Lire</button>
-      <button onclick="talkNPC()">💬 Parler</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>🏠 Ta maison</h3>
-    <div id="houseDescription">
-      Maison carrée · 5 pièces
-    </div>
   </div>
 
 </section>
+
 
 <!-- MAISON -->
-<section id="houseScreen" class="screen">
-  <div class="card">
-    <h2>🏠 Construire ma maison</h2>
-    <p>La forme choisie modifie réellement le contour de la maison.</p>
-    <div class="shop-grid" id="houseChoices"></div>
-  </div>
+
+<section id="houseChoice" class="screen">
 
   <div class="card">
-    <h3>🛋️ Mes meubles</h3>
-    <div id="inventory"></div>
+
+    <div class="title">🏠 Choisis ta maison</div>
+
+    <p class="sub">
+      Attention : la forme choisie sera définitivement liée à cette partie.
+    </p>
+
+    <div class="grid two" id="houseChoices"></div>
+
+    <button
+      class="btn"
+      style="width:100%;margin-top:12px"
+      onclick="confirmHouse()">
+      Acheter cette maison
+    </button>
+
   </div>
+
 </section>
 
-<!-- VILLE -->
-<section id="cityScreen" class="screen">
+
+<!-- JEU -->
+
+<section id="game" class="screen">
+
+  <div class="hud" id="needsHud"></div>
+
   <div class="card">
-    <h2>🏙️ Ville</h2>
-    <p>Les habitants se déplacent et peuvent devenir tes amis.</p>
 
-    <div class="shop-grid">
-      <div class="item">
-        <div class="big">🛒</div>
-        <b>Supermarché</b>
-        <p>Achète de la nourriture.</p>
-        <button class="btn" onclick="buyFood()">Acheter · 15 €</button>
+    <div class="grid two">
+
+      <div>
+        <div class="money" id="money">500 €</div>
+        <small id="clock">08:00 • Jour 1</small>
       </div>
 
-      <div class="item">
-        <div class="big">☕</div>
-        <b>Café</b>
-        <p>Améliore le social.</p>
-        <button class="btn blue" onclick="cityAction('cafe')">Aller · 8 €</button>
-      </div>
+      <button
+        class="btn"
+        onclick="openActions()">
+        Actions
+      </button>
 
-      <div class="item">
-        <div class="big">🍿</div>
-        <b>Cinéma</b>
-        <p>Améliore le fun.</p>
-        <button class="btn.lav btn" onclick="cityAction('cinema')">Aller · 12 €</button>
-      </div>
-
-      <div class="item">
-        <div class="big">🌳</div>
-        <b>Parc</b>
-        <p>Promenade et social.</p>
-        <button class="btn green" onclick="cityAction('park')">Se promener</button>
-      </div>
     </div>
+
   </div>
 
+
   <div class="card">
-    <h3>👥 Habitants</h3>
-    <div class="row">
-      <button class="btn" onclick="talkNPC('Maya')">💬 Maya</button>
-      <button class="btn blue" onclick="talkNPC('Noah')">💬 Noah</button>
+
+    <div class="title">🌳 Ville</div>
+
+    <p class="sub">
+      Les habitants ont leurs propres maisons et se déplacent dans la ville.
+    </p>
+
+    <div class="stage">
+
+      <div class="sky"></div>
+
+      <div class="citymap">
+
+        <div class="road h"></div>
+        <div class="road v"></div>
+
+        <div class="building b-home">
+          🏠<br>
+          Ta maison
+        </div>
+
+        <div class="building b-shop">
+          🛒<br>
+          Supermarché
+        </div>
+
+        <div class="building b-cafe">
+          ☕<br>
+          Café
+        </div>
+
+        <div class="building b-work">
+          💼<br>
+          Travail
+        </div>
+
+        <div class="building b-park">
+          🌳<br>
+          Parc
+        </div>
+
+        <div id="npcLayer"></div>
+
+        <div
+          class="playerDot"
+          id="playerDot"
+          style="left:45%;top:60%">
+          <span>Toi</span>
+        </div>
+
+      </div>
+
     </div>
-    <p id="relationshipText">Maya : connaissance · 20/100<br>Noah : connaissance · 10/100</p>
-  </div>
-</section>
 
-<!-- TRAVAIL -->
-<section id="workScreen" class="screen">
-  <div class="card">
-    <h2>💼 Travail</h2>
-    <p>Travaille pour gagner de l'argent et progresser dans ta carrière.</p>
-    <div id="jobs" class="job-grid"></div>
   </div>
-</section>
 
-<!-- COMPETENCES -->
-<section id="skillsScreen" class="screen">
-  <div class="card">
-    <h2>📚 Compétences</h2>
-    <p>Chaque compétence va du niveau 1 au niveau 5.</p>
-    <div id="skills" class="skill-grid"></div>
-  </div>
 
   <div class="card">
-    <h3>📖 Bibliothèque</h3>
-    <div class="row">
-      <button class="btn lav" onclick="learn('programming')">💻 Programmation</button>
-      <button class="btn lav" onclick="learn('creativity')">🎨 Créativité</button>
-      <button class="btn lav" onclick="learn('knowledge')">🧠 Connaissance</button>
-      <button class="btn lav" onclick="learn('cooking')">🍳 Cuisine</button>
-      <button class="btn lav" onclick="learn('charisma')">💬 Charisme</button>
-      <button class="btn lav" onclick="learn('patience')">🧘 Patience</button>
-    </div>
+
+    <div class="title">👥 Habitants</div>
+
+    <div class="list" id="relations"></div>
+
   </div>
+
 </section>
 
-</main>
 
-<nav class="nav">
-  <button class="active" onclick="showScreen('gameScreen',this)">🏠<br>Jeu</button>
-  <button onclick="showScreen('houseScreen',this)">🛋️<br>Maison</button>
-  <button onclick="showScreen('cityScreen',this)">🏙️<br>Ville</button>
-  <button onclick="showScreen('workScreen',this)">💼<br>Travail</button>
-  <button onclick="showScreen('skillsScreen',this)">📚<br>Compétences</button>
+<!-- MAISON DU JOUEUR -->
+
+<section id="home" class="screen">
+
+  <div class="card">
+
+    <div class="title">🏠 Ma maison</div>
+
+    <p class="sub" id="houseLabel"></p>
+
+    <div id="houseWorld"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="title">🛋️ Acheter des meubles</div>
+
+    <div class="list" id="furnitureShop"></div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="title">📦 Stockage</div>
+
+    <div class="list" id="inventory"></div>
+
+  </div>
+
+</section>
+
+
+<!-- CARRIÈRE -->
+
+<section id="career" class="screen">
+
+  <div class="card">
+
+    <div class="title">💼 Travail & compétences</div>
+
+    <div id="careerBox"></div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="title">📚 Compétences</div>
+
+    <div class="list" id="skills"></div>
+
+  </div>
+
+</section>
+
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<nav class="bottomnav">
+
+  <button onclick="show('game')">
+    🌳 Ville
+  </button>
+
+  <button onclick="enterHome()">
+    🏠 Maison
+  </button>
+
+  <button onclick="show('career');renderCareer()">
+    💼 Travail
+  </button>
+
 </nav>
 
-<div id="toast" class="toast"></div>
+
+<!-- MODAL -->
+
+<div
+  class="modal"
+  id="modal"
+  onclick="if(event.target===this)closeModal()">
+
+  <div class="sheet" id="sheet"></div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
 
 <script>
+
 /* =========================
-   ETAT DU JEU
+   ÉTAT DU JEU
 ========================= */
 
-const defaultState={
+const defaultState = {
+
   money:500,
+
   day:1,
-  minutes:8*60,
-  house:"square",
+
+  time:8,
+
   needs:{
     hunger:80,
-    energy:80,
-    hygiene:80,
+    energy:90,
+    hygiene:85,
     fun:80,
-    social:80
+    social:70
   },
-  skills:{
-    programming:0,
-    logic:0,
-    creativity:0,
-    medicine:0,
-    precision:0,
-    patience:0,
-    cooking:0,
-    design:0,
-    charisma:0,
-    knowledge:0,
-    writing:0,
-    singing:0
+
+  character:{
+    gender:"Femme",
+    face:"soft",
+    hair:"long",
+    hairColor:"#5a382a",
+    outfit:"casual",
+    outfitColor:"#f0a9bd"
   },
-  job:null,
+
+  house:null,
+
   inventory:[],
-  placed:[],
+
+  furniture:[],
+
+  job:"Developer",
+
+  jobLevel:1,
+
+  skills:{
+    Programming:0,
+    Logic:0,
+    Creativity:0,
+    Reputation:0,
+    Medicine:0,
+    Precision:0,
+    Pedagogy:0,
+    Knowledge:0,
+    Cooking:0,
+    Speed:0,
+    Design:0,
+    Eloquence:0,
+    Architecture:0,
+    Singing:0,
+    Celebrity:0,
+    Animals:0,
+    Writing:0,
+    Investigation:0,
+    Charisma:0,
+    Patience:0
+  },
+
   relations:{
-    Maya:20,
-    Noah:10
+    nina:0,
+    leo:0,
+    maya:0,
+    tom:0
   }
+
 };
 
-let state=JSON.parse(localStorage.getItem("liliLife7")||"null")||structuredClone(defaultState);
 
-let zoomLevel=1;
-let selectedFurniture=null;
-let dragData=null;
+let S =
+  JSON.parse(localStorage.getItem("liliLife9"))
+  || JSON.parse(JSON.stringify(defaultState));
 
-/* =========================
-   SAUVEGARDE
-========================= */
 
 function save(){
-  localStorage.setItem("liliLife7",JSON.stringify(state));
+
+  localStorage.setItem(
+    "liliLife9",
+    JSON.stringify(S)
+  );
+
 }
 
-/* =========================
-   UTILITAIRES
-========================= */
-
-function clamp(v,min=0,max=100){
-  return Math.max(min,Math.min(max,v));
-}
-
-function toast(text){
-  const el=document.getElementById("toast");
-  el.textContent=text;
-  el.style.display="block";
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>el.style.display="none",2200);
-}
-
-function spend(amount){
-  if(state.money<amount){
-    toast("💸 Pas assez d'argent !");
-    return false;
-  }
-  state.money-=amount;
-  return true;
-}
-
-function advance(minutes){
-  state.minutes+=minutes;
-
-  while(state.minutes>=1440){
-    state.minutes-=1440;
-    state.day++;
-  }
-
-  const hours=minutes/60;
-
-  state.needs.hunger=clamp(state.needs.hunger-hours*2);
-  state.needs.energy=clamp(state.needs.energy-hours*1.5);
-  state.needs.hygiene=clamp(state.needs.hygiene-hours*1);
-  state.needs.fun=clamp(state.needs.fun-hours*.6);
-  state.needs.social=clamp(state.needs.social-hours*.4);
-
-  save();
-  renderAll();
-}
-
-function timeText(){
-  const h=Math.floor(state.minutes/60).toString().padStart(2,"0");
-  const m=(state.minutes%60).toString().padStart(2,"0");
-  return `Jour ${state.day} · ${h}:${m}`;
-}
 
 /* =========================
    NAVIGATION
 ========================= */
 
-function showScreen(id,button){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function show(id){
 
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  if(button)button.classList.add("active");
+  document
+    .querySelectorAll(".screen")
+    .forEach(x=>x.classList.remove("active"));
 
-  if(id==="houseScreen")renderInventory();
-  if(id==="workScreen")renderJobs();
-  if(id==="skillsScreen")renderSkills();
+  const target=document.getElementById(id);
+
+  if(target)
+    target.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
+
+
+/* =========================
+   CRÉATEUR
+========================= */
+
+const genderData=[
+  ["Femme","girl"],
+  ["Homme","boy"],
+  ["Enfant fille","girl child"],
+  ["Enfant garçon","boy child"]
+];
+
+const faceData=[
+  ["Doux","soft"],
+  ["Rond","round"],
+  ["Carré","square"],
+  ["Ovale","oval"]
+];
+
+const hairData=[
+  ["Court","short"],
+  ["Carré","bob"],
+  ["Bouclé","curls"],
+  ["Long","long"]
+];
+
+const hairColors=[
+  ["Brun","#5a382a"],
+  ["Noir","#211c1c"],
+  ["Blond","#d7ae59"],
+  ["Roux","#a65332"],
+  ["Châtain","#8a5b3d"],
+  ["Rose","#d991b4"]
+];
+
+const outfits=[
+  ["Décontractée","#f0a9bd"],
+  ["Bleu pastel","#9cc9e6"],
+  ["Vert pastel","#a9d4ad"],
+  ["Lilac","#c5b1df"],
+  ["Pêche","#efbd9e"],
+  ["Jaune","#e6d17d"]
+];
+
+
+function renderChoices(){
+
+  document.getElementById("genderChoices").innerHTML =
+    genderData.map(x=>`
+
+      <button
+        class="choice ${S.character.gender===x[0]?"selected":""}"
+        onclick="selectGender('${x[0]}')">
+
+        <strong>${x[0]}</strong>
+
+      </button>
+
+    `).join("");
+
+
+  document.getElementById("faceChoices").innerHTML =
+    faceData.map(x=>`
+
+      <button
+        class="choice ${S.character.face===x[1]?"selected":""}"
+        onclick="S.character.face='${x[1]}';renderCreator()">
+
+        <div
+          class="swatch"
+          style="background:#f1c39d">
+        </div>
+
+        <strong>${x[0]}</strong>
+
+      </button>
+
+    `).join("");
+
+
+  document.getElementById("hairChoices").innerHTML =
+    hairData.map(x=>`
+
+      <button
+        class="choice ${S.character.hair===x[1]?"selected":""}"
+        onclick="S.character.hair='${x[1]}';renderCreator()">
+
+        <div
+          class="swatch"
+          style="background:${S.character.hairColor}">
+        </div>
+
+        <strong>${x[0]}</strong>
+
+      </button>
+
+    `).join("");
+
+
+  document.getElementById("hairColorChoices").innerHTML =
+    hairColors.map(x=>`
+
+      <button
+        class="choice ${S.character.hairColor===x[1]?"selected":""}"
+        onclick="S.character.hairColor='${x[1]}';renderCreator()">
+
+        <div
+          class="swatch"
+          style="background:${x[1]}">
+        </div>
+
+        <strong>${x[0]}</strong>
+
+      </button>
+
+    `).join("");
+
+
+  document.getElementById("outfitChoices").innerHTML =
+    outfits.map(x=>`
+
+      <button
+        class="choice"
+        onclick="S.character.outfitColor='${x[1]}';renderCreator()">
+
+        <div
+          class="swatch"
+          style="background:${x[1]}">
+        </div>
+
+        <strong>${x[0]}</strong>
+
+      </button>
+
+    `).join("");
+
+
+  document.getElementById("outfitColorChoices").innerHTML =
+    outfits.map(x=>`
+
+      <button
+        class="choice ${S.character.outfitColor===x[1]?"selected":""}"
+        onclick="S.character.outfitColor='${x[1]}';renderCreator()">
+
+        <div
+          class="swatch"
+          style="background:${x[1]}">
+        </div>
+
+        <strong>Choisir</strong>
+
+      </button>
+
+    `).join("");
+
+}
+
+
+function selectGender(g){
+
+  S.character.gender=g;
+
+  renderCreator();
+
+}
+
+
+function characterHTML(){
+
+  const c=S.character;
+
+  let child =
+    c.gender.includes("Enfant")
+    ? "child"
+    : "";
+
+  let sex =
+    c.gender.includes("Homme")
+    ? "boy"
+    : "girl";
+
+  return `
+
+    <div class="human ${child} ${sex} face-${c.face}">
+
+      <div class="ear l"></div>
+      <div class="ear r"></div>
+
+      <div
+        class="head"
+        style="background:#f1c39d">
+
+        <div class="brow l"></div>
+        <div class="brow r"></div>
+
+        <div class="eye l"></div>
+        <div class="eye r"></div>
+
+        <div class="nose"></div>
+
+        <div class="mouth"></div>
+
+      </div>
+
+      <div
+        class="hair ${c.hair}"
+        style="background:${c.hairColor}">
+      </div>
+
+      <div class="neck"></div>
+
+      <div
+        class="body"
+        style="background:${c.outfitColor}">
+      </div>
+
+      <div class="arm l"></div>
+      <div class="arm r"></div>
+
+      <div class="hand l"></div>
+      <div class="hand r"></div>
+
+      <div class="leg l"></div>
+      <div class="leg r"></div>
+
+      <div class="shoe l"></div>
+      <div class="shoe r"></div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderCreator(){
+
+  renderChoices();
+
+  document.getElementById("charPreview").innerHTML =
+    characterHTML();
+
+  save();
+
+}
+
+
+function goHouse(){
+
+  show("houseChoice");
+
+  renderHouseChoices();
+
+}
+
+
+function renderHouseChoices(){
+
+  const houses=[
+
+    ["square","Petite maison carrée",50],
+    ["rectangle","Maison rectangle",80],
+    ["l","Maison en L",120],
+    ["inverse","Maison en L inversé",140],
+    ["extension","Maison avec extension",180],
+    ["floor","Maison à étage",250],
+    ["apartment","Appartement",70]
+
+  ];
+
+  document.getElementById("houseChoices").innerHTML =
+    houses.map((h,i)=>`
+
+      <button
+        class="choice ${S.selectedHouse===h[0]?"selected":""}"
+        onclick="S.selectedHouse='${h[0]}';renderHouseChoices()">
+
+        <div
+          style="
+            height:90px;
+            background:#ead7bf;
+            border:7px solid #c99d75;
+            border-radius:12px;
+            margin-bottom:8px;
+            ${houseShapePreview(h[0])}
+          ">
+        </div>
+
+        <strong>${h[1]}</strong>
+
+        <small>${h[2]} €</small>
+
+      </button>
+
+    `).join("");
+
+}
+
+
+function houseShapePreview(type){
+
+  if(type==="rectangle")
+    return "transform:scaleX(1.25)";
+
+  if(type==="l")
+    return "clip-path:polygon(0 0,100% 0,100% 50%,60% 50%,60% 100%,0 100%)";
+
+  if(type==="inverse")
+    return "clip-path:polygon(0 0,40% 0,40% 50%,100% 50%,100% 100%,0 100%)";
+
+  if(type==="extension")
+    return "clip-path:polygon(0 0,70% 0,70% 25%,100% 25%,100% 100%,0 100%)";
+
+  if(type==="floor")
+    return "transform:scale(.85);box-shadow:8px -8px 0 #b78560";
+
+  if(type==="apartment")
+    return "transform:scaleX(.8)";
+
+  return "";
+
+}
+
+
+function confirmHouse(){
+
+  const data={
+
+    square:{
+      name:"Petite maison carrée",
+      price:50
+    },
+
+    rectangle:{
+      name:"Maison rectangle",
+      price:80
+    },
+
+    l:{
+      name:"Maison en L",
+      price:120
+    },
+
+    inverse:{
+      name:"Maison en L inversé",
+      price:140
+    },
+
+    extension:{
+      name:"Maison avec extension",
+      price:180
+    },
+
+    floor:{
+      name:"Maison à étage",
+      price:250
+    },
+
+    apartment:{
+      name:"Appartement",
+      price:70
+    }
+
+  };
+
+  const type=S.selectedHouse || "square";
+  const h=data[type];
+
+  if(S.money<h.price){
+
+    toast("Tu n'as pas assez d'argent.");
+
+    return;
+
+  }
+
+  S.money-=h.price;
+
+  S.house={
+    type,
+    name:h.name,
+    price:h.price
+  };
+
+  save();
+
+  updateMoney();
+
+  initGame();
+
+  show("game");
+
+  toast("Maison achetée 🏠");
+
+}
+
+
+/* =========================
+   VILLE
+========================= */
+
+const npcData=[
+
+  {
+    id:"nina",
+    name:"Nina",
+    home:"Maison rose"
+  },
+
+  {
+    id:"leo",
+    name:"Léo",
+    home:"Maison bleue"
+  },
+
+  {
+    id:"maya",
+    name:"Maya",
+    home:"Maison verte"
+  },
+
+  {
+    id:"tom",
+    name:"Tom",
+    home:"Appartement du centre"
+  }
+
+];
+
+
+npcData.forEach(n=>{
+
+  n.x=20+Math.random()*60;
+  n.y=25+Math.random()*55;
+
+});
+
+
+function initGame(){
+
+  renderHUD();
+
+  updateMoney();
+
+  renderCityNPCs();
+
+  renderRelations();
+
+  renderHome();
+
+}
+
+
+function renderCityNPCs(){
+
+  const layer=document.getElementById("npcLayer");
+
+  if(!layer)return;
+
+  layer.innerHTML =
+    npcData.map(n=>`
+
+      <div
+        class="npc"
+        id="npc-${n.id}"
+        style="
+          left:${n.x}%;
+          top:${n.y}%;
+        "
+        onclick="talk('${n.id}')">
+
+        <span>${n.name}</span>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+setInterval(()=>{
+
+  if(
+    !document
+      .getElementById("game")
+      .classList
+      .contains("active")
+  )
+    return;
+
+  npcData.forEach(n=>{
+
+    const e=
+      document.getElementById("npc-"+n.id);
+
+    if(!e)return;
+
+    n.x=
+      Math.max(
+        8,
+        Math.min(
+          82,
+          n.x+(Math.random()*10-5)
+        )
+      );
+
+    n.y=
+      Math.max(
+        12,
+        Math.min(
+          80,
+          n.y+(Math.random()*8-4)
+        )
+      );
+
+    e.style.left=n.x+"%";
+    e.style.top=n.y+"%";
+
+  });
+
+},3500);
+
 
 /* =========================
    BESOINS
 ========================= */
 
-function renderNeeds(){
-  document.getElementById("money").textContent=Math.floor(state.money);
+function renderHUD(){
 
-  document.getElementById("needHunger").textContent=Math.round(state.needs.hunger);
-  document.getElementById("needEnergy").textContent=Math.round(state.needs.energy);
-  document.getElementById("needHygiene").textContent=Math.round(state.needs.hygiene);
-  document.getElementById("needFun").textContent=Math.round(state.needs.fun);
-  document.getElementById("needSocial").textContent=Math.round(state.needs.social);
-
-  document.getElementById("clock").textContent=timeText();
-}
-
-/* =========================
-   MAISON
-========================= */
-
-const houses={
-  square:{
-    name:"Maison carrée",
-    rooms:"5 pièces",
-    price:50,
-    desc:"Une maison équilibrée et facile à aménager."
-  },
-  rectangle:{
-    name:"Maison rectangulaire",
-    rooms:"5 pièces",
-    price:120,
-    desc:"Plus longue, avec de grands espaces."
-  },
-  l:{
-    name:"Maison en L",
-    rooms:"5 pièces",
-    price:220,
-    desc:"Un vrai plan en L avec deux ailes."
-  },
-  inverse:{
-    name:"L inversé",
-    rooms:"5 pièces",
-    price:260,
-    desc:"Une forme originale avec un espace décalé."
-  },
-  extension:{
-    name:"Maison avec extension",
-    rooms:"5 pièces",
-    price:300,
-    desc:"Une maison principale avec une véritable extension."
-  }
-};
-
-function renderHouse(){
-  const house=document.getElementById("house");
-
-  house.className="house "+state.house;
-
-  const h=houses[state.house];
-  document.getElementById("houseTitle").textContent=h.name;
-  document.getElementById("houseDescription").textContent=
-    `${h.name} · ${h.rooms} · ${h.desc}`;
-}
-
-function renderHouseChoices(){
-  const box=document.getElementById("houseChoices");
-  box.innerHTML="";
-
-  Object.entries(houses).forEach(([id,h])=>{
-    const div=document.createElement("div");
-    div.className="item";
-
-    div.innerHTML=`
-      <div class="big">${id==="l"?"└":id==="inverse"?"┐":id==="rectangle"?"▭":id==="extension"?"➕":"□"}</div>
-      <b>${h.name}</b>
-      <p>${h.desc}</p>
-      <strong>${h.price} €</strong><br>
-      <button class="btn" style="margin-top:7px"
-              onclick="buyHouse('${id}')">
-        ${state.house===id?"Actuelle":"Choisir"}
-      </button>
-    `;
-
-    box.appendChild(div);
-  });
-}
-
-function buyHouse(id){
-  if(state.house===id){
-    toast("🏠 Cette maison est déjà choisie.");
-    return;
-  }
-
-  const price=houses[id].price;
-
-  if(!spend(price))return;
-
-  state.house=id;
-  save();
-  renderAll();
-
-  toast("🏠 Nouvelle forme de maison !");
-}
-
-/* =========================
-   MEUBLES
-========================= */
-
-const furnitureCatalog=[
-  {id:"sofa",name:"Canapé",icon:"🛋️",price:80},
-  {id:"bed",name:"Lit",icon:"🛏️",price:100},
-  {id:"tv",name:"Télévision",icon:"📺",price:90},
-  {id:"shower",name:"Douche",icon:"🚿",price:70},
-  {id:"kitchen",name:"Cuisine",icon:"🍳",price:150},
-  {id:"table",name:"Table",icon:"🍽️",price:55},
-  {id:"chair",name:"Chaise",icon:"🪑",price:25},
-  {id:"plant",name:"Plante",icon:"🪴",price:20},
-  {id:"storage",name:"Rangement",icon:"🗄️",price:45},
-  {id:"library",name:"Bibliothèque",icon:"📚",price:60},
-  {id:"window",name:"Fenêtre",icon:"🪟",price:35},
-  {id:"door",name:"Porte",icon:"🚪",price:45}
-];
-
-function renderInventory(){
-  const box=document.getElementById("inventory");
-  box.innerHTML="";
-
-  const shop=document.createElement("div");
-  shop.className="shop-grid";
-
-  furnitureCatalog.forEach(item=>{
-    const div=document.createElement("div");
-    div.className="item";
-
-    div.innerHTML=`
-      <div class="big">${item.icon}</div>
-      <b>${item.name}</b>
-      <p>${item.price} €</p>
-      <button class="btn" onclick="buyFurniture('${item.id}')">
-        Acheter
-      </button>
-    `;
-
-    shop.appendChild(div);
-  });
-
-  box.appendChild(shop);
-
-  if(state.inventory.length){
-    const title=document.createElement("h3");
-    title.textContent="📦 Stock";
-    box.appendChild(title);
-
-    state.inventory.forEach((f,i)=>{
-      const div=document.createElement("div");
-      div.className="item";
-      div.style.marginBottom="7px";
-
-      div.innerHTML=`
-        ${f.icon} <b>${f.name}</b>
-        <button class="btn green" onclick="placeFurniture(${i})">
-          Placer
-        </button>
-      `;
-
-      box.appendChild(div);
-    });
-  }
-}
-
-function buyFurniture(id){
-  const item=furnitureCatalog.find(x=>x.id===id);
-
-  if(!spend(item.price))return;
-
-  state.inventory.push({
-    ...item,
-    uid:Date.now()+Math.random()
-  });
-
-  save();
-  renderInventory();
-
-  toast(`📦 ${item.name} ajouté au stock.`);
-}
-
-function placeFurniture(index){
-  const item=state.inventory[index];
-  state.inventory.splice(index,1);
-
-  const f={
-    ...item,
-    x:400+Math.random()*80-40,
-    y:300+Math.random()*70-35,
-    rot:0
+  const labels={
+    hunger:"🍎 Faim",
+    energy:"⚡ Énergie",
+    hygiene:"🫧 Hygiène",
+    fun:"😊 Fun",
+    social:"💬 Social"
   };
 
-  state.placed.push(f);
-  save();
+  document.getElementById("needsHud").innerHTML =
+    Object.entries(S.needs)
+    .map(([k,v])=>`
 
-  renderFurniture();
-  renderInventory();
+      <div class="need">
 
-  toast("👆 Meuble placé. Tu peux le déplacer.");
+        <b>${labels[k]}</b>
+
+        <div class="bar">
+
+          <i
+            style="width:${Math.max(0,v)}%">
+          </i>
+
+        </div>
+
+        <small>${Math.round(v)}/100</small>
+
+      </div>
+
+    `).join("");
+
 }
 
-function renderFurniture(){
-  const layer=document.getElementById("furnitureLayer");
-  layer.innerHTML="";
 
-  state.placed.forEach(f=>{
-    const el=document.createElement("div");
-    el.className="furniture";
-    el.dataset.uid=f.uid;
-    el.style.left=f.x+"px";
-    el.style.top=f.y+"px";
-    el.style.transform=`rotate(${f.rot}deg)`;
+function updateMoney(){
 
-    el.innerHTML=`${f.icon}<span>${f.name}</span>`;
+  document.getElementById("money").textContent =
+    Math.round(S.money)+" €";
 
-    el.addEventListener("pointerdown",e=>{
-      e.preventDefault();
-      selectedFurniture=f.uid;
-      dragData={
-        uid:f.uid,
-        sx:e.clientX,
-        sy:e.clientY,
-        ox:f.x,
-        oy:f.y
-      };
-      el.setPointerCapture?.(e.pointerId);
-      el.classList.add("selected");
-    });
+  document.getElementById("moneyTop").textContent =
+    Math.round(S.money)+" €";
 
-    el.addEventListener("pointermove",e=>{
-      if(!dragData||dragData.uid!==f.uid)return;
+  document.getElementById("clock").textContent =
+    `${String(Math.floor(S.time)%24).padStart(2,"0")}:${S.time%1?"30":"00"} • Jour ${S.day}`;
 
-      const dx=(e.clientX-dragData.sx)/zoomLevel;
-      const dy=(e.clientY-dragData.sy)/zoomLevel;
+}
 
-      f.x=dragData.ox+dx;
-      f.y=dragData.oy+dy;
 
-      el.style.left=f.x+"px";
-      el.style.top=f.y+"px";
-    });
+function advance(hours=1){
 
-    el.addEventListener("pointerup",()=>{
-      if(dragData?.uid===f.uid){
-        dragData=null;
-        save();
-        showFurnitureActions(f,el);
-      }
-    });
+  S.time+=hours;
 
-    el.addEventListener("click",e=>{
-      e.stopPropagation();
-      selectedFurniture=f.uid;
-      showFurnitureActions(f,el);
-    });
+  if(S.time>=24){
 
-    layer.appendChild(el);
+    S.time-=24;
+    S.day++;
+
+  }
+
+  S.needs.hunger-=hours*5;
+  S.needs.energy-=hours*4;
+  S.needs.hygiene-=hours*2;
+  S.needs.fun-=hours*2;
+  S.needs.social-=hours;
+
+  Object.keys(S.needs).forEach(k=>{
+
+    S.needs[k]=
+      Math.max(
+        0,
+        Math.min(
+          100,
+          S.needs[k]
+        )
+      );
+
   });
-}
-
-function showFurnitureActions(f,el){
-  document.querySelectorAll(".furniture").forEach(x=>x.classList.remove("selected"));
-  el.classList.add("selected");
-
-  const old=document.getElementById("furnitureActions");
-  if(old)old.remove();
-
-  const menu=document.createElement("div");
-  menu.id="furnitureActions";
-  menu.className="card";
-  menu.style.position="fixed";
-  menu.style.left="50%";
-  menu.style.bottom="82px";
-  menu.style.transform="translateX(-50%)";
-  menu.style.zIndex="150";
-  menu.style.width="min(94%,420px)";
-
-  menu.innerHTML=`
-    <b>${f.icon} ${f.name}</b>
-    <div class="row" style="margin-top:7px">
-      <button class="btn" onclick="rotateFurniture(${f.uid})">↻ Tourner</button>
-      <button class="btn blue" onclick="storeFurniture(${f.uid})">📦 Ranger</button>
-      <button class="btn green" onclick="resellFurniture(${f.uid})">💶 Revendre</button>
-      <button class="btn peach" onclick="deleteFurniture(${f.uid})">🗑️ Supprimer</button>
-      <button class="btn" onclick="closeFurnitureMenu()">✓ Finir</button>
-    </div>
-  `;
-
-  document.body.appendChild(menu);
-}
-
-function closeFurnitureMenu(){
-  const m=document.getElementById("furnitureActions");
-  if(m)m.remove();
-  selectedFurniture=null;
-  document.querySelectorAll(".furniture").forEach(x=>x.classList.remove("selected"));
-}
-
-function rotateFurniture(uid){
-  const f=state.placed.find(x=>x.uid===uid);
-  if(!f)return;
-
-  f.rot=(f.rot+90)%360;
-  save();
-  renderFurniture();
-
-  toast("↻ Meuble tourné.");
-}
-
-function storeFurniture(uid){
-  const i=state.placed.findIndex(x=>x.uid===uid);
-  if(i<0)return;
-
-  const f=state.placed[i];
-  state.inventory.push(f);
-  state.placed.splice(i,1);
 
   save();
-  renderFurniture();
-  renderInventory();
-  closeFurnitureMenu();
 
-  toast("📦 Meuble rangé.");
+  renderHUD();
+
+  updateMoney();
+
 }
 
-function resellFurniture(uid){
-  const i=state.placed.findIndex(x=>x.uid===uid);
-  if(i<0)return;
-
-  const f=state.placed[i];
-
-  state.money+=Math.floor(f.price*.6);
-  state.placed.splice(i,1);
-
-  save();
-  renderFurniture();
-  closeFurnitureMenu();
-
-  toast(`💶 Meuble revendu pour ${Math.floor(f.price*.6)} €.`);
-}
-
-function deleteFurniture(uid){
-  const i=state.placed.findIndex(x=>x.uid===uid);
-  if(i<0)return;
-
-  state.placed.splice(i,1);
-
-  save();
-  renderFurniture();
-  closeFurnitureMenu();
-
-  toast("🗑️ Meuble supprimé.");
-}
 
 /* =========================
    ACTIONS
 ========================= */
 
 function doAction(type){
-  const p=document.getElementById("player");
 
-  if(type==="eat"){
-    state.needs.hunger=clamp(state.needs.hunger+30);
-    movePlayer(470,250);
-    toast("🍎 Lili mange.");
+  if(type==="shop"){
+
+    if(S.money>=15){
+
+      S.money-=15;
+
+      S.needs.hunger=
+        Math.min(
+          100,
+          S.needs.hunger+35
+        );
+
+      toast("Courses achetées : +faim");
+
+    }else{
+
+      toast("Il te faut 15 €.");
+
+    }
+
   }
 
-  if(type==="sleep"){
-    state.needs.energy=clamp(state.needs.energy+55);
-    movePlayer(250,440);
-    toast("🛏️ Lili dort.");
-  }
 
-  if(type==="shower"){
-    state.needs.hygiene=clamp(state.needs.hygiene+45);
-    movePlayer(650,440);
-    toast("🚿 Lili prend une douche.");
-  }
-
-  if(type==="tv"){
-    state.needs.fun=clamp(state.needs.fun+35);
-    movePlayer(230,200);
-    toast("📺 Lili regarde la télévision.");
-  }
-
-  if(type==="read"){
-    state.needs.fun=clamp(state.needs.fun+10);
-    state.needs.energy=clamp(state.needs.energy-5);
-    state.skills.knowledge=clamp(state.skills.knowledge+8);
-    movePlayer(650,450);
-    toast("📚 Lili apprend à la bibliothèque.");
-  }
-
-  advance(30);
-}
-
-function movePlayer(x,y){
-  const p=document.getElementById("player");
-  p.style.left=x+"px";
-  p.style.top=y+"px";
-}
-
-/* =========================
-   VILLE
-========================= */
-
-function buyFood(){
-  if(!spend(15))return;
-
-  state.needs.hunger=clamp(state.needs.hunger+45);
-  advance(20);
-
-  toast("🛒 Tu as acheté de la nourriture.");
-}
-
-function cityAction(type){
   if(type==="cafe"){
-    if(!spend(8))return;
-    state.needs.social=clamp(state.needs.social+30);
-    state.needs.fun=clamp(state.needs.fun+15);
-    advance(45);
-    toast("☕ Petite pause au café.");
+
+    S.money=
+      Math.max(
+        0,
+        S.money-8
+      );
+
+    S.needs.fun=
+      Math.min(
+        100,
+        S.needs.fun+22
+      );
+
+    S.needs.social=
+      Math.min(
+        100,
+        S.needs.social+18
+      );
+
+    toast("Moment au café ☕");
+
   }
 
-  if(type==="cinema"){
-    if(!spend(12))return;
-    state.needs.fun=clamp(state.needs.fun+45);
-    advance(100);
-    toast("🍿 Super séance de cinéma.");
-  }
 
   if(type==="park"){
-    state.needs.social=clamp(state.needs.social+20);
-    state.needs.fun=clamp(state.needs.fun+20);
-    advance(45);
-    toast("🌳 Promenade au parc.");
+
+    S.needs.fun=
+      Math.min(
+        100,
+        S.needs.fun+20
+      );
+
+    S.needs.energy=
+      Math.max(
+        0,
+        S.needs.energy-5
+      );
+
+    toast("Promenade au parc 🌳");
+
   }
+
+
+  if(type==="work"){
+
+    const pay=jobPay();
+
+    S.money+=pay;
+
+    const skill=skillForJob();
+
+    S.skills[skill]=
+      Math.min(
+        100,
+        (S.skills[skill]||0)+8
+      );
+
+    advance(4);
+
+    toast(
+      `Travail terminé : +${pay} €`
+    );
+
+  }
+
+
+  save();
+
+  renderHUD();
+
+  updateMoney();
+
 }
 
-function talkNPC(name){
-  name=name||"Maya";
-
-  state.relations[name]=clamp((state.relations[name]||0)+8,0,100);
-  state.needs.social=clamp(state.needs.social+18);
-
-  advance(20);
-
-  const value=state.relations[name];
-  let level="Connaissance";
-
-  if(value>=75)level="Meilleur ami";
-  else if(value>=45)level="Ami";
-
-  document.getElementById("relationshipText").innerHTML=
-    `Maya : ${state.relations.Maya}/100 · ${relationLevel(state.relations.Maya)}
-     <br>Noah : ${state.relations.Noah}/100 · ${relationLevel(state.relations.Noah)}`;
-
-  toast(`💬 Conversation avec ${name} · ${level}`);
-}
-
-function relationLevel(v){
-  if(v>=75)return"meilleur ami";
-  if(v>=45)return"ami";
-  return"connaissance";
-}
 
 /* =========================
-   COMPETENCES
+   MÉTIERS
 ========================= */
 
-const skillNames={
-  programming:"Programmation",
-  logic:"Logique",
-  creativity:"Créativité",
-  medicine:"Médecine",
-  precision:"Précision",
-  patience:"Patience",
-  cooking:"Cuisine",
-  design:"Design",
-  charisma:"Charisme",
-  knowledge:"Connaissance",
-  writing:"Écriture",
-  singing:"Chant"
+const jobData={
+
+  Developer:[
+    60,
+    100,
+    150,
+    220,
+    300,
+    "Programming"
+  ],
+
+  Doctor:[
+    70,
+    115,
+    170,
+    240,
+    320,
+    "Medicine"
+  ],
+
+  Teacher:[
+    60,
+    100,
+    145,
+    210,
+    290,
+    "Pedagogy"
+  ],
+
+  Chef:[
+    55,
+    95,
+    140,
+    200,
+    275,
+    "Cooking"
+  ],
+
+  Designer:[
+    55,
+    95,
+    145,
+    210,
+    285,
+    "Design"
+  ],
+
+  Lawyer:[
+    65,
+    110,
+    165,
+    235,
+    315,
+    "Eloquence"
+  ],
+
+  Architect:[
+    65,
+    110,
+    165,
+    235,
+    315,
+    "Architecture"
+  ],
+
+  Singer:[
+    50,
+    90,
+    140,
+    210,
+    300,
+    "Singing"
+  ],
+
+  Veterinarian:[
+    60,
+    105,
+    155,
+    220,
+    300,
+    "Animals"
+  ],
+
+  Journalist:[
+    55,
+    95,
+    145,
+    210,
+    290,
+    "Writing"
+  ]
+
 };
 
+
+function skillForJob(){
+
+  return jobData[S.job]?.[5]
+    ||"Programming";
+
+}
+
+
+function jobPay(){
+
+  return jobData[S.job]?.[S.jobLevel-1]
+    ||60;
+
+}
+
+
 function skillLevel(v){
-  if(v>=80)return 5;
-  if(v>=60)return 4;
-  if(v>=40)return 3;
-  if(v>=20)return 2;
-  return 1;
-}
 
-function learn(skill){
-  if(!(skill in state.skills))return;
-
-  state.skills[skill]=clamp(state.skills[skill]+10);
-  state.needs.energy=clamp(state.needs.energy-8);
-  state.needs.fun=clamp(state.needs.fun-2);
-
-  advance(60);
-
-  toast(`📚 ${skillNames[skill]} niveau ${skillLevel(state.skills[skill])}.`);
-}
-
-function renderSkills(){
-  const box=document.getElementById("skills");
-  box.innerHTML="";
-
-  Object.entries(state.skills).forEach(([key,value])=>{
-    const div=document.createElement("div");
-    div.className="item";
-
-    div.innerHTML=`
-      <b>${skillNames[key]}</b>
-      <div class="progress">
-        <i style="width:${value}%"></i>
-      </div>
-      <small>${value}/100 · Niveau ${skillLevel(value)}</small>
-    `;
-
-    box.appendChild(div);
-  });
-}
-
-/* =========================
-   METIERS
-========================= */
-
-const jobs=[
-  {name:"Développeur",icon:"💻",skill:"programming",salary:100},
-  {name:"Médecin",icon:"🩺",skill:"medicine",salary:150},
-  {name:"Professeur",icon:"📚",skill:"patience",salary:110},
-  {name:"Chef cuisinier",icon:"👨‍🍳",skill:"cooking",salary:105},
-  {name:"Graphiste",icon:"🎨",skill:"design",salary:100},
-  {name:"Avocat",icon:"⚖️",skill:"charisma",salary:130},
-  {name:"Architecte",icon:"🏛️",skill:"design",salary:140},
-  {name:"Chanteur",icon:"🎤",skill:"singing",salary:120},
-  {name:"Vétérinaire",icon:"🐾",skill:"medicine",salary:115},
-  {name:"Journaliste",icon:"📰",skill:"writing",salary:105}
-];
-
-function renderJobs(){
-  const box=document.getElementById("jobs");
-  box.innerHTML="";
-
-  jobs.forEach(job=>{
-    const value=state.skills[job.skill]||0;
-    const level=skillLevel(value);
-    const required=Math.min(80,(level)*20);
-
-    const div=document.createElement("div");
-    div.className="item";
-
-    div.innerHTML=`
-      <div class="big">${job.icon}</div>
-      <b>${job.name}</b>
-      <p>Compétence : ${skillNames[job.skill]}</p>
-      <div class="progress"><i style="width:${value}%"></i></div>
-      <small>Niveau ${level} · ${value}/100</small>
-      <p>💶 Salaire : ${job.salary + (level-1)*35} €/jour</p>
-      <button class="btn" onclick="work('${job.name}','${job.skill}',${job.salary})">
-        Travailler
-      </button>
-    `;
-
-    box.appendChild(div);
-  });
-}
-
-function work(name,skill,salary){
-  const value=state.skills[skill]||0;
-
-  if(value<20){
-    toast(`📚 Il faut au moins 20 en ${skillNames[skill]}.`);
-    return;
-  }
-
-  const level=skillLevel(value);
-  const earned=salary+(level-1)*35;
-
-  state.money+=earned;
-  state.skills[skill]=clamp(value+5);
-
-  state.needs.energy=clamp(state.needs.energy-18);
-  state.needs.fun=clamp(state.needs.fun-8);
-
-  advance(8*60);
-
-  toast(`💼 Journée terminée : +${earned} €.`);
-}
-
-/* =========================
-   CAMERA
-========================= */
-
-function zoom(amount){
-  zoomLevel=clamp(zoomLevel+amount,.55,1.45);
-
-  document.getElementById("world").style.transform=
-    `translate(-50%,-50%) scale(${zoomLevel})`;
-}
-
-function centerCamera(){
-  zoomLevel=.78;
-
-  document.getElementById("world").style.transform=
-    `translate(-50%,-50%) scale(${zoomLevel})`;
-
-  toast("⌂ Vue de la maison recentrée.");
-}
-
-/* =========================
-   DEPLACEMENT TACTILE DU PERSONNAGE
-========================= */
-
-const camera=document.getElementById("camera");
-
-camera.addEventListener("pointerdown",e=>{
-  const target=e.target;
-
-  if(target.closest(".furniture") ||
-     target.closest("button"))return;
-
-  const rect=camera.getBoundingClientRect();
-
-  const worldX=(e.clientX-rect.left-rect.width/2)/zoomLevel+450;
-  const worldY=(e.clientY-rect.top-rect.height/2)/zoomLevel+325;
-
-  movePlayer(
-    Math.max(70,Math.min(760,worldX)),
-    Math.max(70,Math.min(540,worldY))
+  return Math.min(
+    5,
+    Math.floor(v/20)+1
   );
 
-  state.needs.energy=clamp(state.needs.energy-1);
+}
+
+
+function renderCareer(){
+
+  const d=
+    jobData[S.job]
+    ||jobData.Developer;
+
+  document.getElementById("careerBox").innerHTML=`
+
+    <div class="row">
+
+      <span>
+
+        <b>${S.job}</b>
+
+        <br>
+
+        <small>
+          Niveau ${S.jobLevel}/5 •
+          ${jobPay()} €/jour
+        </small>
+
+      </span>
+
+      <button
+        class="btn"
+        onclick="doAction('work')">
+
+        Travailler 4 h
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  document.getElementById("skills").innerHTML =
+    Object.entries(S.skills)
+    .map(([k,v])=>`
+
+      <div class="row">
+
+        <span>
+
+          ${k}
+
+          <br>
+
+          <small>
+            Niveau ${skillLevel(v)}
+            • ${Math.round(v)}/100
+          </small>
+
+        </span>
+
+        <button
+          class="btn alt"
+          onclick="learn('${k}')">
+
+          Apprendre
+
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function learn(k){
+
+  if(S.needs.energy<12){
+
+    toast("Pas assez d’énergie.");
+
+    return;
+
+  }
+
+  S.skills[k]=
+    Math.min(
+      100,
+      S.skills[k]+8
+    );
+
+  S.needs.energy-=12;
+
+  S.needs.fun=
+    Math.max(
+      0,
+      S.needs.fun-3
+    );
+
+  advance(2);
+
+  renderCareer();
+
+  toast(`${k} amélioré 📚`);
+
   save();
-});
 
-/* =========================
-   PNJ QUI BOUGENT
-========================= */
-
-function moveNPC(id){
-  const el=document.getElementById(id);
-  if(!el)return;
-
-  const x=150+Math.random()*520;
-  const y=130+Math.random()*330;
-
-  el.style.left=x+"px";
-  el.style.top=y+"px";
 }
 
-setInterval(()=>{
-  moveNPC("npc1");
-  moveNPC("npc2");
-},7000);
 
 /* =========================
-   MENU MAISON
+   MAISON
 ========================= */
 
-function openHouseMenu(){
-  showScreen("houseScreen",document.querySelectorAll(".nav button")[1]);
+function enterHome(){
+
+  show("home");
+
+  renderHome();
+
 }
 
-/* =========================
-   RENDU GLOBAL
-========================= */
 
-function renderAll(){
-  renderNeeds();
-  renderHouse();
-  renderHouseChoices();
+function backCity(){
+
+  show("game");
+
+}
+
+
+function houseRooms(){
+
+  return `
+
+    <div
+      class="roomhouse"
+      id="roomhouse">
+
+      <div class="room salon">
+        Salon
+      </div>
+
+      <div class="room cuisine">
+        Cuisine
+      </div>
+
+      <div class="room chambre">
+        Chambre
+      </div>
+
+      <div class="room bain">
+        Salle de bain
+      </div>
+
+      <div
+        class="houseplayer"
+        id="houseplayer"
+        style="left:28%;top:26%">
+      </div>
+
+      <div
+        class="actionbubble"
+        id="actionbubble"
+        style="left:24%;top:10%">
+
+        À la maison
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderHome(){
+
+  if(!S.house){
+
+    document.getElementById("houseWorld").innerHTML =
+      "<p>Choisis d’abord une maison.</p>";
+
+    return;
+
+  }
+
+  document.getElementById("houseLabel").textContent =
+    `${S.house.name} • forme verrouillée • ${S.house.price} €`;
+
+  document.getElementById("houseWorld").innerHTML =
+    houseRooms();
+
+  S.furniture.forEach(
+    (f,i)=>addFurnEl(f,i)
+  );
+
+  renderShop();
+
   renderInventory();
-  renderFurniture();
-  renderSkills();
-  renderJobs();
+
 }
 
+
+function addFurnEl(f,i){
+
+  const r=
+    document.getElementById("roomhouse");
+
+  if(!r)return;
+
+  const e=
+    document.createElement("div");
+
+  e.className=
+    "furn "+f.type;
+
+  e.style.left=
+    f.x+"%";
+
+  e.style.top=
+    f.y+"%";
+
+  e.style.transform=
+    `rotate(${f.rot||0}deg)`;
+
+  e.title=f.name;
+
+  e.dataset.i=i;
+
+  e.addEventListener(
+    "pointerdown",
+    dragStart
+  );
+
+  e.onclick=(ev)=>{
+
+    if(!dragging)
+      openFurniture(i);
+
+  };
+
+  r.appendChild(e);
+
+}
+
+
+let dragging=false;
+let dragIndex=-1;
+let offX=0;
+let offY=0;
+
+
+function dragStart(e){
+
+  dragging=true;
+
+  dragIndex=
+    +e.currentTarget.dataset.i;
+
+  let r=
+    document
+      .getElementById("roomhouse")
+      .getBoundingClientRect();
+
+  offX=
+    e.clientX-r.left-e.currentTarget.offsetLeft;
+
+  offY=
+    e.clientY-r.top-e.currentTarget.offsetTop;
+
+  e.currentTarget.setPointerCapture(
+    e.pointerId
+  );
+
+
+  const move=ev=>{
+
+    if(!dragging)return;
+
+    let x=
+      Math.max(
+        0,
+        Math.min(
+          r.width-e.currentTarget.offsetWidth,
+          ev.clientX-r.left-offX
+        )
+      );
+
+    let y=
+      Math.max(
+        0,
+        Math.min(
+          r.height-e.currentTarget.offsetHeight,
+          ev.clientY-r.top-offY
+        )
+      );
+
+    e.currentTarget.style.left=
+      x+"px";
+
+    e.currentTarget.style.top=
+      y+"px";
+
+  };
+
+
+  const up=()=>{
+
+    dragging=false;
+
+    let rr=
+      document
+        .getElementById("roomhouse")
+        .getBoundingClientRect();
+
+    let x=
+      parseFloat(
+        e.currentTarget.style.left
+      )
+      /rr.width*100;
+
+    let y=
+      parseFloat(
+        e.currentTarget.style.top
+      )
+      /rr.height*100;
+
+    S.furniture[dragIndex].x=x;
+    S.furniture[dragIndex].y=y;
+
+    save();
+
+    window.removeEventListener(
+      "pointermove",
+      move
+    );
+
+    window.removeEventListener(
+      "pointerup",
+      up
+    );
+
+  };
+
+
+  window.addEventListener(
+    "pointermove",
+    move
+  );
+
+  window.addEventListener(
+    "pointerup",
+    up
+  );
+
+}
+
+
 /* =========================
-   HORLOGE
+   MEUBLES
 ========================= */
 
-setInterval(()=>{
-  advance(10);
-},60000);
+const furn=[
+
+  ["sofa","Canapé",45],
+  ["bed","Lit",70],
+  ["tv","Télévision",55],
+  ["shower","Douche",45],
+  ["table","Table",35],
+  ["plant","Plante",15],
+  ["storage","Rangement",30],
+  ["door","Porte",20]
+
+];
+
+
+function renderShop(){
+
+  document.getElementById("furnitureShop").innerHTML =
+    furn.map(f=>`
+
+      <div class="row">
+
+        <span>
+
+          <b>${f[1]}</b>
+
+          <br>
+
+          <small>${f[2]} €</small>
+
+        </span>
+
+        <button
+          class="btn"
+          onclick="buyFurniture('${f[0]}','${f[1]}',${f[2]})">
+
+          Acheter
+
+        </button>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function buyFurniture(
+  type,
+  name,
+  price
+){
+
+  if(S.money<price){
+
+    toast("Pas assez d’argent.");
+
+    return;
+
+  }
+
+  S.money-=price;
+
+  S.inventory.push({
+    type,
+    name,
+    price
+  });
+
+  save();
+
+  updateMoney();
+
+  renderInventory();
+
+  toast(
+    `${name} ajouté au stockage 📦`
+  );
+
+}
+
+
+function renderInventory(){
+
+  document.getElementById("inventory").innerHTML =
+    S.inventory.length
+
+    ?
+
+    S.inventory.map((f,i)=>`
+
+      <div class="row">
+
+        <span>
+
+          🪑 <b>${f.name}</b>
+
+          <br>
+
+          <small>
+            Acheté ${f.price} €
+          </small>
+
+        </span>
+
+        <div>
+
+          <button
+            class="btn green"
+            onclick="placeFurniture(${i})">
+
+            Placer
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("")
+
+    :
+
+    "<p class='sub'>Ton stockage est vide.</p>";
+
+}
+
+
+function placeFurniture(i){
+
+  const f=
+    S.inventory.splice(i,1)[0];
+
+  S.furniture.push({
+
+    ...f,
+
+    x:20+Math.random()*55,
+
+    y:20+Math.random()*55,
+
+    rot:0
+
+  });
+
+  save();
+
+  renderHome();
+
+  toast(
+    `${f.name} placé. Tu peux le déplacer avec le doigt.`
+  );
+
+}
+
+
+function openFurniture(i){
+
+  const f=S.furniture[i];
+
+  document.getElementById("sheet").innerHTML=`
+
+    <h2>${f.name}</h2>
+
+    <div class="grid two">
+
+      <button
+        class="btn"
+        onclick="rotateFurniture(${i})">
+
+        ↻ Tourner
+
+      </button>
+
+      <button
+        class="btn blue"
+        onclick="storeFurniture(${i})">
+
+        📦 Ranger
+
+      </button>
+
+      <button
+        class="btn warn"
+        onclick="sellFurniture(${i})">
+
+        Vendre 60%
+
+      </button>
+
+      <button
+        class="btn alt"
+        onclick="closeModal()">
+
+        Fermer
+
+      </button>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("modal")
+    .classList
+    .add("open");
+
+}
+
+
+function rotateFurniture(i){
+
+  S.furniture[i].rot=
+    (S.furniture[i].rot||0)+90;
+
+  save();
+
+  closeModal();
+
+  renderHome();
+
+}
+
+
+function storeFurniture(i){
+
+  S.inventory.push(
+    S.furniture.splice(i,1)[0]
+  );
+
+  save();
+
+  closeModal();
+
+  renderHome();
+
+}
+
+
+function sellFurniture(i){
+
+  const f=
+    S.furniture.splice(i,1)[0];
+
+  S.money+=
+    Math.round(f.price*.6);
+
+  save();
+
+  closeModal();
+
+  updateMoney();
+
+  renderHome();
+
+  toast("Meuble vendu.");
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList
+    .remove("open");
+
+}
+
 
 /* =========================
-   INITIALISATION
+   RELATIONS
 ========================= */
 
-renderAll();
-centerCamera();
+function talk(id){
 
-window.addEventListener("resize",()=>{
-  centerCamera();
-});
+  const n=
+    npcData.find(x=>x.id===id);
+
+  const r=
+    S.relations[id]||0;
+
+  document.getElementById("sheet").innerHTML=`
+
+    <h2>${n.name}</h2>
+
+    <p>
+      Relation :
+      <b>${relationshipLevel(r)}</b>
+    </p>
+
+    <div class="grid">
+
+      <button
+        class="btn"
+        onclick="social('${id}',3,'Bonjour 👋')">
+
+        Bonjour
+
+      </button>
+
+      <button
+        class="btn blue"
+        onclick="social('${id}',5,'Comment ça va ?')">
+
+        Comment ça va ?
+
+      </button>
+
+      <button
+        class="btn green"
+        onclick="social('${id}',8,'Vous apprenez à vous connaître.')">
+
+        Faire connaissance
+
+      </button>
+
+      <button
+        class="btn"
+        onclick="social('${id}',12,'Vous devenez amis !')">
+
+        Devenir amis
+
+      </button>
+
+      <button
+        class="btn warn"
+        onclick="social('${id}',18,'Vous devenez très proches !')">
+
+        Devenir meilleurs amis
+
+      </button>
+
+      <button
+        class="btn alt"
+        onclick="closeModal()">
+
+        Au revoir
+
+      </button>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("modal")
+    .classList
+    .add("open");
+
+}
+
+
+function relationshipLevel(v){
+
+  if(v>=70)
+    return "Meilleur ami(e)";
+
+  if(v>=35)
+    return "Ami(e)";
+
+  if(v>=10)
+    return "Connaissance";
+
+  return "Inconnu";
+
+}
+
+
+function social(id,g,msg){
+
+  S.relations[id]=
+    Math.min(
+      100,
+      (S.relations[id]||0)+g
+    );
+
+  S.needs.social=
+    Math.min(
+      100,
+      S.needs.social+10
+    );
+
+  advance(.5);
+
+  closeModal();
+
+  toast(msg);
+
+  save();
+
+  renderRelations();
+
+}
+
+
+function renderRelations(){
+
+  document.getElementById("relations").innerHTML =
+    npcData.map(n=>{
+
+      const r=
+        S.relations[n.id]||0;
+
+      return `
+
+        <div class="row">
+
+          <span>
+
+            <b>${n.name}</b>
+
+            <br>
+
+            <small>
+              ${relationshipLevel(r)}
+              • ${r}/100
+              • habite : ${n.home}
+            </small>
+
+          </span>
+
+          <button
+            class="btn"
+            onclick="talk('${n.id}')">
+
+            Parler
+
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================
+   ACTIONS RAPIDES
+========================= */
+
+function openActions(){
+
+  document.getElementById("sheet").innerHTML=`
+
+    <h2>Actions</h2>
+
+    <div class="grid two">
+
+      <button
+        class="btn"
+        onclick="doAction('shop');closeModal()">
+
+        🛒 Manger
+
+      </button>
+
+      <button
+        class="btn blue"
+        onclick="doAction('cafe');closeModal()">
+
+        ☕ Café
+
+      </button>
+
+      <button
+        class="btn green"
+        onclick="doAction('park');closeModal()">
+
+        🌳 Parc
+
+      </button>
+
+      <button
+        class="btn"
+        onclick="enterHome();closeModal()">
+
+        🏠 Maison
+
+      </button>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("modal")
+    .classList
+    .add("open");
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function toast(t){
+
+  const e=
+    document.getElementById("toast");
+
+  e.textContent=t;
+
+  e.classList.add("show");
+
+  setTimeout(
+    ()=>e.classList.remove("show"),
+    2200
+  );
+
+}
+
+
+/* =========================
+   DÉMARRAGE
+========================= */
+
+renderCreator();
+
+if(S.house){
+
+  show("game");
+
+  initGame();
+
+}
 
 </script>
-</div>
+
 </body>
 </html>
