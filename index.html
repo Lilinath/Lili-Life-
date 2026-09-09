@@ -2,215 +2,586 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>Lili Life 6.2</title>
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Lili Life 7.0</title>
 
 <style>
+:root{
+  --pink:#f7c9d9;
+  --pink2:#fce4ed;
+  --blue:#cfe8f5;
+  --green:#d8efd9;
+  --yellow:#faedb8;
+  --lav:#ded3f4;
+  --peach:#f8d4bf;
+  --cream:#fffaf5;
+  --ink:#514653;
+  --white:#fff;
+  --shadow:0 6px 18px rgba(80,60,80,.12);
+}
+
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:#f5f3f8;font-family:Arial,sans-serif;color:#25232a}
-body{min-height:100vh;overflow-x:hidden}
-button,input{font:inherit}
-button{cursor:pointer;border:0}
-.app{max-width:900px;margin:auto;min-height:100vh;background:#fff}
-.top{
-  position:sticky;top:0;z-index:50;
-  background:#fff;padding:12px 14px 10px;
-  border-bottom:1px solid #ddd;
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:#f9edf2;
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
 }
-.topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.logo{font-size:22px;font-weight:800}
-.money{font-weight:800}
-.screen{display:none;padding:14px 14px 100px}
+
+button{
+  border:0;
+  font:inherit;
+  color:var(--ink);
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 10% 0%,#ffe9f1 0 18%,transparent 40%),
+    radial-gradient(circle at 100% 20%,#e7f4fa 0 15%,transparent 38%),
+    #f9edf2;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:10px;
+  background:rgba(255,250,250,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid #eadce2;
+}
+
+.brand{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:22px;
+}
+
+.money{
+  background:var(--yellow);
+  padding:7px 11px;
+  border-radius:15px;
+  font-weight:800;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:5px;
+}
+
+.stat{
+  background:white;
+  border-radius:13px;
+  padding:5px 3px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  font-size:11px;
+}
+
+.stat b{
+  display:block;
+  font-size:13px;
+}
+
+main{
+  width:min(100%,900px);
+  margin:auto;
+  padding:10px;
+  padding-bottom:90px;
+}
+
+.screen{display:none}
 .screen.active{display:block}
-h1,h2,h3{margin:8px 0 12px}
+
 .card{
-  background:#fff;border:1px solid #ddd;border-radius:18px;
-  padding:14px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)
+  background:rgba(255,255,255,.88);
+  border-radius:22px;
+  padding:12px;
+  margin-bottom:10px;
+  box-shadow:var(--shadow);
 }
+
+h2,h3{margin:5px 0 10px}
+
 .btn{
-  padding:12px 15px;border-radius:13px;background:#eee;
-  font-weight:700;margin:4px 0
+  background:var(--pink);
+  padding:11px 14px;
+  border-radius:15px;
+  font-weight:700;
+  box-shadow:0 3px 8px rgba(100,70,80,.12);
 }
-.btn.primary{background:#25232a;color:#fff}
-.btn.good{background:#dff5e5}
-.btn.warn{background:#fff0cf}
-.btn.danger{background:#ffe1e1}
-.btn.small{padding:8px 10px;font-size:13px}
-.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}
-.muted{color:#777;font-size:13px}
-.center{text-align:center}
 
-/* NAV */
+.btn:active{transform:scale(.97)}
+
+.btn.blue{background:var(--blue)}
+.btn.green{background:var(--green)}
+.btn.yellow{background:var(--yellow)}
+.btn.lav{background:var(--lav)}
+.btn.peach{background:var(--peach)}
+
+.row{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
 .nav{
- position:fixed;bottom:0;left:50%;transform:translateX(-50%);
- width:min(900px,100%);z-index:100;
- display:grid;grid-template-columns:repeat(5,1fr);
- background:#fff;border-top:1px solid #ddd;
- padding:7px 4px calc(7px + env(safe-area-inset-bottom))
-}
-.nav button{background:none;font-size:11px;font-weight:700;padding:5px}
-.nav .ico{display:block;font-size:21px;margin-bottom:2px}
-
-/* CREATOR */
-.creatorPreview{
- position:sticky;top:61px;z-index:20;
- background:#fff;border:1px solid #ddd;border-radius:20px;
- padding:10px;margin-bottom:10px;
-}
-.previewName{text-align:center;font-weight:800;margin-bottom:5px}
-.previewAvatar{height:230px;display:flex;align-items:center;justify-content:center}
-.previewAvatar svg{height:220px;width:130px}
-.accordion{
- border:1px solid #ddd;border-radius:16px;margin:9px 0;overflow:hidden
-}
-.accordion summary{
- padding:14px;font-weight:800;background:#fafafa;cursor:pointer
-}
-.choiceRow{
- display:flex;gap:8px;overflow-x:auto;padding:10px;
- scrollbar-width:none
-}
-.choiceRow::-webkit-scrollbar{display:none}
-.choice{
- min-width:82px;background:#f5f5f5;border:2px solid transparent;
- border-radius:13px;padding:7px;text-align:center
-}
-.choice.selected{border-color:#25232a;background:#fff}
-.choice svg{width:60px;height:72px}
-.choiceName{font-size:11px;margin-top:4px}
-.colorDot{
- width:30px;height:30px;border-radius:50%;margin:auto;border:2px solid #bbb
-}
-.nameInput{
- width:100%;padding:13px;border:1px solid #ccc;border-radius:12px
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:30;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:7px;
+  gap:5px;
+  background:rgba(255,250,252,.94);
+  backdrop-filter:blur(15px);
+  border-top:1px solid #eadce2;
 }
 
-/* NEEDS */
-.need{margin:8px 0}
-.needHead{display:flex;justify-content:space-between;font-size:13px;font-weight:700}
-.bar{height:11px;background:#e8e8e8;border-radius:20px;overflow:hidden}
-.fill{height:100%;border-radius:20px}
+.nav button{
+  background:#fff;
+  border-radius:15px;
+  padding:8px 3px;
+  font-size:11px;
+}
 
-/* GAME HOUSE */
-.houseScene{
- position:relative;height:500px;overflow:hidden;
- border-radius:20px;border:3px solid #333;background:#e8e1d7;
- touch-action:none;
+.nav button.active{
+  background:var(--pink);
+  font-weight:800;
 }
-.houseFloor{position:absolute;inset:0;background:
- linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px),
- linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px);
- background-size:35px 35px}
-.wallTop,.wallLeft,.wallRight,.wallBottom{
- position:absolute;background:#fff;border:3px solid #333
+
+/* GAME */
+
+.game-card{
+  padding:7px;
+  background:#fff;
+  border-radius:25px;
+  box-shadow:var(--shadow);
 }
-.wallTop{left:5%;right:5%;top:5%;height:18px}
-.wallBottom{left:5%;right:5%;bottom:5%;height:18px}
-.wallLeft{left:5%;top:5%;bottom:5%;width:18px}
-.wallRight{right:5%;top:5%;bottom:5%;width:18px}
+
+.game-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:4px 4px 8px;
+}
+
+.house-name{
+  font-weight:800;
+}
+
+.camera{
+  position:relative;
+  width:100%;
+  height:min(68vh,650px);
+  min-height:430px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#dcecf0;
+  touch-action:none;
+}
+
+#world{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:900px;
+  height:650px;
+  transform:translate(-50%,-50%) scale(1);
+  transform-origin:center;
+  touch-action:none;
+}
+
+.house{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:#fdf6ec;
+  border:10px solid #8d7480;
+  box-shadow:0 12px 25px rgba(60,50,60,.18);
+  overflow:hidden;
+}
+
+/* Vraies formes extérieures */
+
+.house.square{
+  width:650px;height:520px;
+}
+
+.house.rectangle{
+  width:790px;height:480px;
+}
+
+.house.l{
+  width:760px;height:570px;
+  clip-path:polygon(
+    0 0, 72% 0, 72% 35%, 100% 35%,
+    100% 100%, 0 100%
+  );
+}
+
+.house.inverse{
+  width:760px;height:570px;
+  clip-path:polygon(
+    28% 0,100% 0,100% 100%,0 100%,
+    0 35%,28% 35%
+  );
+}
+
+.house.extension{
+  width:820px;height:540px;
+  clip-path:polygon(
+    0 0,72% 0,72% 18%,100% 18%,
+    100% 100%,0 100%
+  );
+}
+
+.room{
+  position:absolute;
+  background:#fffaf4;
+  border:3px solid #b99ca8;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding-top:8px;
+  font-size:12px;
+  font-weight:800;
+  color:#8d7480;
+}
+
+.square .living{left:0;top:0;width:50%;height:55%}
+.square .kitchen{left:50%;top:0;width:50%;height:55%}
+.square .bedroom{left:0;top:55%;width:50%;height:45%}
+.square .bath{left:50%;top:55%;width:25%;height:45%}
+.square .library{left:75%;top:55%;width:25%;height:45%}
+
+.rectangle .living{left:0;top:0;width:45%;height:60%}
+.rectangle .kitchen{left:45%;top:0;width:30%;height:60%}
+.rectangle .bedroom{left:75%;top:0;width:25%;height:60%}
+.rectangle .bath{left:0;top:60%;width:25%;height:40%}
+.rectangle .library{left:25%;top:60%;width:40%;height:40%}
+
+.l .living{left:0;top:0;width:72%;height:35%}
+.l .kitchen{left:0;top:35%;width:38%;height:65%}
+.l .bedroom{left:38%;top:35%;width:34%;height:65%}
+.l .bath{left:72%;top:35%;width:28%;height:30%}
+.l .library{left:72%;top:65%;width:28%;height:35%}
+
+.inverse .living{left:28%;top:0;width:72%;height:35%}
+.inverse .kitchen{left:28%;top:35%;width:38%;height:65%}
+.inverse .bedroom{left:66%;top:35%;width:34%;height:65%}
+.inverse .bath{left:0;top:35%;width:28%;height:30%}
+.inverse .library{left:0;top:65%;width:28%;height:35%}
+
+.extension .living{left:0;top:0;width:48%;height:58%}
+.extension .kitchen{left:48%;top:0;width:24%;height:58%}
+.extension .bedroom{left:72%;top:18%;width:28%;height:82%}
+.extension .bath{left:0;top:58%;width:25%;height:42%}
+.extension .library{left:25%;top:58%;width:47%;height:42%}
+
 .door{
- position:absolute;bottom:5%;left:47%;width:55px;height:75px;
- background:#9b6d45;border:3px solid #5f4028;border-bottom:0
+  position:absolute;
+  width:36px;
+  height:12px;
+  background:#936c58;
+  bottom:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
 }
-.playerHome{
- position:absolute;width:78px;height:145px;
- transform:translate(-50%,-100%);z-index:30;touch-action:none
-}
-.playerHome svg{width:100%;height:100%}
 
-/* furniture */
+.window{
+  position:absolute;
+  width:70px;
+  height:8px;
+  background:#a9dbea;
+  border:2px solid #739eaa;
+  z-index:8;
+}
+
+.window.w1{top:-3px;left:20%}
+.window.w2{top:-3px;right:18%}
+.window.w3{right:-3px;top:30%}
+.window.w4{left:-3px;top:45%}
+
+/* PERSONNAGE */
+
+.person{
+  position:absolute;
+  width:54px;
+  height:90px;
+  z-index:50;
+  user-select:none;
+  touch-action:none;
+  transition:none;
+}
+
+.person .head{
+  position:absolute;
+  width:31px;
+  height:34px;
+  left:12px;
+  top:2px;
+  background:#f2c7aa;
+  border:2px solid #a66e65;
+  border-radius:48% 48% 45% 45%;
+  z-index:5;
+}
+
+.person .neck{
+  position:absolute;
+  width:11px;
+  height:11px;
+  left:21px;
+  top:32px;
+  background:#e9b998;
+  z-index:3;
+}
+
+.person .hair{
+  position:absolute;
+  width:34px;
+  height:19px;
+  left:10px;
+  top:0;
+  background:#6b4b43;
+  border-radius:18px 18px 8px 8px;
+  z-index:7;
+}
+
+.person .eye{
+  position:absolute;
+  width:4px;height:5px;
+  background:#514653;
+  border-radius:50%;
+  top:16px;
+  z-index:9;
+}
+
+.person .e1{left:19px}
+.person .e2{left:31px}
+
+.person .nose{
+  position:absolute;
+  left:26px;top:21px;
+  width:3px;height:5px;
+  border-left:1px solid #b7796d;
+  z-index:9;
+}
+
+.person .mouth{
+  position:absolute;
+  left:23px;top:27px;
+  width:9px;height:3px;
+  border-bottom:2px solid #a85e68;
+  border-radius:50%;
+  z-index:9;
+}
+
+.person .body{
+  position:absolute;
+  left:11px;
+  top:39px;
+  width:33px;
+  height:37px;
+  background:#e8a9bf;
+  border:2px solid #a77b8c;
+  border-radius:12px 12px 8px 8px;
+  z-index:4;
+}
+
+.person .arm{
+  position:absolute;
+  width:10px;
+  height:31px;
+  background:#f0c3a4;
+  border:2px solid #a66e65;
+  border-radius:8px;
+  top:41px;
+  z-index:2;
+}
+
+.person .arm.left{left:4px;transform:rotate(8deg)}
+.person .arm.right{right:4px;transform:rotate(-8deg)}
+
+.person .hand{
+  position:absolute;
+  width:10px;height:10px;
+  background:#f0c3a4;
+  border-radius:50%;
+  top:68px;
+  z-index:6;
+}
+
+.person .hand.left{left:4px}
+.person .hand.right{right:4px}
+
+.person .leg{
+  position:absolute;
+  width:11px;height:24px;
+  background:#806b88;
+  top:72px;
+  z-index:2;
+  border-radius:5px;
+}
+
+.person .leg.left{left:15px}
+.person .leg.right{right:15px}
+
+.person .label{
+  position:absolute;
+  top:-18px;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:10px;
+  background:white;
+  border-radius:9px;
+  padding:2px 5px;
+  box-shadow:var(--shadow);
+}
+
+/* MEUBLES */
+
 .furniture{
- position:absolute;touch-action:none;user-select:none;
- transform-origin:center;z-index:20
+  position:absolute;
+  z-index:40;
+  user-select:none;
+  touch-action:none;
+  font-size:27px;
+  text-align:center;
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.15));
 }
-.furniture.selected{outline:3px dashed #25232a;outline-offset:3px}
-.furnitureEmoji{font-size:45px;line-height:1}
-.furnitureLabel{
- position:absolute;top:-17px;left:50%;transform:translateX(-50%);
- background:#25232a;color:#fff;border-radius:8px;padding:2px 5px;
- font-size:9px;white-space:nowrap
-}
-.furnitureMenu{
- position:absolute;z-index:60;background:#fff;border:1px solid #bbb;
- box-shadow:0 5px 20px rgba(0,0,0,.15);border-radius:14px;
- padding:8px;display:none
-}
-.furnitureMenu.show{display:flex;gap:5px;flex-wrap:wrap}
-.furnitureMenu button{font-size:12px;padding:8px;border-radius:9px;background:#eee}
 
-/* city */
-.city{
- height:540px;border-radius:20px;border:3px solid #333;
- position:relative;overflow:hidden;
- background:
- linear-gradient(90deg,transparent 47%,#aaa 47%,#aaa 53%,transparent 53%),
- linear-gradient(transparent 47%,#aaa 47%,#aaa 53%,transparent 53%),
- #b8d9a8;
- touch-action:none
+.furniture.selected{
+  outline:3px solid #e89fbb;
+  border-radius:8px;
 }
-.roadLine{position:absolute;background:#777}
-.cityPlace{
- position:absolute;width:105px;padding:9px;border-radius:15px;
- background:#fff;border:2px solid #555;text-align:center;
- font-size:12px;font-weight:800;z-index:5
-}
-.cityPlace small{display:block;font-weight:400;color:#666;margin-top:2px}
-.cityPlayer{
- position:absolute;width:38px;height:72px;z-index:20;
- transform:translate(-50%,-90%);touch-action:none
-}
-.cityPlayer svg{width:100%;height:100%}
-.npc{
- position:absolute;width:42px;height:76px;z-index:15;
- transform:translate(-50%,-90%);touch-action:none
-}
-.npc svg{width:100%;height:100%}
-.speech{
- position:absolute;z-index:40;background:#fff;border:1px solid #bbb;
- border-radius:14px;padding:10px;box-shadow:0 4px 15px rgba(0,0,0,.18);
- min-width:220px;max-width:280px;display:none
-}
-.speech.show{display:block}
 
-/* skills */
-.skill{margin:12px 0}
-.skillTitle{display:flex;justify-content:space-between;font-weight:800;font-size:13px}
-.skillLevel{font-size:11px;color:#666}
-.skill button{margin-top:5px}
-
-/* jobs */
-.jobCard{position:relative}
-.locked{opacity:.55}
-.jobLevel{font-weight:800}
-.req{font-size:12px;color:#666;margin-top:5px}
-
-/* modal */
-.modal{
- position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;
- display:none;align-items:flex-end;justify-content:center
+.furniture span{
+  display:block;
+  font-size:9px;
+  background:rgba(255,255,255,.8);
+  border-radius:6px;
 }
-.modal.show{display:flex}
-.modalBox{
- width:min(600px,100%);background:#fff;border-radius:22px 22px 0 0;
- padding:18px;max-height:85vh;overflow:auto
-}
-.modalTitle{font-size:20px;font-weight:800}
-.modalText{margin:10px 0;line-height:1.5}
 
-/* toast */
+.camera-tools{
+  position:absolute;
+  right:9px;
+  bottom:9px;
+  z-index:100;
+  display:flex;
+  gap:5px;
+}
+
+.camera-tools button{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:white;
+  box-shadow:var(--shadow);
+  font-size:20px;
+}
+
+.action-bar{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:8px 1px 2px;
+}
+
+.action-bar button{
+  flex:0 0 auto;
+  padding:10px 13px;
+  border-radius:14px;
+  background:var(--pink2);
+  font-weight:700;
+}
+
+/* LISTES */
+
+.shop-grid,.job-grid,.skill-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+
+.item{
+  background:#fff;
+  padding:10px;
+  border-radius:17px;
+  box-shadow:var(--shadow);
+}
+
+.item .big{
+  font-size:30px;
+}
+
+.progress{
+  height:9px;
+  background:#eee3e7;
+  border-radius:20px;
+  overflow:hidden;
+  margin:5px 0;
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  background:#e7a9bf;
+  border-radius:20px;
+}
+
 .toast{
- position:fixed;left:50%;bottom:92px;transform:translateX(-50%);
- background:#25232a;color:#fff;padding:11px 16px;border-radius:13px;
- z-index:300;display:none;font-weight:700;font-size:13px
+  position:fixed;
+  left:50%;
+  bottom:85px;
+  transform:translateX(-50%);
+  z-index:200;
+  background:#514653;
+  color:white;
+  padding:10px 15px;
+  border-radius:15px;
+  display:none;
+  max-width:90%;
+  text-align:center;
 }
-.toast.show{display:block}
 
-/* inventory */
-.invItem{
- display:flex;justify-content:space-between;align-items:center;
- border:1px solid #ddd;border-radius:14px;padding:10px;margin:7px 0
+@media(max-width:600px){
+  main{padding:7px;padding-bottom:88px}
+  .camera{
+    height:64vh;
+    min-height:390px;
+  }
+  #world{
+    transform:translate(-50%,-50%) scale(.72);
+  }
+  .shop-grid,.job-grid,.skill-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(min-width:800px){
+  .camera{height:650px}
+}
+
+@media(max-height:700px) and (orientation:landscape){
+  .camera{height:76vh;min-height:320px}
 }
 </style>
 </head>
@@ -218,1550 +589,1072 @@ h1,h2,h3{margin:8px 0 12px}
 <body>
 <div class="app">
 
-<header class="top">
- <div class="topline">
-  <div class="logo">🌸 Lili Life</div>
-  <div class="money">💰 <span id="moneyTop">500</span> €</div>
- </div>
+<header class="topbar">
+  <div class="brand">
+    <h1>🌸 Lili Life <small>7.0</small></h1>
+    <div class="money">💶 <span id="money">500</span> €</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">🍎<b id="needHunger">80</b>Faim</div>
+    <div class="stat">⚡<b id="needEnergy">80</b>Énergie</div>
+    <div class="stat">🧼<b id="needHygiene">80</b>Hygiène</div>
+    <div class="stat">🎮<b id="needFun">80</b>Fun</div>
+    <div class="stat">💬<b id="needSocial">80</b>Social</div>
+  </div>
 </header>
 
-<!-- ACCUEIL -->
-<section id="screen-home" class="screen active">
- <div class="card center">
-  <h1>Bienvenue dans Lili Life</h1>
-  <p>Crée ton personnage, construis ta maison et fais évoluer sa vie.</p>
-  <button class="btn primary" onclick="startNewGame()">✨ Nouveau personnage</button>
-  <button class="btn" onclick="loadGame()">💾 Charger la partie</button>
- </div>
-</section>
+<main>
 
-<!-- CREATION -->
-<section id="screen-create" class="screen">
- <h2>Création du personnage</h2>
+<!-- JEU -->
+<section id="gameScreen" class="screen active">
 
- <div class="creatorPreview">
-  <div class="previewName" id="previewName">Ton personnage</div>
-  <div class="previewAvatar" id="previewAvatar"></div>
- </div>
+  <div class="game-card">
+    <div class="game-head">
+      <div>
+        <div class="house-name" id="houseTitle">Ma maison</div>
+        <small id="clock">Jour 1 · 08:00</small>
+      </div>
+      <button class="btn" onclick="openHouseMenu()">🏠 Maison</button>
+    </div>
 
- <div class="card">
-  <input id="charName" class="nameInput" placeholder="Prénom du personnage" maxlength="20"
-         oninput="state.name=this.value||'Lili';renderPreview()">
- </div>
+    <div class="camera" id="camera">
+      <div id="world">
 
- <details class="accordion" open>
-  <summary>👤 Catégorie</summary>
-  <div class="choiceRow" id="genderChoices"></div>
- </details>
+        <div id="house" class="house square">
 
- <details class="accordion" open>
-  <summary>🙂 Visage</summary>
-  <div class="choiceRow" id="faceChoices"></div>
- </details>
+          <div class="room living">🛋️ SALON</div>
+          <div class="room kitchen">🍳 CUISINE</div>
+          <div class="room bedroom">🛏️ CHAMBRE</div>
+          <div class="room bath">🚿 SALLE DE BAIN</div>
+          <div class="room library">📚 BIBLIOTHÈQUE</div>
 
- <details class="accordion">
-  <summary>💇 Coiffure</summary>
-  <div class="choiceRow" id="hairChoices"></div>
- </details>
+          <div class="window w1"></div>
+          <div class="window w2"></div>
+          <div class="window w3"></div>
+          <div class="window w4"></div>
+          <div class="door"></div>
+        </div>
 
- <details class="accordion">
-  <summary>🎨 Couleur des cheveux</summary>
-  <div class="choiceRow" id="hairColorChoices"></div>
- </details>
+        <div id="furnitureLayer"></div>
 
- <details class="accordion">
-  <summary>👕 Tenue</summary>
-  <div class="choiceRow" id="outfitChoices"></div>
- </details>
+        <div id="player" class="person"
+             style="left:390px;top:320px">
+          <div class="label">Lili</div>
+          <div class="hair"></div>
+          <div class="head">
+            <div class="eye e1"></div>
+            <div class="eye e2"></div>
+            <div class="nose"></div>
+            <div class="mouth"></div>
+          </div>
+          <div class="neck"></div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="body"></div>
+          <div class="hand left"></div>
+          <div class="hand right"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
 
- <details class="accordion">
-  <summary>🌈 Couleur de la tenue</summary>
-  <div class="choiceRow" id="outfitColorChoices"></div>
- </details>
+        <div id="npc1" class="person"
+             style="left:240px;top:170px">
+          <div class="label">Maya</div>
+          <div class="hair" style="background:#d68e91"></div>
+          <div class="head">
+            <div class="eye e1"></div>
+            <div class="eye e2"></div>
+            <div class="nose"></div>
+            <div class="mouth"></div>
+          </div>
+          <div class="neck"></div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="body" style="background:#b9d9ee"></div>
+          <div class="hand left"></div>
+          <div class="hand right"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
 
- <details class="accordion">
-  <summary>🧴 Couleur de peau</summary>
-  <div class="choiceRow" id="skinChoices"></div>
- </details>
+        <div id="npc2" class="person"
+             style="left:580px;top:170px">
+          <div class="label">Noah</div>
+          <div class="hair" style="background:#4e403d"></div>
+          <div class="head">
+            <div class="eye e1"></div>
+            <div class="eye e2"></div>
+            <div class="nose"></div>
+            <div class="mouth"></div>
+          </div>
+          <div class="neck"></div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="body" style="background:#b8d9b8"></div>
+          <div class="hand left"></div>
+          <div class="hand right"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
 
- <button class="btn primary" style="width:100%;margin-top:12px" onclick="finishCreation()">
-   Continuer → 
- </button>
-</section>
+      </div>
 
-<!-- HOUSE CREATION -->
-<section id="screen-house-create" class="screen">
- <h2>🏠 Choisis ta maison</h2>
- <p class="muted">Ton capital de départ est de 500 €.</p>
- <div id="houseChoices"></div>
-</section>
+      <div class="camera-tools">
+        <button onclick="zoom(-.1)">−</button>
+        <button onclick="centerCamera()">⌂</button>
+        <button onclick="zoom(.1)">+</button>
+      </div>
+    </div>
 
-<!-- GAME -->
-<section id="screen-game" class="screen">
- <h2 id="gameTitle">Ma maison</h2>
-
- <div class="card">
-  <div class="row" style="justify-content:space-between">
-   <strong>⏰ Jour <span id="dayNum">1</span> — <span id="timeText">08:00</span></strong>
-   <button class="btn small" onclick="advanceTime(30)">+ 30 min</button>
+    <div class="action-bar">
+      <button onclick="doAction('eat')">🍎 Manger</button>
+      <button onclick="doAction('sleep')">🛏️ Dormir</button>
+      <button onclick="doAction('shower')">🚿 Douche</button>
+      <button onclick="doAction('tv')">📺 TV</button>
+      <button onclick="doAction('read')">📚 Lire</button>
+      <button onclick="talkNPC()">💬 Parler</button>
+    </div>
   </div>
-  <div id="needsGame"></div>
- </div>
 
- <div class="houseScene" id="houseScene">
-  <div class="houseFloor"></div>
-  <div class="wallTop"></div><div class="wallBottom"></div>
-  <div class="wallLeft"></div><div class="wallRight"></div>
-  <div class="door"></div>
-  <div id="furnitureLayer"></div>
-  <div class="playerHome" id="playerHome"></div>
-  <div class="furnitureMenu" id="furnitureMenu"></div>
- </div>
+  <div class="card">
+    <h3>🏠 Ta maison</h3>
+    <div id="houseDescription">
+      Maison carrée · 5 pièces
+    </div>
+  </div>
 
- <div class="card">
-  <h3>🛋️ Mes meubles</h3>
-  <div id="inventory"></div>
- </div>
-
- <div class="card">
-  <button class="btn primary" onclick="go('shop')">🛍️ Acheter des meubles</button>
-  <button class="btn" onclick="go('city')">🏙️ Aller en ville</button>
- </div>
 </section>
 
-<!-- CHARACTER -->
-<section id="screen-character" class="screen">
- <h2>👤 Personnage</h2>
- <div class="card center">
-  <div id="bigCharacter"></div>
-  <h3 id="characterName"></h3>
-  <div id="characterCategory" class="muted"></div>
- </div>
+<!-- MAISON -->
+<section id="houseScreen" class="screen">
+  <div class="card">
+    <h2>🏠 Construire ma maison</h2>
+    <p>La forme choisie modifie réellement le contour de la maison.</p>
+    <div class="shop-grid" id="houseChoices"></div>
+  </div>
 
- <div class="card">
-  <h3>📊 Besoins</h3>
-  <div id="needsCharacter"></div>
- </div>
-
- <div class="card">
-  <h3>🧠 Compétences</h3>
-  <div id="skillsCharacter"></div>
- </div>
+  <div class="card">
+    <h3>🛋️ Mes meubles</h3>
+    <div id="inventory"></div>
+  </div>
 </section>
 
-<!-- WORK -->
-<section id="screen-work" class="screen">
- <h2>💼 Carrière</h2>
+<!-- VILLE -->
+<section id="cityScreen" class="screen">
+  <div class="card">
+    <h2>🏙️ Ville</h2>
+    <p>Les habitants se déplacent et peuvent devenir tes amis.</p>
 
- <div class="card">
-  <h3 id="currentJobTitle">Sans emploi</h3>
-  <p id="currentJobInfo"></p>
-  <div id="jobProgress"></div>
- </div>
+    <div class="shop-grid">
+      <div class="item">
+        <div class="big">🛒</div>
+        <b>Supermarché</b>
+        <p>Achète de la nourriture.</p>
+        <button class="btn" onclick="buyFood()">Acheter · 15 €</button>
+      </div>
 
- <div class="card">
-  <h3>🏢 Choisir une carrière</h3>
-  <div id="jobsList"></div>
- </div>
+      <div class="item">
+        <div class="big">☕</div>
+        <b>Café</b>
+        <p>Améliore le social.</p>
+        <button class="btn blue" onclick="cityAction('cafe')">Aller · 8 €</button>
+      </div>
+
+      <div class="item">
+        <div class="big">🍿</div>
+        <b>Cinéma</b>
+        <p>Améliore le fun.</p>
+        <button class="btn.lav btn" onclick="cityAction('cinema')">Aller · 12 €</button>
+      </div>
+
+      <div class="item">
+        <div class="big">🌳</div>
+        <b>Parc</b>
+        <p>Promenade et social.</p>
+        <button class="btn green" onclick="cityAction('park')">Se promener</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>👥 Habitants</h3>
+    <div class="row">
+      <button class="btn" onclick="talkNPC('Maya')">💬 Maya</button>
+      <button class="btn blue" onclick="talkNPC('Noah')">💬 Noah</button>
+    </div>
+    <p id="relationshipText">Maya : connaissance · 20/100<br>Noah : connaissance · 10/100</p>
+  </div>
 </section>
 
-<!-- SHOP -->
-<section id="screen-shop" class="screen">
- <h2>🛍️ Boutique</h2>
- <div class="card">
-  <p class="muted">Achète un meuble puis choisis quand et où le placer.</p>
-  <div id="shopList"></div>
- </div>
+<!-- TRAVAIL -->
+<section id="workScreen" class="screen">
+  <div class="card">
+    <h2>💼 Travail</h2>
+    <p>Travaille pour gagner de l'argent et progresser dans ta carrière.</p>
+    <div id="jobs" class="job-grid"></div>
+  </div>
 </section>
 
-<!-- CITY -->
-<section id="screen-city" class="screen">
- <h2>🏙️ La ville</h2>
- <div class="card">
-  <p class="muted">Déplace ton personnage et rencontre les habitants.</p>
- </div>
+<!-- COMPETENCES -->
+<section id="skillsScreen" class="screen">
+  <div class="card">
+    <h2>📚 Compétences</h2>
+    <p>Chaque compétence va du niveau 1 au niveau 5.</p>
+    <div id="skills" class="skill-grid"></div>
+  </div>
 
- <div class="city" id="city">
-   <div class="cityPlace" style="left:4%;top:8%" onclick="placeAction('Bibliothèque')">
-     📚 Bibliothèque<small>Apprendre</small>
-   </div>
-   <div class="cityPlace" style="right:4%;top:8%" onclick="placeAction('Travail')">
-     💼 Travail<small>Travailler</small>
-   </div>
-   <div class="cityPlace" style="left:4%;bottom:8%" onclick="placeAction('Supermarché')">
-     🛒 Supermarché<small>Acheter</small>
-   </div>
-   <div class="cityPlace" style="right:4%;bottom:8%" onclick="placeAction('Parc')">
-     🌳 Parc<small>Se détendre</small>
-   </div>
-   <div class="cityPlace" style="left:50%;top:5%;transform:translateX(-50%)" onclick="placeAction('Café')">
-     ☕ Café<small>Socialiser</small>
-   </div>
-
-   <div id="npcLayer"></div>
-   <div class="cityPlayer" id="cityPlayer"></div>
-   <div class="speech" id="speech"></div>
- </div>
+  <div class="card">
+    <h3>📖 Bibliothèque</h3>
+    <div class="row">
+      <button class="btn lav" onclick="learn('programming')">💻 Programmation</button>
+      <button class="btn lav" onclick="learn('creativity')">🎨 Créativité</button>
+      <button class="btn lav" onclick="learn('knowledge')">🧠 Connaissance</button>
+      <button class="btn lav" onclick="learn('cooking')">🍳 Cuisine</button>
+      <button class="btn lav" onclick="learn('charisma')">💬 Charisme</button>
+      <button class="btn lav" onclick="learn('patience')">🧘 Patience</button>
+    </div>
+  </div>
 </section>
 
-<nav class="nav" id="nav">
- <button onclick="go('game')"><span class="ico">🏠</span>Maison</button>
- <button onclick="go('character')"><span class="ico">👤</span>Personnage</button>
- <button onclick="go('work')"><span class="ico">💼</span>Travail</button>
- <button onclick="go('shop')"><span class="ico">🛍️</span>Boutique</button>
- <button onclick="go('city')"><span class="ico">🏙️</span>Ville</button>
+</main>
+
+<nav class="nav">
+  <button class="active" onclick="showScreen('gameScreen',this)">🏠<br>Jeu</button>
+  <button onclick="showScreen('houseScreen',this)">🛋️<br>Maison</button>
+  <button onclick="showScreen('cityScreen',this)">🏙️<br>Ville</button>
+  <button onclick="showScreen('workScreen',this)">💼<br>Travail</button>
+  <button onclick="showScreen('skillsScreen',this)">📚<br>Compétences</button>
 </nav>
 
-</div>
-
-<div class="modal" id="modal">
- <div class="modalBox">
-  <div class="modalTitle" id="modalTitle"></div>
-  <div class="modalText" id="modalText"></div>
-  <div id="modalButtons"></div>
- </div>
-</div>
-
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 
 <script>
-/* =========================================================
-   LILI LIFE 6.2
-   ========================================================= */
+/* =========================
+   ETAT DU JEU
+========================= */
 
-const skinColors=[
- "#f6d1b1","#e8b18d","#c98b63","#9b6848","#70442f"
-];
-
-const hairColors=[
- "#1f1714","#4b2d20","#8b552f","#c48a42","#d9c4a1","#6f7884"
-];
-
-const outfitColors=[
- "#d86b72","#6699cc","#73a86b","#c38bd4","#e4a94b","#555","#f1f1f1"
-];
-
-const categories={
- femme:{
-   label:"Femme",
-   faces:["F1","F2","F3","F4","F5","F6"],
-   hairs:["Femme 1","Femme 2","Femme 3","Femme 4","Femme 5","Femme 6"],
-   outfits:["Femme chic","Décontractée","Robe","Sport","Élégante"]
- },
- homme:{
-   label:"Homme",
-   faces:["H1","H2","H3","H4","H5","H6"],
-   hairs:["Homme 1","Homme 2","Homme 3","Homme 4","Homme 5","Homme 6"],
-   outfits:["Casual","Chemise","T-shirt","Sport","Élégant"]
- },
- fille:{
-   label:"Enfant fille",
-   faces:["G1","G2","G3","G4","G5","G6"],
-   hairs:["Fille 1","Fille 2","Fille 3","Fille 4","Fille 5","Fille 6"],
-   outfits:["Robe enfant","Casual","Sport","Jupe","Pull"]
- },
- garcon:{
-   label:"Enfant garçon",
-   faces:["B1","B2","B3","B4","B5","B6"],
-   hairs:["Garçon 1","Garçon 2","Garçon 3","Garçon 4","Garçon 5","Garçon 6"],
-   outfits:["T-shirt","Sweat","Casual","Sport","Chemise"]
- }
+const defaultState={
+  money:500,
+  day:1,
+  minutes:8*60,
+  house:"square",
+  needs:{
+    hunger:80,
+    energy:80,
+    hygiene:80,
+    fun:80,
+    social:80
+  },
+  skills:{
+    programming:0,
+    logic:0,
+    creativity:0,
+    medicine:0,
+    precision:0,
+    patience:0,
+    cooking:0,
+    design:0,
+    charisma:0,
+    knowledge:0,
+    writing:0,
+    singing:0
+  },
+  job:null,
+  inventory:[],
+  placed:[],
+  relations:{
+    Maya:20,
+    Noah:10
+  }
 };
 
-const houses=[
- {id:"square",name:"Petite maison carrée",price:50,space:1},
- {id:"rectangle",name:"Maison rectangulaire",price:120,space:2},
- {id:"apartment",name:"Appartement",price:150,space:2},
- {id:"L",name:"Maison en L",price:220,space:3},
- {id:"extension",name:"Maison avec extension",price:290,space:4},
- {id:"floor",name:"Maison à étage",price:350,space:5}
-];
+let state=JSON.parse(localStorage.getItem("liliLife7")||"null")||structuredClone(defaultState);
 
-const furnitureTypes=[
- {id:"sofa1",name:"Canapé classique",emoji:"🛋️",price:100},
- {id:"sofa2",name:"Canapé moderne",emoji:"🛋️",price:150},
- {id:"bed1",name:"Lit simple",emoji:"🛏️",price:90},
- {id:"bed2",name:"Grand lit",emoji:"🛏️",price:180},
- {id:"tv1",name:"Télévision",emoji:"📺",price:120},
- {id:"shower",name:"Douche",emoji:"🚿",price:110},
- {id:"kitchen",name:"Cuisine",emoji:"🍳",price:200},
- {id:"table",name:"Table",emoji:"🍽️",price:70},
- {id:"chair",name:"Chaise",emoji:"🪑",price:35},
- {id:"plant",name:"Plante",emoji:"🌿",price:25},
- {id:"storage",name:"Rangement",emoji:"🗄️",price:80},
- {id:"lamp",name:"Lampe",emoji:"💡",price:30},
- {id:"decoration",name:"Décoration",emoji:"🖼️",price:40}
-];
+let zoomLevel=1;
+let selectedFurniture=null;
+let dragData=null;
 
-const skills={
- programmation:{name:"Programmation",icon:"💻"},
- logique:{name:"Logique",icon:"🧠"},
- creativite:{name:"Créativité",icon:"🎨"},
- reputation:{name:"Réputation",icon:"⭐"},
- medecine:{name:"Médecine",icon:"🩺"},
- precision:{name:"Précision",icon:"🎯"},
- pedagogie:{name:"Pédagogie",icon:"📚"},
- connaissance:{name:"Connaissances",icon:"📖"},
- cuisine:{name:"Cuisine",icon:"🍳"},
- rapidite:{name:"Rapidité",icon:"⚡"},
- design:{name:"Design",icon:"🖌️"},
- eloquence:{name:"Éloquence",icon:"🗣️"},
- architecture:{name:"Architecture",icon:"🏗️"},
- chant:{name:"Chant",icon:"🎤"},
- celebrite:{name:"Célébrité",icon:"🌟"},
- animaux:{name:"Animaux",icon:"🐶"},
- ecriture:{name:"Écriture",icon:"✍️"},
- investigation:{name:"Investigation",icon:"🔎"},
- charisme:{name:"Charisme",icon:"✨"}
-};
+/* =========================
+   SAUVEGARDE
+========================= */
 
-const jobs=[
- {
-  id:"dev",name:"Développeur",icon:"💻",
-  stats:["programmation","logique","creativite","reputation"],
-  levels:[
-   ["Stagiaire",60,{}],
-   ["Développeur junior",100,{programmation:20}],
-   ["Développeur",150,{programmation:40,logique:30}],
-   ["Développeur senior",220,{programmation:60,logique:50,reputation:30}],
-   ["Expert",300,{programmation:80,logique:70,reputation:50}]
-  ]
- },
- {
-  id:"doctor",name:"Médecin",icon:"🩺",
-  stats:["medecine","logique","precision","reputation"],
-  levels:[
-   ["Interne",80,{}],
-   ["Médecin junior",130,{medecine:25}],
-   ["Médecin",190,{medecine:45,logique:35}],
-   ["Médecin senior",270,{medecine:65,precision:50}],
-   ["Chef de service",380,{medecine:85,precision:75,reputation:55}]
-  ]
- },
- {
-  id:"teacher",name:"Professeur",icon:"👩‍🏫",
-  stats:["pedagogie","connaissance","patience","reputation"],
-  levels:[
-   ["Assistant",60,{}],
-   ["Professeur junior",100,{pedagogie:20}],
-   ["Professeur",145,{pedagogie:45,connaissance:30}],
-   ["Professeur confirmé",210,{pedagogie:65,connaissance:55}],
-   ["Professeur expert",290,{pedagogie:85,reputation:55}]
-  ]
- },
- {
-  id:"cook",name:"Cuisinier",icon:"👨‍🍳",
-  stats:["cuisine","creativite","rapidite","reputation"],
-  levels:[
-   ["Commis",55,{}],
-   ["Cuisinier junior",90,{cuisine:20}],
-   ["Cuisinier",135,{cuisine:45,rapidite:30}],
-   ["Chef de partie",190,{cuisine:65,creativite:45}],
-   ["Grand chef",280,{cuisine:85,creativite:70,reputation:50}]
-  ]
- },
- {
-  id:"designer",name:"Graphiste",icon:"🎨",
-  stats:["creativite","design","programmation","reputation"],
-  levels:[
-   ["Assistant",60,{}],
-   ["Graphiste junior",100,{design:20}],
-   ["Graphiste",150,{design:45,creativite:30}],
-   ["Directeur artistique",220,{design:65,creativite:60}],
-   ["Directeur créatif",310,{design:85,creativite:80,reputation:55}]
-  ]
- },
- {
-  id:"lawyer",name:"Avocat",icon:"⚖️",
-  stats:["eloquence","logique","connaissance","reputation"],
-  levels:[
-   ["Assistant juridique",70,{}],
-   ["Avocat junior",115,{eloquence:25}],
-   ["Avocat",170,{eloquence:45,logique:35}],
-   ["Avocat senior",245,{eloquence:65,connaissance:55}],
-   ["Associé",350,{eloquence:85,reputation:60}]
-  ]
- },
- {
-  id:"architect",name:"Architecte",icon:"🏗️",
-  stats:["architecture","creativite","logique","precision"],
-  levels:[
-   ["Assistant",65,{}],
-   ["Architecte junior",110,{architecture:20}],
-   ["Architecte",160,{architecture:45,logique:35}],
-   ["Architecte senior",230,{architecture:65,precision:50}],
-   ["Architecte renommé",330,{architecture:85,creativite:70}]
-  ]
- },
- {
-  id:"singer",name:"Chanteur",icon:"🎤",
-  stats:["chant","creativite","charisme","celebrite"],
-  levels:[
-   ["Artiste débutant",50,{}],
-   ["Chanteur local",90,{chant:20}],
-   ["Chanteur",140,{chant:45,charisme:30}],
-   ["Star",220,{chant:65,charisme:55}],
-   ["Superstar",350,{chant:85,celebrite:70}]
-  ]
- },
- {
-  id:"vet",name:"Vétérinaire",icon:"🐶",
-  stats:["animaux","medecine","precision","reputation"],
-  levels:[
-   ["Assistant vétérinaire",60,{}],
-   ["Vétérinaire junior",105,{animaux:20}],
-   ["Vétérinaire",155,{animaux:45,medecine:30}],
-   ["Vétérinaire senior",225,{animaux:65,precision:50}],
-   ["Spécialiste",320,{animaux:85,medecine:70,reputation:50}]
-  ]
- },
- {
-  id:"journalist",name:"Journaliste",icon:"📰",
-  stats:["ecriture","investigation","eloquence","reputation"],
-  levels:[
-   ["Stagiaire",55,{}],
-   ["Journaliste junior",95,{ecriture:20}],
-   ["Journaliste",145,{ecriture:45,investigation:30}],
-   ["Grand reporter",220,{investigation:65,eloquence:50}],
-   ["Rédacteur en chef",320,{ecriture:85,reputation:65}]
-  ]
- }
-];
-
-const npcs=[
- {id:1,name:"Emma",category:"femme",x:34,y:34,friend:0},
- {id:2,name:"Lucas",category:"homme",x:65,y:37,friend:0},
- {id:3,name:"Zoé",category:"fille",x:37,y:67,friend:0},
- {id:4,name:"Noah",category:"garcon",x:67,y:68,friend:0}
-];
-
-let state={
- name:"Lili",
- category:"femme",
- face:0,
- hair:0,
- hairColor:0,
- outfit:0,
- outfitColor:0,
- skin:0,
- money:500,
- house:null,
- day:1,
- minutes:480,
- needs:{hunger:80,energy:90,hygiene:80,fun:70,social:65},
- skills:{},
- job:null,
- jobLevel:0,
- furniture:[],
- inventory:[],
- player:{x:50,y:62},
- relations:{},
- npcPositions:{}
-};
-
-Object.keys(skills).forEach(k=>state.skills[k]=0);
-npcs.forEach(n=>state.relations[n.id]=0);
-
-let selectedFurnitureId=null;
-let draggingFurniture=null;
-let draggingPlayer=null;
-let draggingCityPlayer=null;
-let dragOffset={x:0,y:0};
-
-function saveGame(){
- localStorage.setItem("liliLife62",JSON.stringify(state));
- showToast("💾 Partie sauvegardée");
+function save(){
+  localStorage.setItem("liliLife7",JSON.stringify(state));
 }
 
-function loadGame(){
- const raw=localStorage.getItem("liliLife62");
- if(!raw){showToast("Aucune sauvegarde trouvée");return}
- try{
-  state=JSON.parse(raw);
-  if(!state.skills)state.skills={};
-  Object.keys(skills).forEach(k=>{if(typeof state.skills[k]!=="number")state.skills[k]=0});
+/* =========================
+   UTILITAIRES
+========================= */
+
+function clamp(v,min=0,max=100){
+  return Math.max(min,Math.min(max,v));
+}
+
+function toast(text){
+  const el=document.getElementById("toast");
+  el.textContent=text;
+  el.style.display="block";
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>el.style.display="none",2200);
+}
+
+function spend(amount){
+  if(state.money<amount){
+    toast("💸 Pas assez d'argent !");
+    return false;
+  }
+  state.money-=amount;
+  return true;
+}
+
+function advance(minutes){
+  state.minutes+=minutes;
+
+  while(state.minutes>=1440){
+    state.minutes-=1440;
+    state.day++;
+  }
+
+  const hours=minutes/60;
+
+  state.needs.hunger=clamp(state.needs.hunger-hours*2);
+  state.needs.energy=clamp(state.needs.energy-hours*1.5);
+  state.needs.hygiene=clamp(state.needs.hygiene-hours*1);
+  state.needs.fun=clamp(state.needs.fun-hours*.6);
+  state.needs.social=clamp(state.needs.social-hours*.4);
+
+  save();
   renderAll();
-  go("game");
-  showToast("💾 Partie chargée");
- }catch(e){showToast("Sauvegarde invalide")}
-}
-
-function startNewGame(){
- state={
-  name:"Lili",category:"femme",face:0,hair:0,hairColor:0,outfit:0,outfitColor:0,skin:0,
-  money:500,house:null,day:1,minutes:480,
-  needs:{hunger:80,energy:90,hygiene:80,fun:70,social:65},
-  skills:{},job:null,jobLevel:0,furniture:[],inventory:[],
-  player:{x:50,y:62},relations:{},npcPositions:{}
- };
- Object.keys(skills).forEach(k=>state.skills[k]=0);
- npcs.forEach(n=>state.relations[n.id]=0);
- go("create");
- renderCreator();
-}
-
-function go(screen){
- document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
- const el=document.getElementById("screen-"+screen);
- if(el)el.classList.add("active");
- window.scrollTo(0,0);
-
- if(screen==="create")renderCreator();
- if(screen==="game")renderGame();
- if(screen==="character")renderCharacter();
- if(screen==="work")renderWork();
- if(screen==="shop")renderShop();
- if(screen==="city")renderCity();
-}
-
-function moneyTop(){
- document.getElementById("moneyTop").textContent=Math.round(state.money);
-}
-
-function showToast(text){
- const t=document.getElementById("toast");
- t.textContent=text;t.classList.add("show");
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>t.classList.remove("show"),1800);
-}
-
-function openModal(title,text,buttons){
- document.getElementById("modalTitle").textContent=title;
- document.getElementById("modalText").innerHTML=text;
- const box=document.getElementById("modalButtons");
- box.innerHTML="";
- buttons.forEach(b=>{
-  const btn=document.createElement("button");
-  btn.className="btn "+(b.class||"");
-  btn.textContent=b.text;
-  btn.onclick=()=>{closeModal();b.action()};
-  box.appendChild(btn);
- });
- document.getElementById("modal").classList.add("show");
-}
-
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-
-/* =========================================================
-   AVATAR SVG
-   ========================================================= */
-
-function avatarSVG(opts={},mini=false){
- const c=opts.category||state.category;
- const face=opts.face??state.face;
- const hair=opts.hair??state.hair;
- const hc=hairColors[opts.hairColor??state.hairColor];
- const oc=outfitColors[opts.outfitColor??state.outfitColor];
- const skin=skinColors[opts.skin??state.skin];
- const outfit=opts.outfit??state.outfit;
-
- const child=(c==="fille"||c==="garcon");
- const female=(c==="femme"||c==="fille");
-
- const W=160,H=270;
- const headY=child?72:65;
- const headRx=child?38:40;
- const headRy=child?46:49;
- const shoulderY=child?132:145;
- const hipY=child?205:220;
-
- let hairSvg="";
- let faceShape="";
-
- /* Visages distincts */
- if(face%6===0){
-  faceShape=`<ellipse cx="80" cy="${headY}" rx="${headRx}" ry="${headRy}" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
- }else if(face%6===1){
-  faceShape=`<path d="M42 ${headY-15} Q44 ${headY-52} 80 ${headY-52} Q116 ${headY-52} 118 ${headY-15} L113 ${headY+25} Q104 ${headY+52} 80 ${headY+53} Q56 ${headY+52} 47 ${headY+25}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
- }else if(face%6===2){
-  faceShape=`<path d="M43 ${headY-12} Q45 ${headY-49} 80 ${headY-49} Q115 ${headY-49} 117 ${headY-12} Q115 ${headY+31} 80 ${headY+49} Q45 ${headY+31} 43 ${headY-12}" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
- }else if(face%6===3){
-  faceShape=`<path d="M45 ${headY-18} Q50 ${headY-51} 80 ${headY-51} Q110 ${headY-51} 115 ${headY-18} L109 ${headY+29} Q100 ${headY+48} 80 ${headY+51} Q60 ${headY+48} 51 ${headY+29}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
- }else if(face%6===4){
-  faceShape=`<path d="M44 ${headY-13} Q46 ${headY-50} 80 ${headY-50} Q114 ${headY-50} 116 ${headY-13} L111 ${headY+22} Q103 ${headY+49} 80 ${headY+51} Q57 ${headY+49} 49 ${headY+22}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
- }else{
-  faceShape=`<path d="M47 ${headY-20} Q53 ${headY-50} 80 ${headY-50} Q107 ${headY-50} 113 ${headY-20} L110 ${headY+25} Q100 ${headY+50} 80 ${headY+52} Q60 ${headY+50} 50 ${headY+25}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.4"/>`;
- }
-
- /* Oreilles */
- const ears=`
- <ellipse cx="42" cy="${headY+2}" rx="6" ry="10" fill="${skin}"/>
- <ellipse cx="118" cy="${headY+2}" rx="6" ry="10" fill="${skin}"/>`;
-
- /* Visage : yeux, sourcils, nez, bouche */
- const eyeY=headY-2;
- let eyeScale=female?1:0.95;
- if(child)eyeScale=1.08;
-
- const eyes=`
- <path d="M57 ${eyeY-6} Q66 ${eyeY-11} 73 ${eyeY-5} Q66 ${eyeY+1} 57 ${eyeY-4}" fill="#fff" stroke="#5d4438" stroke-width="1"/>
- <path d="M87 ${eyeY-5} Q94 ${eyeY-11} 103 ${eyeY-6} Q103 ${eyeY+1} 94 ${eyeY-4}" fill="#fff" stroke="#5d4438" stroke-width="1"/>
- <circle cx="66" cy="${eyeY-3}" r="${4*eyeScale}" fill="#5a392d"/>
- <circle cx="94" cy="${eyeY-3}" r="${4*eyeScale}" fill="#5a392d"/>
- <circle cx="67" cy="${eyeY-4}" r="1.3" fill="#fff"/>
- <circle cx="95" cy="${eyeY-4}" r="1.3" fill="#fff"/>`;
-
- const brows=`
- <path d="M56 ${eyeY-12} Q65 ${eyeY-17} 74 ${eyeY-13}" fill="none" stroke="#4a3027" stroke-width="3" stroke-linecap="round"/>
- <path d="M86 ${eyeY-13} Q95 ${eyeY-17} 104 ${eyeY-12}" fill="none" stroke="#4a3027" stroke-width="3" stroke-linecap="round"/>`;
-
- const nose=`
- <path d="M80 ${headY+1} Q75 ${headY+17} 79 ${headY+20} Q84 ${headY+21} 86 ${headY+18}"
- fill="none" stroke="#8f604a" stroke-width="1.5" stroke-linecap="round"/>`;
-
- const mouthY=headY+30;
- const mouth=female
- ? `<path d="M70 ${mouthY} Q80 ${mouthY+6} 90 ${mouthY}" fill="none" stroke="#9b5360" stroke-width="2.4" stroke-linecap="round"/>`
- : `<path d="M71 ${mouthY+1} Q80 ${mouthY+5} 89 ${mouthY+1}" fill="none" stroke="#7b4b45" stroke-width="2" stroke-linecap="round"/>`;
-
- /* cheveux : chaque catégorie a une famille de coiffures différente */
- if(c==="femme"){
-   const styles=[
-    `<path d="M40 63 Q43 15 80 14 Q117 15 120 63 L111 50 Q102 38 80 38 Q58 38 49 50Z" fill="${hc}"/>
-     <path d="M45 45 Q35 70 43 120 Q49 133 57 128 L55 65Z" fill="${hc}"/>
-     <path d="M115 45 Q125 70 117 120 Q111 133 103 128 L105 65Z" fill="${hc}"/>`,
-    `<path d="M40 67 Q42 15 80 14 Q118 15 120 67 Q108 45 96 42 Q80 35 64 42 Q51 46 40 67Z" fill="${hc}"/>
-     <path d="M44 53 Q58 46 68 43 L63 76 Q54 86 45 80Z" fill="${hc}"/>`,
-    `<path d="M39 67 Q42 12 80 12 Q118 12 121 67 Q108 42 80 39 Q52 42 39 67Z" fill="${hc}"/>
-     <path d="M43 63 Q34 105 47 130" fill="none" stroke="${hc}" stroke-width="14" stroke-linecap="round"/>
-     <path d="M117 63 Q126 105 113 130" fill="none" stroke="${hc}" stroke-width="14" stroke-linecap="round"/>`,
-    `<path d="M40 63 Q45 10 80 12 Q115 10 120 63 Q105 41 80 41 Q55 41 40 63Z" fill="${hc}"/>
-     <path d="M57 42 Q53 58 55 72" fill="none" stroke="${hc}" stroke-width="10"/>
-     <path d="M103 42 Q107 58 105 72" fill="none" stroke="${hc}" stroke-width="10"/>`,
-    `<path d="M40 62 Q42 10 80 12 Q118 10 120 62 Q105 39 80 39 Q55 39 40 62Z" fill="${hc}"/>
-     <circle cx="42" cy="35" r="18" fill="${hc}"/>
-     <circle cx="118" cy="35" r="18" fill="${hc}"/>`,
-    `<path d="M39 62 Q43 10 80 11 Q117 10 121 62 Q106 38 80 38 Q54 38 39 62Z" fill="${hc}"/>
-     <path d="M58 43 Q51 54 51 76" stroke="${hc}" stroke-width="12" fill="none" stroke-linecap="round"/>
-     <path d="M102 43 Q109 54 109 76" stroke="${hc}" stroke-width="12" fill="none" stroke-linecap="round"/>
-     <circle cx="80" cy="15" r="10" fill="${hc}"/>`
-   ];
-   hairSvg=styles[hair%6];
- }else if(c==="homme"){
-   const styles=[
-    `<path d="M41 58 Q43 17 80 16 Q117 17 119 58 Q106 43 80 43 Q54 43 41 58Z" fill="${hc}"/>`,
-    `<path d="M40 58 Q42 11 80 13 Q118 11 120 58 Q108 41 80 40 Q52 41 40 58Z" fill="${hc}"/>
-     <path d="M49 26 L62 15 L71 34Z" fill="${hc}"/>`,
-    `<path d="M40 61 Q44 16 80 14 Q116 16 120 61 Q110 43 80 42 Q50 43 40 61Z" fill="${hc}"/>
-     <path d="M47 45 Q42 57 45 69" stroke="${hc}" stroke-width="9" fill="none"/>`,
-    `<path d="M41 58 Q43 14 80 14 Q117 14 119 58 Q108 43 80 42 Q52 43 41 58Z" fill="${hc}"/>
-     <path d="M52 23 Q64 5 80 18 Q95 3 108 23" fill="none" stroke="${hc}" stroke-width="10"/>`,
-    `<path d="M41 58 Q44 16 80 14 Q116 16 119 58 Q106 45 80 43 Q54 45 41 58Z" fill="${hc}"/>
-     <path d="M45 37 Q54 21 62 18" fill="none" stroke="${hc}" stroke-width="11"/>`,
-    `<path d="M40 58 Q44 13 80 14 Q116 13 120 58 Q107 41 80 41 Q53 41 40 58Z" fill="${hc}"/>
-     <path d="M52 28 Q67 15 80 30 Q93 15 108 28" fill="none" stroke="${hc}" stroke-width="8"/>`
-   ];
-   hairSvg=styles[hair%6];
- }else if(c==="fille"){
-   const styles=[
-    `<path d="M42 61 Q45 18 80 17 Q115 18 118 61 Q105 43 80 42 Q55 43 42 61Z" fill="${hc}"/>
-     <path d="M48 50 Q40 85 48 108" stroke="${hc}" stroke-width="13" fill="none"/>
-     <path d="M112 50 Q120 85 112 108" stroke="${hc}" stroke-width="13" fill="none"/>`,
-    `<path d="M42 61 Q45 17 80 17 Q115 17 118 61 Q104 43 80 42 Q56 43 42 61Z" fill="${hc}"/>
-     <circle cx="47" cy="27" r="16" fill="${hc}"/><circle cx="113" cy="27" r="16" fill="${hc}"/>`,
-    `<path d="M42 60 Q45 16 80 17 Q115 16 118 60 Q104 43 80 42 Q56 43 42 60Z" fill="${hc}"/>
-     <path d="M48 50 Q43 75 49 92" stroke="${hc}" stroke-width="10" fill="none"/>
-     <path d="M112 50 Q117 75 111 92" stroke="${hc}" stroke-width="10" fill="none"/>`,
-    `<path d="M42 61 Q45 17 80 17 Q115 17 118 61 Q104 43 80 42 Q56 43 42 61Z" fill="${hc}"/>
-     <path d="M61 43 Q59 60 61 74" stroke="${hc}" stroke-width="12" fill="none"/>`,
-    `<path d="M42 60 Q45 17 80 17 Q115 17 118 60 Q104 43 80 42 Q56 43 42 60Z" fill="${hc}"/>
-     <path d="M45 45 Q35 75 48 103" stroke="${hc}" stroke-width="11" fill="none"/>
-     <path d="M115 45 Q125 75 112 103" stroke="${hc}" stroke-width="11" fill="none"/>`,
-    `<path d="M42 61 Q45 17 80 17 Q115 17 118 61 Q104 43 80 42 Q56 43 42 61Z" fill="${hc}"/>
-     <circle cx="47" cy="22" r="13" fill="${hc}"/><circle cx="113" cy="22" r="13" fill="${hc}"/>
-     <path d="M80 17 Q75 4 68 17" stroke="${hc}" stroke-width="8" fill="none"/>`
-   ];
-   hairSvg=styles[hair%6];
- }else{
-   const styles=[
-    `<path d="M42 59 Q45 17 80 17 Q115 17 118 59 Q105 42 80 41 Q55 42 42 59Z" fill="${hc}"/>`,
-    `<path d="M42 59 Q45 14 80 16 Q115 14 118 59 Q105 40 80 40 Q55 40 42 59Z" fill="${hc}"/>
-     <path d="M51 22 L65 14 L70 33Z" fill="${hc}"/>`,
-    `<path d="M42 60 Q45 17 80 17 Q115 17 118 60 Q105 42 80 41 Q55 42 42 60Z" fill="${hc}"/>
-     <path d="M47 46 Q42 69 48 84" stroke="${hc}" stroke-width="9" fill="none"/>`,
-    `<path d="M42 59 Q45 16 80 16 Q115 16 118 59 Q105 41 80 41 Q55 41 42 59Z" fill="${hc}"/>
-     <path d="M56 19 Q69 7 80 20 Q92 7 105 19" fill="none" stroke="${hc}" stroke-width="9"/>`,
-    `<path d="M42 59 Q45 17 80 17 Q115 17 118 59 Q105 42 80 41 Q55 42 42 59Z" fill="${hc}"/>
-     <path d="M46 42 Q40 66 46 83" stroke="${hc}" stroke-width="11" fill="none"/>
-     <path d="M114 42 Q120 66 114 83" stroke="${hc}" stroke-width="11" fill="none"/>`,
-    `<path d="M42 59 Q45 16 80 16 Q115 16 118 59 Q105 41 80 41 Q55 41 42 59Z" fill="${hc}"/>
-     <path d="M53 25 Q67 12 80 27 Q93 12 107 25" fill="none" stroke="${hc}" stroke-width="8"/>`
-   ];
-   hairSvg=styles[hair%6];
- }
-
- /* corps */
- let outfitSvg="";
- const y=shoulderY;
-
- if(outfit%5===0){
-   outfitSvg=`
-    <path d="M55 ${y} Q80 ${y-10} 105 ${y} L112 ${hipY} L48 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
-    <path d="M60 ${y+5} L52 ${hipY}" stroke="#fff" stroke-width="2" opacity=".35"/>
-   `;
- }else if(outfit%5===1){
-   outfitSvg=`
-    <path d="M54 ${y} Q80 ${y-9} 106 ${y} L109 ${hipY} L51 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
-    <path d="M62 ${y+5} L98 ${y+5}" stroke="#fff" stroke-width="2" opacity=".4"/>
-   `;
- }else if(outfit%5===2){
-   outfitSvg=`
-    <path d="M55 ${y} Q80 ${y-9} 105 ${y} L119 ${hipY+18} L41 ${hipY+18}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
-   `;
- }else if(outfit%5===3){
-   outfitSvg=`
-    <path d="M54 ${y} Q80 ${y-10} 106 ${y} L110 ${hipY} L50 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
-    <path d="M57 ${y+10} L104 ${y+10}" stroke="#fff" stroke-width="3" opacity=".35"/>
-   `;
- }else{
-   outfitSvg=`
-    <path d="M54 ${y} Q80 ${y-10} 106 ${y} L110 ${hipY} L50 ${hipY}Z" fill="${oc}" stroke="#493c39" stroke-width="1.5"/>
-    <path d="M80 ${y} L80 ${hipY}" stroke="#fff" stroke-width="1.5" opacity=".3"/>
-   `;
- }
-
- /* Bras : peau visibles et séparés du vêtement */
- const armY=child?205:225;
- const armW=child?10:13;
-
- const arms=`
-   <path d="M55 ${y+8} Q45 ${y+30} 43 ${armY-20} Q42 ${armY} 48 ${armY+4}
-            Q55 ${armY+5} 57 ${armY-13} L67 ${y+13}Z"
-         fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
-   <path d="M105 ${y+8} Q115 ${y+30} 117 ${armY-20} Q118 ${armY} 112 ${armY+4}
-            Q105 ${armY+5} 103 ${armY-13} L93 ${y+13}Z"
-         fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
-   <ellipse cx="48" cy="${armY+2}" rx="${armW*.62}" ry="${armW*.72}" fill="${skin}"/>
-   <ellipse cx="112" cy="${armY+2}" rx="${armW*.62}" ry="${armW*.72}" fill="${skin}"/>
-   <path d="M44 ${armY+3} Q48 ${armY+7} 52 ${armY+2}" fill="none" stroke="#8d624e" stroke-width="1"/>
-   <path d="M108 ${armY+2} Q112 ${armY+7} 116 ${armY+3}" fill="none" stroke="#8d624e" stroke-width="1"/>
- `;
-
- const neck=`
-  <rect x="72" y="${shoulderY-8}" width="16" height="24" rx="7" fill="${skin}"/>
- `;
-
- const legs=`
-  <path d="M57 ${hipY} L75 ${hipY} L73 ${child?244:255} L54 ${child?244:255}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
-  <path d="M85 ${hipY} L103 ${hipY} L106 ${child?244:255} L87 ${child?244:255}Z" fill="${skin}" stroke="#6d5142" stroke-width="1.2"/>
-  <path d="M51 ${child?241:252} Q63 ${child?236:252} 75 ${child?243:258} L74 ${child?251:266} L48 ${child?251:266}Z" fill="#333"/>
-  <path d="M86 ${child?243:258} Q98 ${child?236:252} 110 ${child?241:252} L112 ${child?251:266} L86 ${child?251:266}Z" fill="#333"/>
- `;
-
- const svg=`
- <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
-   ${legs}
-   ${arms}
-   ${outfitSvg}
-   ${neck}
-   ${ears}
-   ${faceShape}
-   ${brows}
-   ${eyes}
-   ${nose}
-   ${mouth}
-   ${hairSvg}
- </svg>`;
-
- return svg;
-}
-
-/* =========================================================
-   CREATOR
-   ========================================================= */
-
-function renderCreator(){
- document.getElementById("charName").value=state.name||"";
- renderGenderChoices();
- renderFaceChoices();
- renderHairChoices();
- renderHairColorChoices();
- renderOutfitChoices();
- renderOutfitColorChoices();
- renderSkinChoices();
- renderPreview();
-}
-
-function renderGenderChoices(){
- const box=document.getElementById("genderChoices");
- box.innerHTML="";
- Object.entries(categories).forEach(([id,c])=>{
-  const d=document.createElement("div");
-  d.className="choice "+(state.category===id?"selected":"");
-  d.innerHTML=`<div style="height:72px">${avatarSVG({
-   category:id,face:0,hair:0,hairColor:2,outfit:1,outfitColor:1,skin:0
-  },true)}</div><div class="choiceName">${c.label}</div>`;
-  d.onclick=()=>{
-   state.category=id;
-   state.face=0;state.hair=0;state.outfit=0;
-   renderCreator();
-  };
-  box.appendChild(d);
- });
-}
-
-function renderFaceChoices(){
- const box=document.getElementById("faceChoices");box.innerHTML="";
- for(let i=0;i<6;i++){
-  const d=document.createElement("div");
-  d.className="choice "+(state.face===i?"selected":"");
-  d.innerHTML=`<div style="height:72px">${avatarSVG({
-   category:state.category,face:i,hair:0,hairColor:0,outfit:0,outfitColor:1,skin:state.skin
-  },true)}</div><div class="choiceName">Visage ${i+1}</div>`;
-  d.onclick=()=>{state.face=i;renderCreator()};
-  box.appendChild(d);
- }
-}
-
-function renderHairChoices(){
- const box=document.getElementById("hairChoices");box.innerHTML="";
- categories[state.category].hairs.forEach((name,i)=>{
-  const d=document.createElement("div");
-  d.className="choice "+(state.hair===i?"selected":"");
-  d.innerHTML=`<div style="height:72px">${avatarSVG({
-   category:state.category,face:state.face,hair:i,hairColor:state.hairColor,
-   outfit:state.outfit,outfitColor:state.outfitColor,skin:state.skin
-  },true)}</div><div class="choiceName">${name}</div>`;
-  d.onclick=()=>{state.hair=i;renderCreator()};
-  box.appendChild(d);
- });
-}
-
-function renderHairColorChoices(){
- const box=document.getElementById("hairColorChoices");box.innerHTML="";
- hairColors.forEach((c,i)=>{
-  const d=document.createElement("div");
-  d.className="choice "+(state.hairColor===i?"selected":"");
-  d.innerHTML=`<div class="colorDot" style="background:${c}"></div><div class="choiceName">Couleur ${i+1}</div>`;
-  d.onclick=()=>{state.hairColor=i;renderCreator()};
-  box.appendChild(d);
- });
-}
-
-function renderOutfitChoices(){
- const box=document.getElementById("outfitChoices");box.innerHTML="";
- categories[state.category].outfits.forEach((name,i)=>{
-  const d=document.createElement("div");
-  d.className="choice "+(state.outfit===i?"selected":"");
-  d.innerHTML=`<div style="height:72px">${avatarSVG({
-   category:state.category,face:state.face,hair:state.hair,hairColor:state.hairColor,
-   outfit:i,outfitColor:state.outfitColor,skin:state.skin
-  },true)}</div><div class="choiceName">${name}</div>`;
-  d.onclick=()=>{state.outfit=i;renderCreator()};
-  box.appendChild(d);
- });
-}
-
-function renderOutfitColorChoices(){
- const box=document.getElementById("outfitColorChoices");box.innerHTML="";
- outfitColors.forEach((c,i)=>{
-  const d=document.createElement("div");
-  d.className="choice "+(state.outfitColor===i?"selected":"");
-  d.innerHTML=`<div class="colorDot" style="background:${c}"></div><div class="choiceName">Couleur ${i+1}</div>`;
-  d.onclick=()=>{state.outfitColor=i;renderCreator()};
-  box.appendChild(d);
- });
-}
-
-function renderSkinChoices(){
- const box=document.getElementById("skinChoices");box.innerHTML="";
- skinColors.forEach((c,i)=>{
-  const d=document.createElement("div");
-  d.className="choice "+(state.skin===i?"selected":"");
-  d.innerHTML=`<div class="colorDot" style="background:${c}"></div><div class="choiceName">Teint ${i+1}</div>`;
-  d.onclick=()=>{state.skin=i;renderCreator()};
-  box.appendChild(d);
- });
-}
-
-function renderPreview(){
- document.getElementById("previewName").textContent=state.name||"Ton personnage";
- document.getElementById("previewAvatar").innerHTML=avatarSVG();
-}
-
-function finishCreation(){
- state.name=document.getElementById("charName").value.trim()||"Lili";
- state.money=500;
- renderHouseChoices();
- go("house-create");
- saveGame();
-}
-
-function renderHouseChoices(){
- const box=document.getElementById("houseChoices");box.innerHTML="";
- houses.forEach(h=>{
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-   <h3>${houseIcon(h.id)} ${h.name}</h3>
-   <p>💰 ${h.price} € — espace : ${h.space}/5</p>
-   <p class="muted">${houseDescription(h.id)}</p>
-   <button class="btn primary" ${state.money<h.price?"disabled":""}
-    onclick="buyHouse('${h.id}')">
-    Acheter pour ${h.price} €
-   </button>`;
-  box.appendChild(card);
- });
-}
-
-function houseIcon(id){
- return {square:"⬜",rectangle:"▭",apartment:"🏢",L:"🔲",extension:"🏠",floor:"🏡"}[id]||"🏠";
-}
-
-function houseDescription(id){
- return {
-  square:"Une petite maison simple pour commencer.",
-  rectangle:"Plus longue, avec davantage d'espace.",
-  apartment:"Un appartement pratique en ville.",
-  L:"Une maison en L permettant plusieurs zones.",
-  extension:"Une maison avec une pièce supplémentaire.",
-  floor:"Une maison à étage avec beaucoup d'espace."
- }[id];
-}
-
-function buyHouse(id){
- const h=houses.find(x=>x.id===id);
- if(!h||state.money<h.price)return;
- state.money-=h.price;
- state.house=h;
- state.inventory=[];
- state.furniture=[];
- state.player={x:50,y:62};
- saveGame();
- renderAll();
- go("game");
- showToast("🏠 Maison achetée !");
-}
-
-/* =========================================================
-   NEEDS / TIME
-   ========================================================= */
-
-function clamp(v,a=0,b=100){return Math.max(a,Math.min(b,v))}
-
-function advanceTime(mins){
- state.minutes+=mins;
- while(state.minutes>=1440){
-  state.minutes-=1440;
-  state.day++;
- }
- state.needs.hunger=clamp(state.needs.hunger-mins/90);
- state.needs.energy=clamp(state.needs.energy-mins/120);
- state.needs.hygiene=clamp(state.needs.hygiene-mins/180);
- state.needs.fun=clamp(state.needs.fun-mins/150);
- state.needs.social=clamp(state.needs.social-mins/170);
-
- if(state.job && mins>=60 && Math.floor(mins/60)>0){
-   /* pas de salaire automatique ici : le salaire est gagné via travailler */
- }
-
- saveGame();
- renderAll();
 }
 
 function timeText(){
- const h=Math.floor(state.minutes/60);
- const m=state.minutes%60;
- return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+  const h=Math.floor(state.minutes/60).toString().padStart(2,"0");
+  const m=(state.minutes%60).toString().padStart(2,"0");
+  return `Jour ${state.day} · ${h}:${m}`;
 }
 
-function needHtml(key,label,icon){
- const v=Math.round(state.needs[key]);
- return `<div class="need">
-  <div class="needHead"><span>${icon} ${label}</span><span>${v}</span></div>
-  <div class="bar"><div class="fill" style="width:${v}%;background:var(--fill,#6d8)"></div></div>
- </div>`;
+/* =========================
+   NAVIGATION
+========================= */
+
+function showScreen(id,button){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  if(button)button.classList.add("active");
+
+  if(id==="houseScreen")renderInventory();
+  if(id==="workScreen")renderJobs();
+  if(id==="skillsScreen")renderSkills();
 }
 
-function renderNeeds(id){
- document.getElementById(id).innerHTML=
-  needHtml("hunger","Faim","🍎")+
-  needHtml("energy","Énergie","⚡")+
-  needHtml("hygiene","Hygiène","🚿")+
-  needHtml("fun","Plaisir","🎮")+
-  needHtml("social","Social","❤️");
+/* =========================
+   BESOINS
+========================= */
+
+function renderNeeds(){
+  document.getElementById("money").textContent=Math.floor(state.money);
+
+  document.getElementById("needHunger").textContent=Math.round(state.needs.hunger);
+  document.getElementById("needEnergy").textContent=Math.round(state.needs.energy);
+  document.getElementById("needHygiene").textContent=Math.round(state.needs.hygiene);
+  document.getElementById("needFun").textContent=Math.round(state.needs.fun);
+  document.getElementById("needSocial").textContent=Math.round(state.needs.social);
+
+  document.getElementById("clock").textContent=timeText();
 }
 
-/* =========================================================
-   GAME HOUSE
-   ========================================================= */
+/* =========================
+   MAISON
+========================= */
 
-function renderGame(){
- moneyTop();
- document.getElementById("gameTitle").textContent=
-   state.house ? state.house.name : "Ma maison";
- document.getElementById("dayNum").textContent=state.day;
- document.getElementById("timeText").textContent=timeText();
- renderNeeds("needsGame");
- renderHousePlayer();
- renderFurniture();
- renderInventory();
+const houses={
+  square:{
+    name:"Maison carrée",
+    rooms:"5 pièces",
+    price:50,
+    desc:"Une maison équilibrée et facile à aménager."
+  },
+  rectangle:{
+    name:"Maison rectangulaire",
+    rooms:"5 pièces",
+    price:120,
+    desc:"Plus longue, avec de grands espaces."
+  },
+  l:{
+    name:"Maison en L",
+    rooms:"5 pièces",
+    price:220,
+    desc:"Un vrai plan en L avec deux ailes."
+  },
+  inverse:{
+    name:"L inversé",
+    rooms:"5 pièces",
+    price:260,
+    desc:"Une forme originale avec un espace décalé."
+  },
+  extension:{
+    name:"Maison avec extension",
+    rooms:"5 pièces",
+    price:300,
+    desc:"Une maison principale avec une véritable extension."
+  }
+};
+
+function renderHouse(){
+  const house=document.getElementById("house");
+
+  house.className="house "+state.house;
+
+  const h=houses[state.house];
+  document.getElementById("houseTitle").textContent=h.name;
+  document.getElementById("houseDescription").textContent=
+    `${h.name} · ${h.rooms} · ${h.desc}`;
 }
 
-function renderHousePlayer(){
- const p=document.getElementById("playerHome");
- p.style.left=state.player.x+"%";
- p.style.top=state.player.y+"%";
- p.innerHTML=avatarSVG();
-}
+function renderHouseChoices(){
+  const box=document.getElementById("houseChoices");
+  box.innerHTML="";
 
-function renderFurniture(){
- const layer=document.getElementById("furnitureLayer");
- layer.innerHTML="";
- state.furniture.forEach(f=>{
-  const el=document.createElement("div");
-  el.className="furniture "+(selectedFurnitureId===f.id?"selected":"");
-  el.dataset.id=f.id;
-  el.style.left=f.x+"%";
-  el.style.top=f.y+"%";
-  el.style.transform=`translate(-50%,-50%) rotate(${f.rotation||0}deg)`;
-  el.innerHTML=`<div class="furnitureEmoji">${f.emoji}</div>
-                <div class="furnitureLabel">${f.name}</div>`;
-  el.addEventListener("pointerdown",startFurnitureDrag);
-  el.addEventListener("click",e=>{
-   e.stopPropagation();
-   selectFurniture(f.id);
+  Object.entries(houses).forEach(([id,h])=>{
+    const div=document.createElement("div");
+    div.className="item";
+
+    div.innerHTML=`
+      <div class="big">${id==="l"?"└":id==="inverse"?"┐":id==="rectangle"?"▭":id==="extension"?"➕":"□"}</div>
+      <b>${h.name}</b>
+      <p>${h.desc}</p>
+      <strong>${h.price} €</strong><br>
+      <button class="btn" style="margin-top:7px"
+              onclick="buyHouse('${id}')">
+        ${state.house===id?"Actuelle":"Choisir"}
+      </button>
+    `;
+
+    box.appendChild(div);
   });
-  layer.appendChild(el);
- });
 }
 
-function selectFurniture(id){
- selectedFurnitureId=id;
- renderFurniture();
- positionFurnitureMenu();
+function buyHouse(id){
+  if(state.house===id){
+    toast("🏠 Cette maison est déjà choisie.");
+    return;
+  }
+
+  const price=houses[id].price;
+
+  if(!spend(price))return;
+
+  state.house=id;
+  save();
+  renderAll();
+
+  toast("🏠 Nouvelle forme de maison !");
 }
 
-function positionFurnitureMenu(){
- const menu=document.getElementById("furnitureMenu");
- const f=state.furniture.find(x=>x.id===selectedFurnitureId);
- if(!f){menu.classList.remove("show");return}
- menu.innerHTML=`
-  <button onclick="rotateFurniture()">↻ Tourner</button>
-  <button onclick="storeFurniture()">📦 Ranger</button>
-  <button onclick="resellFurniture()">💰 Revendre</button>
-  <button onclick="deleteFurniture()">🗑️ Supprimer</button>
-  <button onclick="deselectFurniture()">✓ Terminer</button>`;
- menu.classList.add("show");
- menu.style.left=Math.min(72,Math.max(5,f.x))+"%";
- menu.style.top=Math.min(78,Math.max(10,f.y))+"%";
-}
+/* =========================
+   MEUBLES
+========================= */
 
-function deselectFurniture(){
- selectedFurnitureId=null;
- document.getElementById("furnitureMenu").classList.remove("show");
- renderFurniture();
-}
-
-function rotateFurniture(){
- const f=state.furniture.find(x=>x.id===selectedFurnitureId);
- if(!f)return;
- f.rotation=(f.rotation+90)%360;
- saveGame();renderFurniture();positionFurnitureMenu();
-}
-
-function storeFurniture(){
- const f=state.furniture.find(x=>x.id===selectedFurnitureId);
- if(!f)return;
- state.inventory.push({...f});
- state.furniture=state.furniture.filter(x=>x.id!==f.id);
- selectedFurnitureId=null;
- saveGame();renderGame();
- showToast("📦 Meuble rangé");
-}
-
-function resellFurniture(){
- const f=state.furniture.find(x=>x.id===selectedFurnitureId);
- if(!f)return;
- const value=Math.round(f.price*.6);
- openModal("Revendre le meuble",
-  `Tu récupéreras <strong>${value} €</strong>.`,
-  [
-   {text:"Annuler"},
-   {text:"Revendre",class:"good",action:()=>{
-     state.money+=value;
-     state.furniture=state.furniture.filter(x=>x.id!==f.id);
-     selectedFurnitureId=null;
-     saveGame();renderGame();showToast("💰 Meuble revendu");
-   }}
-  ]);
-}
-
-function deleteFurniture(){
- const f=state.furniture.find(x=>x.id===selectedFurnitureId);
- if(!f)return;
- openModal("Supprimer définitivement",
-  `Le meuble <strong>${f.name}</strong> sera supprimé sans remboursement.`,
-  [
-   {text:"Annuler"},
-   {text:"Supprimer",class:"danger",action:()=>{
-     state.furniture=state.furniture.filter(x=>x.id!==f.id);
-     selectedFurnitureId=null;
-     saveGame();renderGame();showToast("🗑️ Meuble supprimé");
-   }}
-  ]);
-}
-
-function startFurnitureDrag(e){
- e.preventDefault();
- e.stopPropagation();
- const id=e.currentTarget.dataset.id;
- selectedFurnitureId=id;
- draggingFurniture=id;
- e.currentTarget.setPointerCapture(e.pointerId);
-}
-
-document.addEventListener("pointermove",e=>{
- if(!draggingFurniture)return;
- const scene=document.getElementById("houseScene");
- const r=scene.getBoundingClientRect();
- let x=(e.clientX-r.left)/r.width*100;
- let y=(e.clientY-r.top)/r.height*100;
- x=clamp(x,8,92);y=clamp(y,10,90);
- const f=state.furniture.find(x=>x.id===draggingFurniture);
- if(f){f.x=x;f.y=y;renderFurniture();positionFurnitureMenu()}
-});
-
-document.addEventListener("pointerup",()=>{
- if(draggingFurniture){
-  draggingFurniture=null;
-  saveGame();
- }
-});
-
-document.getElementById("houseScene").addEventListener("click",e=>{
- if(e.target.id==="houseScene"||e.target.classList.contains("houseFloor")){
-  deselectFurniture();
- }
-});
+const furnitureCatalog=[
+  {id:"sofa",name:"Canapé",icon:"🛋️",price:80},
+  {id:"bed",name:"Lit",icon:"🛏️",price:100},
+  {id:"tv",name:"Télévision",icon:"📺",price:90},
+  {id:"shower",name:"Douche",icon:"🚿",price:70},
+  {id:"kitchen",name:"Cuisine",icon:"🍳",price:150},
+  {id:"table",name:"Table",icon:"🍽️",price:55},
+  {id:"chair",name:"Chaise",icon:"🪑",price:25},
+  {id:"plant",name:"Plante",icon:"🪴",price:20},
+  {id:"storage",name:"Rangement",icon:"🗄️",price:45},
+  {id:"library",name:"Bibliothèque",icon:"📚",price:60},
+  {id:"window",name:"Fenêtre",icon:"🪟",price:35},
+  {id:"door",name:"Porte",icon:"🚪",price:45}
+];
 
 function renderInventory(){
- const box=document.getElementById("inventory");
- if(!state.inventory.length){
-  box.innerHTML=`<p class="muted">Aucun meuble rangé.</p>`;
-  return;
- }
- box.innerHTML="";
- state.inventory.forEach((f,i)=>{
-  const d=document.createElement("div");
-  d.className="invItem";
-  d.innerHTML=`<span>${f.emoji} ${f.name}</span>
-  <button class="btn small primary" onclick="placeInventory(${i})">Placer</button>`;
-  box.appendChild(d);
- });
-}
+  const box=document.getElementById("inventory");
+  box.innerHTML="";
 
-function placeInventory(index){
- const f=state.inventory[index];
- if(!f)return;
- state.inventory.splice(index,1);
- state.furniture.push({
-  ...f,id:"f"+Date.now()+Math.random(),
-  x:50,y:55,rotation:f.rotation||0
- });
- saveGame();renderGame();showToast("✋ Meuble prêt à déplacer");
-}
+  const shop=document.createElement("div");
+  shop.className="shop-grid";
 
-/* =========================================================
-   SHOP
-   ========================================================= */
+  furnitureCatalog.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="item";
 
-function renderShop(){
- moneyTop();
- const box=document.getElementById("shopList");box.innerHTML="";
- furnitureTypes.forEach(f=>{
-  const d=document.createElement("div");
-  d.className="invItem";
-  d.innerHTML=`
-   <span>${f.emoji} <strong>${f.name}</strong><br><small>${f.price} €</small></span>
-   <button class="btn small primary" ${state.money<f.price?"disabled":""}
-    onclick="buyFurniture('${f.id}')">Acheter</button>`;
-  box.appendChild(d);
- });
+    div.innerHTML=`
+      <div class="big">${item.icon}</div>
+      <b>${item.name}</b>
+      <p>${item.price} €</p>
+      <button class="btn" onclick="buyFurniture('${item.id}')">
+        Acheter
+      </button>
+    `;
+
+    shop.appendChild(div);
+  });
+
+  box.appendChild(shop);
+
+  if(state.inventory.length){
+    const title=document.createElement("h3");
+    title.textContent="📦 Stock";
+    box.appendChild(title);
+
+    state.inventory.forEach((f,i)=>{
+      const div=document.createElement("div");
+      div.className="item";
+      div.style.marginBottom="7px";
+
+      div.innerHTML=`
+        ${f.icon} <b>${f.name}</b>
+        <button class="btn green" onclick="placeFurniture(${i})">
+          Placer
+        </button>
+      `;
+
+      box.appendChild(div);
+    });
+  }
 }
 
 function buyFurniture(id){
- const f=furnitureTypes.find(x=>x.id===id);
- if(!f||state.money<f.price)return;
- state.money-=f.price;
- state.inventory.push({
-  ...f,id:"i"+Date.now()+Math.random(),x:50,y:55,rotation:0
- });
- saveGame();renderShop();moneyTop();
- showToast("🛋️ Meuble acheté et rangé");
+  const item=furnitureCatalog.find(x=>x.id===id);
+
+  if(!spend(item.price))return;
+
+  state.inventory.push({
+    ...item,
+    uid:Date.now()+Math.random()
+  });
+
+  save();
+  renderInventory();
+
+  toast(`📦 ${item.name} ajouté au stock.`);
 }
 
-/* =========================================================
-   CHARACTER
-   ========================================================= */
+function placeFurniture(index){
+  const item=state.inventory[index];
+  state.inventory.splice(index,1);
 
-function renderCharacter(){
- moneyTop();
- document.getElementById("characterName").textContent=state.name;
- document.getElementById("characterCategory").textContent=categories[state.category].label;
- document.getElementById("bigCharacter").innerHTML=
-   `<div style="height:260px">${avatarSVG()}</div>`;
- renderNeeds("needsCharacter");
- renderSkills("skillsCharacter");
+  const f={
+    ...item,
+    x:400+Math.random()*80-40,
+    y:300+Math.random()*70-35,
+    rot:0
+  };
+
+  state.placed.push(f);
+  save();
+
+  renderFurniture();
+  renderInventory();
+
+  toast("👆 Meuble placé. Tu peux le déplacer.");
 }
+
+function renderFurniture(){
+  const layer=document.getElementById("furnitureLayer");
+  layer.innerHTML="";
+
+  state.placed.forEach(f=>{
+    const el=document.createElement("div");
+    el.className="furniture";
+    el.dataset.uid=f.uid;
+    el.style.left=f.x+"px";
+    el.style.top=f.y+"px";
+    el.style.transform=`rotate(${f.rot}deg)`;
+
+    el.innerHTML=`${f.icon}<span>${f.name}</span>`;
+
+    el.addEventListener("pointerdown",e=>{
+      e.preventDefault();
+      selectedFurniture=f.uid;
+      dragData={
+        uid:f.uid,
+        sx:e.clientX,
+        sy:e.clientY,
+        ox:f.x,
+        oy:f.y
+      };
+      el.setPointerCapture?.(e.pointerId);
+      el.classList.add("selected");
+    });
+
+    el.addEventListener("pointermove",e=>{
+      if(!dragData||dragData.uid!==f.uid)return;
+
+      const dx=(e.clientX-dragData.sx)/zoomLevel;
+      const dy=(e.clientY-dragData.sy)/zoomLevel;
+
+      f.x=dragData.ox+dx;
+      f.y=dragData.oy+dy;
+
+      el.style.left=f.x+"px";
+      el.style.top=f.y+"px";
+    });
+
+    el.addEventListener("pointerup",()=>{
+      if(dragData?.uid===f.uid){
+        dragData=null;
+        save();
+        showFurnitureActions(f,el);
+      }
+    });
+
+    el.addEventListener("click",e=>{
+      e.stopPropagation();
+      selectedFurniture=f.uid;
+      showFurnitureActions(f,el);
+    });
+
+    layer.appendChild(el);
+  });
+}
+
+function showFurnitureActions(f,el){
+  document.querySelectorAll(".furniture").forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");
+
+  const old=document.getElementById("furnitureActions");
+  if(old)old.remove();
+
+  const menu=document.createElement("div");
+  menu.id="furnitureActions";
+  menu.className="card";
+  menu.style.position="fixed";
+  menu.style.left="50%";
+  menu.style.bottom="82px";
+  menu.style.transform="translateX(-50%)";
+  menu.style.zIndex="150";
+  menu.style.width="min(94%,420px)";
+
+  menu.innerHTML=`
+    <b>${f.icon} ${f.name}</b>
+    <div class="row" style="margin-top:7px">
+      <button class="btn" onclick="rotateFurniture(${f.uid})">↻ Tourner</button>
+      <button class="btn blue" onclick="storeFurniture(${f.uid})">📦 Ranger</button>
+      <button class="btn green" onclick="resellFurniture(${f.uid})">💶 Revendre</button>
+      <button class="btn peach" onclick="deleteFurniture(${f.uid})">🗑️ Supprimer</button>
+      <button class="btn" onclick="closeFurnitureMenu()">✓ Finir</button>
+    </div>
+  `;
+
+  document.body.appendChild(menu);
+}
+
+function closeFurnitureMenu(){
+  const m=document.getElementById("furnitureActions");
+  if(m)m.remove();
+  selectedFurniture=null;
+  document.querySelectorAll(".furniture").forEach(x=>x.classList.remove("selected"));
+}
+
+function rotateFurniture(uid){
+  const f=state.placed.find(x=>x.uid===uid);
+  if(!f)return;
+
+  f.rot=(f.rot+90)%360;
+  save();
+  renderFurniture();
+
+  toast("↻ Meuble tourné.");
+}
+
+function storeFurniture(uid){
+  const i=state.placed.findIndex(x=>x.uid===uid);
+  if(i<0)return;
+
+  const f=state.placed[i];
+  state.inventory.push(f);
+  state.placed.splice(i,1);
+
+  save();
+  renderFurniture();
+  renderInventory();
+  closeFurnitureMenu();
+
+  toast("📦 Meuble rangé.");
+}
+
+function resellFurniture(uid){
+  const i=state.placed.findIndex(x=>x.uid===uid);
+  if(i<0)return;
+
+  const f=state.placed[i];
+
+  state.money+=Math.floor(f.price*.6);
+  state.placed.splice(i,1);
+
+  save();
+  renderFurniture();
+  closeFurnitureMenu();
+
+  toast(`💶 Meuble revendu pour ${Math.floor(f.price*.6)} €.`);
+}
+
+function deleteFurniture(uid){
+  const i=state.placed.findIndex(x=>x.uid===uid);
+  if(i<0)return;
+
+  state.placed.splice(i,1);
+
+  save();
+  renderFurniture();
+  closeFurnitureMenu();
+
+  toast("🗑️ Meuble supprimé.");
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+function doAction(type){
+  const p=document.getElementById("player");
+
+  if(type==="eat"){
+    state.needs.hunger=clamp(state.needs.hunger+30);
+    movePlayer(470,250);
+    toast("🍎 Lili mange.");
+  }
+
+  if(type==="sleep"){
+    state.needs.energy=clamp(state.needs.energy+55);
+    movePlayer(250,440);
+    toast("🛏️ Lili dort.");
+  }
+
+  if(type==="shower"){
+    state.needs.hygiene=clamp(state.needs.hygiene+45);
+    movePlayer(650,440);
+    toast("🚿 Lili prend une douche.");
+  }
+
+  if(type==="tv"){
+    state.needs.fun=clamp(state.needs.fun+35);
+    movePlayer(230,200);
+    toast("📺 Lili regarde la télévision.");
+  }
+
+  if(type==="read"){
+    state.needs.fun=clamp(state.needs.fun+10);
+    state.needs.energy=clamp(state.needs.energy-5);
+    state.skills.knowledge=clamp(state.skills.knowledge+8);
+    movePlayer(650,450);
+    toast("📚 Lili apprend à la bibliothèque.");
+  }
+
+  advance(30);
+}
+
+function movePlayer(x,y){
+  const p=document.getElementById("player");
+  p.style.left=x+"px";
+  p.style.top=y+"px";
+}
+
+/* =========================
+   VILLE
+========================= */
+
+function buyFood(){
+  if(!spend(15))return;
+
+  state.needs.hunger=clamp(state.needs.hunger+45);
+  advance(20);
+
+  toast("🛒 Tu as acheté de la nourriture.");
+}
+
+function cityAction(type){
+  if(type==="cafe"){
+    if(!spend(8))return;
+    state.needs.social=clamp(state.needs.social+30);
+    state.needs.fun=clamp(state.needs.fun+15);
+    advance(45);
+    toast("☕ Petite pause au café.");
+  }
+
+  if(type==="cinema"){
+    if(!spend(12))return;
+    state.needs.fun=clamp(state.needs.fun+45);
+    advance(100);
+    toast("🍿 Super séance de cinéma.");
+  }
+
+  if(type==="park"){
+    state.needs.social=clamp(state.needs.social+20);
+    state.needs.fun=clamp(state.needs.fun+20);
+    advance(45);
+    toast("🌳 Promenade au parc.");
+  }
+}
+
+function talkNPC(name){
+  name=name||"Maya";
+
+  state.relations[name]=clamp((state.relations[name]||0)+8,0,100);
+  state.needs.social=clamp(state.needs.social+18);
+
+  advance(20);
+
+  const value=state.relations[name];
+  let level="Connaissance";
+
+  if(value>=75)level="Meilleur ami";
+  else if(value>=45)level="Ami";
+
+  document.getElementById("relationshipText").innerHTML=
+    `Maya : ${state.relations.Maya}/100 · ${relationLevel(state.relations.Maya)}
+     <br>Noah : ${state.relations.Noah}/100 · ${relationLevel(state.relations.Noah)}`;
+
+  toast(`💬 Conversation avec ${name} · ${level}`);
+}
+
+function relationLevel(v){
+  if(v>=75)return"meilleur ami";
+  if(v>=45)return"ami";
+  return"connaissance";
+}
+
+/* =========================
+   COMPETENCES
+========================= */
+
+const skillNames={
+  programming:"Programmation",
+  logic:"Logique",
+  creativity:"Créativité",
+  medicine:"Médecine",
+  precision:"Précision",
+  patience:"Patience",
+  cooking:"Cuisine",
+  design:"Design",
+  charisma:"Charisme",
+  knowledge:"Connaissance",
+  writing:"Écriture",
+  singing:"Chant"
+};
 
 function skillLevel(v){
- if(v>=80)return 5;
- if(v>=60)return 4;
- if(v>=40)return 3;
- if(v>=20)return 2;
- return 1;
+  if(v>=80)return 5;
+  if(v>=60)return 4;
+  if(v>=40)return 3;
+  if(v>=20)return 2;
+  return 1;
 }
 
-function renderSkills(id){
- const box=document.getElementById(id);
- box.innerHTML="";
- Object.entries(skills).forEach(([key,s])=>{
-  const v=Math.round(state.skills[key]||0);
-  const lvl=skillLevel(v);
-  const d=document.createElement("div");
-  d.className="skill";
-  d.innerHTML=`
-   <div class="skillTitle">
-    <span>${s.icon} ${s.name}</span>
-    <span>Niv. ${lvl} — ${v}/100</span>
-   </div>
-   <div class="bar"><div class="fill" style="width:${v}%"></div></div>`;
-  box.appendChild(d);
- });
+function learn(skill){
+  if(!(skill in state.skills))return;
+
+  state.skills[skill]=clamp(state.skills[skill]+10);
+  state.needs.energy=clamp(state.needs.energy-8);
+  state.needs.fun=clamp(state.needs.fun-2);
+
+  advance(60);
+
+  toast(`📚 ${skillNames[skill]} niveau ${skillLevel(state.skills[skill])}.`);
 }
 
-/* =========================================================
-   LIBRARY / CITY ACTIONS
-   ========================================================= */
+function renderSkills(){
+  const box=document.getElementById("skills");
+  box.innerHTML="";
 
-function placeAction(place){
- if(place==="Bibliothèque"){
-  openLibrary();
-  return;
- }
- if(place==="Travail"){
-  workNow();
-  return;
- }
- if(place==="Supermarché"){
-  openSupermarket();
-  return;
- }
- if(place==="Parc"){
-  state.needs.fun=clamp(state.needs.fun+20);
-  state.needs.social=clamp(state.needs.social+10);
-  advanceTime(30);
-  showToast("🌳 Une promenade au parc");
-  return;
- }
- if(place==="Café"){
-  state.needs.social=clamp(state.needs.social+20);
-  state.needs.fun=clamp(state.needs.fun+15);
-  if(state.money>=5)state.money-=5;
-  advanceTime(30);
-  showToast("☕ Pause au café");
- }
-}
+  Object.entries(state.skills).forEach(([key,value])=>{
+    const div=document.createElement("div");
+    div.className="item";
 
-function openLibrary(){
- let html="<p>Choisis une compétence à travailler.</p><div>";
- const options=[
-  ["programmation","💻 Programmation"],
-  ["logique","🧠 Logique"],
-  ["creativite","🎨 Créativité"],
-  ["connaissance","📖 Connaissances"],
-  ["eloquence","🗣️ Éloquence"],
-  ["cuisine","🍳 Cuisine"],
-  ["design","🖌️ Design"],
-  ["architecture","🏗️ Architecture"],
-  ["chant","🎤 Chant"],
-  ["animaux","🐶 Animaux"],
-  ["ecriture","✍️ Écriture"],
-  ["investigation","🔎 Investigation"],
-  ["charisme","✨ Charisme"],
-  ["medecine","🩺 Médecine"],
-  ["precision","🎯 Précision"],
-  ["pedagogie","📚 Pédagogie"]
- ];
- options.forEach(([key,label])=>{
-  const v=state.skills[key]||0;
-  html+=`<button class="btn" style="width:100%;text-align:left"
-    onclick="learnSkill('${key}')">${label} — niveau ${skillLevel(v)} (${v}/100)</button>`;
- });
- html+="</div>";
- openModal("📚 Bibliothèque",html,[
-  {text:"Fermer"}
- ]);
-}
+    div.innerHTML=`
+      <b>${skillNames[key]}</b>
+      <div class="progress">
+        <i style="width:${value}%"></i>
+      </div>
+      <small>${value}/100 · Niveau ${skillLevel(value)}</small>
+    `;
 
-function learnSkill(key){
- closeModal();
- if(state.needs.energy<8){
-  showToast("😴 Tu es trop fatigué");
-  return;
- }
- const gain=7+Math.floor(Math.random()*5);
- state.skills[key]=clamp((state.skills[key]||0)+gain);
- state.needs.energy=clamp(state.needs.energy-8);
- state.needs.fun=clamp(state.needs.fun-2);
- advanceTime(60);
- checkPromotion();
- saveGame();renderAll();
- showToast(`📚 +${gain} ${skills[key].name}`);
-}
-
-/* =========================================================
-   JOBS
-   ========================================================= */
-
-function renderWork(){
- moneyTop();
- renderCurrentJob();
- const box=document.getElementById("jobsList");
- box.innerHTML="";
- jobs.forEach(job=>{
-  const d=document.createElement("div");
-  d.className="card jobCard";
-  let levels="";
-  job.levels.forEach((lv,i)=>{
-   const req=Object.entries(lv[2]).map(([k,v])=>
-    `${skills[k]?.name||k} ${v}`
-   ).join(" · ")||"Aucune condition";
-   levels+=`<div style="margin:8px 0;padding:8px;background:#f7f7f7;border-radius:10px">
-    <strong>Niveau ${i+1} — ${lv[0]}</strong><br>
-    💰 ${lv[1]} €/jour<br>
-    <span class="req">${req}</span>
-   </div>`;
+    box.appendChild(div);
   });
-  d.innerHTML=`
-   <h3>${job.icon} ${job.name}</h3>
-   <p>Compétences principales : ${job.stats.map(k=>skills[k]?.name||k).join(", ")}</p>
-   ${levels}
-   <button class="btn primary" onclick="chooseJob('${job.id}')">
-    ${state.job===job.id?"Carrière actuelle":"Choisir cette carrière"}
-   </button>`;
-  box.appendChild(d);
- });
 }
 
-function renderCurrentJob(){
- const title=document.getElementById("currentJobTitle");
- const info=document.getElementById("currentJobInfo");
- const prog=document.getElementById("jobProgress");
+/* =========================
+   METIERS
+========================= */
 
- if(!state.job){
-  title.textContent="Sans emploi";
-  info.textContent="Choisis une carrière ci-dessous.";
-  prog.innerHTML="";
-  return;
- }
- const job=jobs.find(j=>j.id===state.job);
- const lv=job.levels[state.jobLevel]||job.levels[0];
- title.textContent=`${job.icon} ${job.name} — ${lv[0]}`;
- info.innerHTML=`💰 ${lv[1]} €/jour · Niveau ${state.jobLevel+1}/5`;
+const jobs=[
+  {name:"Développeur",icon:"💻",skill:"programming",salary:100},
+  {name:"Médecin",icon:"🩺",skill:"medicine",salary:150},
+  {name:"Professeur",icon:"📚",skill:"patience",salary:110},
+  {name:"Chef cuisinier",icon:"👨‍🍳",skill:"cooking",salary:105},
+  {name:"Graphiste",icon:"🎨",skill:"design",salary:100},
+  {name:"Avocat",icon:"⚖️",skill:"charisma",salary:130},
+  {name:"Architecte",icon:"🏛️",skill:"design",salary:140},
+  {name:"Chanteur",icon:"🎤",skill:"singing",salary:120},
+  {name:"Vétérinaire",icon:"🐾",skill:"medicine",salary:115},
+  {name:"Journaliste",icon:"📰",skill:"writing",salary:105}
+];
 
- if(state.jobLevel<job.levels.length-1){
-  const next=job.levels[state.jobLevel+1];
-  const req=Object.entries(next[2]).map(([k,v])=>{
-   const current=Math.round(state.skills[k]||0);
-   return `${skills[k]?.name||k}: ${current}/${v}`;
-  }).join("<br>");
-  prog.innerHTML=`<div class="card"><strong>Prochaine promotion : ${next[0]}</strong><br>${req}</div>`;
- }else{
-  prog.innerHTML=`<div class="card good">🌟 Niveau maximum atteint !</div>`;
- }
+function renderJobs(){
+  const box=document.getElementById("jobs");
+  box.innerHTML="";
+
+  jobs.forEach(job=>{
+    const value=state.skills[job.skill]||0;
+    const level=skillLevel(value);
+    const required=Math.min(80,(level)*20);
+
+    const div=document.createElement("div");
+    div.className="item";
+
+    div.innerHTML=`
+      <div class="big">${job.icon}</div>
+      <b>${job.name}</b>
+      <p>Compétence : ${skillNames[job.skill]}</p>
+      <div class="progress"><i style="width:${value}%"></i></div>
+      <small>Niveau ${level} · ${value}/100</small>
+      <p>💶 Salaire : ${job.salary + (level-1)*35} €/jour</p>
+      <button class="btn" onclick="work('${job.name}','${job.skill}',${job.salary})">
+        Travailler
+      </button>
+    `;
+
+    box.appendChild(div);
+  });
 }
 
-function chooseJob(id){
- if(state.job===id){
-  showToast("Cette carrière est déjà active");
-  return;
- }
- state.job=id;
- state.jobLevel=0;
- saveGame();renderWork();
- showToast("💼 Nouvelle carrière !");
-}
+function work(name,skill,salary){
+  const value=state.skills[skill]||0;
 
-function canPromote(job,newLevel){
- const req=job.levels[newLevel][2];
- return Object.entries(req).every(([k,v])=>(state.skills[k]||0)>=v);
-}
-
-function checkPromotion(){
- if(!state.job)return;
- const job=jobs.find(j=>j.id===state.job);
- while(state.jobLevel<job.levels.length-1 && canPromote(job,state.jobLevel+1)){
-  state.jobLevel++;
-  showToast(`🎉 Promotion : ${job.levels[state.jobLevel][0]}`);
- }
-}
-
-function workNow(){
- if(!state.job){
-  showToast("💼 Choisis d'abord une carrière");
-  go("work");
-  return;
- }
- if(state.needs.energy<15){
-  showToast("😴 Tu es trop fatigué pour travailler");
-  return;
- }
- const job=jobs.find(j=>j.id===state.job);
- const lv=job.levels[state.jobLevel];
- const salary=lv[1];
- state.money+=salary;
- state.needs.energy=clamp(state.needs.energy-15);
- state.needs.hunger=clamp(state.needs.hunger-10);
- state.needs.fun=clamp(state.needs.fun-5);
- state.needs.reputation=state.needs.reputation||0;
- state.needs.social=clamp(state.needs.social-6);
-
- job.stats.forEach((key,i)=>{
-  state.skills[key]=clamp((state.skills[key]||0)+(i===0?4:2));
- });
-
- advanceTime(480);
- checkPromotion();
- saveGame();renderAll();
- showToast(`💰 +${salary} €`);
-}
-
-/* =========================================================
-   CITY + NPC
-   ========================================================= */
-
-function renderCity(){
- moneyTop();
- renderCityPlayer();
- renderNPCs();
-}
-
-function renderCityPlayer(){
- const p=document.getElementById("cityPlayer");
- p.style.left=state.player.x+"%";
- p.style.top=state.player.y+"%";
- p.innerHTML=avatarSVG();
-}
-
-function renderNPCs(){
- const layer=document.getElementById("npcLayer");
- layer.innerHTML="";
- npcs.forEach(n=>{
-  if(!state.npcPositions[n.id]){
-   state.npcPositions[n.id]={x:n.x,y:n.y};
+  if(value<20){
+    toast(`📚 Il faut au moins 20 en ${skillNames[skill]}.`);
+    return;
   }
-  const pos=state.npcPositions[n.id];
-  const el=document.createElement("div");
-  el.className="npc";
-  el.style.left=pos.x+"%";
-  el.style.top=pos.y+"%";
-  el.dataset.id=n.id;
-  el.innerHTML=avatarSVG({
-   category:n.category,
-   face:n.id%6,
-   hair:(n.id+1)%6,
-   hairColor:(n.id+2)%hairColors.length,
-   outfit:n.id%5,
-   outfitColor:(n.id+1)%outfitColors.length,
-   skin:n.id%skinColors.length
-  });
-  el.onclick=e=>{
-   e.stopPropagation();
-   talkToNPC(n.id);
-  };
-  layer.appendChild(el);
- });
+
+  const level=skillLevel(value);
+  const earned=salary+(level-1)*35;
+
+  state.money+=earned;
+  state.skills[skill]=clamp(value+5);
+
+  state.needs.energy=clamp(state.needs.energy-18);
+  state.needs.fun=clamp(state.needs.fun-8);
+
+  advance(8*60);
+
+  toast(`💼 Journée terminée : +${earned} €.`);
 }
 
-function talkToNPC(id){
- const n=npcs.find(x=>x.id===id);
- if(!n)return;
- const rel=state.relations[id]||0;
- let level=rel>=70?"Meilleur ami":rel>=40?"Ami":rel>=15?"Connaissance":"Inconnu";
+/* =========================
+   CAMERA
+========================= */
 
- openModal(`👋 ${n.name}`,
-  `<strong>Relation : ${level}</strong><br>
-   ❤️ ${rel}/100<br><br>
-   ${rel<20?"Vous venez de vous rencontrer.":rel<50?"Vous commencez à bien vous connaître.":"Vous êtes très proches !"}`,
-  [
-   {text:"Bonjour !",action:()=>npcInteraction(id,5,"👋 Conversation agréable")},
-   {text:"Faire connaissance",action:()=>npcInteraction(id,8,"💬 Vous avez discuté")},
-   {text:"Raconter une blague",action:()=>npcInteraction(id,6,"😂 La blague a fait rire")},
-   {text:"Au revoir"}
-  ]);
+function zoom(amount){
+  zoomLevel=clamp(zoomLevel+amount,.55,1.45);
+
+  document.getElementById("world").style.transform=
+    `translate(-50%,-50%) scale(${zoomLevel})`;
 }
 
-function npcInteraction(id,gain,msg){
- state.relations[id]=clamp((state.relations[id]||0)+gain);
- state.needs.social=clamp(state.needs.social+12);
- state.needs.fun=clamp(state.needs.fun+7);
- advanceTime(20);
- saveGame();renderCity();
- showToast(msg);
+function centerCamera(){
+  zoomLevel=.78;
+
+  document.getElementById("world").style.transform=
+    `translate(-50%,-50%) scale(${zoomLevel})`;
+
+  toast("⌂ Vue de la maison recentrée.");
 }
 
-function moveCityNPCs(){
- npcs.forEach(n=>{
-  const p=state.npcPositions[n.id]||{x:n.x,y:n.y};
-  p.x=clamp(p.x+(Math.random()*8-4),15,85);
-  p.y=clamp(p.y+(Math.random()*8-4),18,82);
-  state.npcPositions[n.id]=p;
- });
- renderNPCs();
-}
+/* =========================
+   DEPLACEMENT TACTILE DU PERSONNAGE
+========================= */
 
-/* déplacement du personnage dans la ville */
-document.getElementById("city").addEventListener("pointerdown",e=>{
- if(e.target.closest(".cityPlace")||e.target.closest(".npc"))return;
- draggingCityPlayer=true;
- updateCityPlayer(e);
+const camera=document.getElementById("camera");
+
+camera.addEventListener("pointerdown",e=>{
+  const target=e.target;
+
+  if(target.closest(".furniture") ||
+     target.closest("button"))return;
+
+  const rect=camera.getBoundingClientRect();
+
+  const worldX=(e.clientX-rect.left-rect.width/2)/zoomLevel+450;
+  const worldY=(e.clientY-rect.top-rect.height/2)/zoomLevel+325;
+
+  movePlayer(
+    Math.max(70,Math.min(760,worldX)),
+    Math.max(70,Math.min(540,worldY))
+  );
+
+  state.needs.energy=clamp(state.needs.energy-1);
+  save();
 });
 
-document.addEventListener("pointermove",e=>{
- if(draggingCityPlayer)updateCityPlayer(e);
-});
+/* =========================
+   PNJ QUI BOUGENT
+========================= */
 
-document.addEventListener("pointerup",()=>{
- if(draggingCityPlayer){
-  draggingCityPlayer=false;
-  moveCityNPCs();
-  saveGame();
- }
-});
+function moveNPC(id){
+  const el=document.getElementById(id);
+  if(!el)return;
 
-function updateCityPlayer(e){
- const city=document.getElementById("city");
- const r=city.getBoundingClientRect();
- state.player.x=clamp((e.clientX-r.left)/r.width*100,8,92);
- state.player.y=clamp((e.clientY-r.top)/r.height*100,15,88);
- renderCityPlayer();
-}
+  const x=150+Math.random()*520;
+  const y=130+Math.random()*330;
 
-/* =========================================================
-   GAME UPDATE / SAVE
-   ========================================================= */
-
-function renderAll(){
- moneyTop();
- renderGame();
- renderCharacter();
- renderWork();
- renderShop();
- renderCity();
+  el.style.left=x+"px";
+  el.style.top=y+"px";
 }
 
 setInterval(()=>{
- if(document.getElementById("screen-game").classList.contains("active")||
-    document.getElementById("screen-city").classList.contains("active")){
-   advanceTime(10);
- }
+  moveNPC("npc1");
+  moveNPC("npc2");
+},7000);
+
+/* =========================
+   MENU MAISON
+========================= */
+
+function openHouseMenu(){
+  showScreen("houseScreen",document.querySelectorAll(".nav button")[1]);
+}
+
+/* =========================
+   RENDU GLOBAL
+========================= */
+
+function renderAll(){
+  renderNeeds();
+  renderHouse();
+  renderHouseChoices();
+  renderInventory();
+  renderFurniture();
+  renderSkills();
+  renderJobs();
+}
+
+/* =========================
+   HORLOGE
+========================= */
+
+setInterval(()=>{
+  advance(10);
 },60000);
 
-/* initial */
-renderCreator();
-moneyTop();
+/* =========================
+   INITIALISATION
+========================= */
+
+renderAll();
+centerCamera();
+
+window.addEventListener("resize",()=>{
+  centerCamera();
+});
+
 </script>
+</div>
 </body>
 </html>
